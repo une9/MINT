@@ -25,7 +25,7 @@ public class Tile {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "tile_id")
     Long tid;
 	
 	@OneToMany

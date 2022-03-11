@@ -25,7 +25,7 @@ public class Planet {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "planet_id")
     Long pid;
 	
 	@Column(name = "total_cell")
