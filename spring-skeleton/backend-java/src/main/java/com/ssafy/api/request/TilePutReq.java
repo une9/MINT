@@ -3,7 +3,7 @@ package com.ssafy.api.request;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.Tile;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("ConferenceRegisterPostRequest")
-public class ConferencePostReq {
+public class TilePutReq {
 	
 	@ApiModelProperty(name="방장", example="1")
 	String userId;
