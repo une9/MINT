@@ -1,18 +1,18 @@
 package com.ssafy.db.repository;
 
-import com.ssafy.db.entity.Tile;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import com.ssafy.db.entity.Planet;
 
 /**
  * 유저 모델 관련 디비 쿼리 생성을 위한 JPA Query Method 인터페이스 정의.
  */
 @Repository
-public interface PlanetRepository extends JpaRepository<Tile, Long> {
+public interface PlanetRepository extends JpaRepository<Planet, Long> {
     // 아래와 같이, Query Method 인터페이스(반환값, 메소드명, 인자) 정의를 하면 자동으로 Query Method 구현됨.
-    Optional<Tile> findByUserId(String userId);
-    Optional<Tile> findByUid(Long uid);
-    boolean existsByUserId(String userId);
+	//pid로 Planet entity 가져오기
+    Optional<Planet> findByPid(Long pid);
 }
