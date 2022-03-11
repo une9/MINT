@@ -1,5 +1,7 @@
 package com.ssafy.db.entity;
 
+import java.security.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +35,7 @@ public class Tile {
     String image;
     
     @Column(name = "trade_date")
-    String tradeDate;
+    Timestamp tradeDate;
     
     @Column(name = "token_id")
     String tokenId;

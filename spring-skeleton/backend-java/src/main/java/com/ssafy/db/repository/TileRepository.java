@@ -13,5 +13,5 @@ public interface TileRepository extends JpaRepository<Tile, Long>{
 	Optional<Tile> findByTid(Long tid);
 	
 	//pid로 Tile 레코드 갯수 세기
-	int countByPlanetPid(Long pid);
+	int countByPlanetPidAndTokenIdIsNull(Long pid);
 }
