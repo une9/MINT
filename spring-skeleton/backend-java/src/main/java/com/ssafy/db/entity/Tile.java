@@ -33,6 +33,8 @@ public class Tile {
     Planet planet;
 	
     String image;
+
+    int price;
     
     @Column(name = "trade_date")
     Timestamp tradeDate;
