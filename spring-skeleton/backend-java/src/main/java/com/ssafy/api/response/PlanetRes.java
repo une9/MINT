@@ -1,7 +1,7 @@
 package com.ssafy.api.response;
 
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.User;
+import com.ssafy.db.entity.Tile;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,15 +14,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("UserResponse")
-public class UserRes{
+public class PlanetRes{
 	@ApiModelProperty(name="User ID")
 	String userId;
 	
 	@ApiModelProperty(name="User Nickname")
 	String nickname;
 	
-	public static UserRes of(User user) {
-		UserRes res = new UserRes();
+	public static PlanetRes of(Tile user) {
+		PlanetRes res = new PlanetRes();
 		res.setUserId(user.getUserId());
 		res.setNickname(user.getNickname());
 		
