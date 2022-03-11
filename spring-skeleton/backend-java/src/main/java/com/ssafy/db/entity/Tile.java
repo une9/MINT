@@ -5,13 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 유저 모델 정의.
+ * 타일 모델 정의.
  */
 @Entity(name = "tile")
 @Getter
@@ -23,11 +25,20 @@ public class Tile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long tid;
-
-    Long planet_id;
+	
+	@OneToMany
+	@JoinColumn(name = "planet_id")
+    Planet planet;
+	
     String image;
-    String trade_date;
-    String token_id;
+    
+    @Column(name = "trade_date")
+    String tradeDate;
+    
+    @Column(name = "token_id")
+    String tokenId;
+    
     int area;
+    
     String buyer;
 }

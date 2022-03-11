@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+//행성 모델 정의
 @Entity(name = "planet")
 @Getter
 @NoArgsConstructor
@@ -26,11 +27,11 @@ public class Planet {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Long pid;
-
-    int total_cell;
+	
+	@Column(name = "total_cell")
+    int totalCell;
     
-    @OneToMany
-    @JoinColumn(name = "planet_id")
+    @OneToMany(mappedBy = "planet")
     private List<Tile> tiles = new ArrayList<>();
 
 }
