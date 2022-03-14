@@ -6,16 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.transaction.Transactional;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 //행성 모델 정의
 @Entity(name = "planet")
@@ -27,8 +24,24 @@ public class Planet {
     @Column(name = "planet_id")
     Long pid;
 	
+	@Column(name = "name")
+	String name;
+	
+	@Column(name = "diameter")
+	double diameter;
+	
+	@Column(name = "mass")
+	double mass;
+	
+	@Column(name = "galaxy")
+	String galaxy;
+	
+	@Column(name = "content")
+	String content;
+	
 	@Column(name = "total_cell")
     int totalCell;
+	
     
     @OneToMany(mappedBy = "planet", cascade = CascadeType.ALL)
     private List<Tile> tiles = new ArrayList<>();
