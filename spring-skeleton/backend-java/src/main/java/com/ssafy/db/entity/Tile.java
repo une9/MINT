@@ -1,14 +1,12 @@
 package com.ssafy.db.entity;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,11 +22,10 @@ import lombok.Setter;
 public class Tile {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tile_id")
     Long tid;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "planet_id")
     Planet planet;
 	
@@ -37,7 +34,7 @@ public class Tile {
     int price;
     
     @Column(name = "trade_date")
-    Timestamp tradeDate;
+    LocalDateTime tradeDate;
     
     @Column(name = "token_id")
     String tokenId;
@@ -45,4 +42,12 @@ public class Tile {
     int area;
     
     String buyer;
+    
+    public void setPlanet(Planet planet) {
+    	this.planet = planet;
+    	
+    	if(!planet.getTiles().contains(this)) {
+    		planet.getTiles().add(this);
+    	}
+    }
 }

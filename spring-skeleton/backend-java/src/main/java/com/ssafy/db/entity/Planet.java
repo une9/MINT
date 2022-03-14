@@ -24,14 +24,19 @@ import lombok.Setter;
 public class Planet {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "planet_id")
     Long pid;
 	
 	@Column(name = "total_cell")
     int totalCell;
     
-    @OneToMany(mappedBy = "planet")
+    @OneToMany(mappedBy = "planet", cascade = CascadeType.ALL)
     private List<Tile> tiles = new ArrayList<>();
 
+    public void addTiles(Tile tile) { 
+    	this.tiles.add(tile);
+    	if (tile.getPlanet() != this) { 
+    		tile.setPlanet(this); 
+    	}
+    }
 }
