@@ -1,57 +1,66 @@
 package com.ssafy.api.controller;
 
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.api.request.TilePutReq;
+import com.ssafy.api.response.PlanetAllRes;
+import com.ssafy.api.response.PlanetSelectRes;
+import com.ssafy.api.response.TransactionHistoryRes;
 import com.ssafy.api.service.PlanetService;
-import com.ssafy.common.model.response.BaseResponseBody;
+import com.ssafy.db.entity.Planet;
 import com.ssafy.db.entity.Tile;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
-/**
- * 유저 관련 API 요청 처리를 위한 컨트롤러 정의.
- */
-
-@Api(value = "유저 API", tags = {"User"})
+@Api(value = "행성 API", tags = {"Planet"})
 @RestController
-@RequestMapping("/users")
 public class PlanetController {
 	
 	@Autowired
-	PlanetService userService;
+	PlanetService planetService;
 	
-	@PostMapping()
-	@ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.") 
-    @ApiResponses({
-        @ApiResponse(code = 201, message = "성공"),
-        @ApiResponse(code = 400, message = "유효성 검증 실패"),
-        @ApiResponse(code = 403, message = "ID 중복"),
-        @ApiResponse(code = 500, message = "서버 오류")
-    })
-	public ResponseEntity<? extends BaseResponseBody> register(
-			@Valid @RequestBody @ApiParam(value="회원가입 정보", required = true) TilePutReq registerInfo, Errors errors) {
-		if(errors.hasErrors()) {
-			return ResponseEntity.status(400).body(BaseResponseBody.of(400, errors.getFieldError().getDefaultMessage()));
-		} else {
-			//임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
-			try {
-				return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
-			} catch (Exception e) {
-				return ResponseEntity.status(403).body(BaseResponseBody.of(403, "Id duplicate error"));
-			}
-		}
+	@GetMapping("/planets")
+	@ApiOperation(value = "전체 행성 조회", notes = "<strong행성</strong>전체 조회를 한다.")
+	public ResponseEntity<PlanetAllRes> overall() {
+		
+		List<Planet> planets = planetService.getPlanet();
+
+		return ResponseEntity.status(200).body(PlanetAllRes.of(planets));	
+	}
+	
+	@GetMapping("/planet/{pid}")
+	@ApiOperation(value = "행성 별 조회", notes = "<strong행성 id</strong>를 통해 별 조회를 한다.")
+	public ResponseEntity<PlanetSelectRes> search(@ApiParam(value="행성 조회", required = true) @PathVariable Long pid) {
+		
+		List<Tile> tiles = planetService.getTilesByPid(pid);
+
+		return ResponseEntity.status(200).body(PlanetSelectRes.of(tiles));
+	}
+	
+	@GetMapping("/remain/{pid}")
+	@ApiOperation(value = "행성 별 남은 타일 조회", notes = "<strong행성 id</strong>를 통해 행성 별 남은 타일을 조회 한다.")
+	public ResponseEntity<Integer> remain(
+			@RequestBody @ApiParam(value="행성 여분 타일", required = true) @PathVariable Long pid) {
+		
+		int quantity = planetService.getRemainTile(pid);
+		
+		return ResponseEntity.status(200).body(quantity);
+	}
+	
+	@GetMapping("/history")
+	@ApiOperation(value = "거래내역 조회", notes = "<strong거래 내역</strong>을 출력한다.")
+	public ResponseEntity<TransactionHistoryRes> history() {
+		
+		List<Tile> tiles = planetService.getAllTile();
+
+		return ResponseEntity.status(200).body(TransactionHistoryRes.of(tiles));
 	}
 }

@@ -12,57 +12,48 @@ import com.ssafy.db.repository.TileRepository;
 
 @Service("ConferenceService")
 public class TileServiceImpl implements TileService {
-	
-	@Autowired
-	TileRepository conferenceRepository;
-	
-	@Autowired
-	PlanetService userService;
 
 	@Override
 	public Planet create(Tile user) {
-		return conferenceRepository.save(user);
-	}
-
-	@Override
-	public boolean checkConferenceDuplicate(Long oid) {
-		return conferenceRepository.existsByOid(oid);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Planet getConferenceByOid(Long oid) {
-		return conferenceRepository.findByOid(oid).get();
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean checkConferenceDuplicate(Long oid) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public Planet conferenceAddUser(Long oid, Long uid) {
-		
-		Planet conference = this.getConferenceByOid(oid);
-		Tile user = userService.getUserByUid(uid);
-		
-		return conferenceRepository.save(conference);
-	}
-
-	@Override
-	public Planet conferenceLeave(Planet conference, Tile user) {
-		return conferenceRepository.save(conference);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Planet conferenceLeaveAll(Planet conference) {
-		
-		return conferenceRepository.save(conference);
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Planet conferenceLeave(Planet conference, Tile user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean conferenceModify(TilePutReq conferenceInfo) {
-
-		try {
-			Tile user = userService.getUserByUserId(conferenceInfo.getUserId());
-			
-			return true;
-		}catch(Exception e) {
-			return false;
-		}
+		// TODO Auto-generated method stub
+		return false;
 	}
+	
+
 }

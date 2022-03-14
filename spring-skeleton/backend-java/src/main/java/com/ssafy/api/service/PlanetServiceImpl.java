@@ -1,39 +1,63 @@
 package com.ssafy.api.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.db.entity.Planet;
 import com.ssafy.db.entity.Tile;
 import com.ssafy.db.repository.PlanetRepository;
+import com.ssafy.db.repository.TileRepository;
 
 /**
- *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
+ *	행성 관련 API ServeiceImpl
  */
 @Service("userService")
 public class PlanetServiceImpl implements PlanetService {
-	@Autowired
-	PlanetRepository userRepository;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
-
+	PlanetRepository planetRepository;
+	
+	@Autowired
+	TileRepository tileRepository;
+	
 	@Override
-	public Tile getUserByUserId(String userId) {
-		// 디비에 유저 정보 조회 (userId 를 통한 조회).
-		Tile user = userRepository.findByUserId(userId).get();
-		return user;
+	public List<Planet> getPlanet() {
+		List<Planet> planets = planetRepository.findAll();
+		
+		return planets;
 	}
 	
 	@Override
-	public Tile getUserByUid(Long uid) {
-		// 디비에 유저 정보 조회 (oid 를 통한 조회).
-		Tile user = userRepository.findByUid(uid).get();
-		return user;
+	public List<Tile> getTilesByPid(Long pid) {
+		Optional<Planet> planet = planetRepository.findByPid(pid);
+		
+		return planet.get().getTiles();
 	}
 
 	@Override
-	public boolean checkIdDuplicate(String userId) {
-		return userRepository.existsByUserId(userId);
+	public int getRemainTile(Long pid) {
+		Optional<Planet> planet = planetRepository.findByPid(pid);
+		List<Tile> tile = planet.get().getTiles();
+		
+		int total = planet.get().getTotalCell();
+		int sold = 0;
+		
+		for(Tile t : tile) {
+			if(t.getBuyerId() != null) {
+				sold++;
+			}
+		}
+		
+		return total - sold;
+	}
+
+	@Override
+	public List<Tile> getAllTile() {
+		List<Tile> tiles = tileRepository.findAll();
+		
+		return tiles;
 	}
 }

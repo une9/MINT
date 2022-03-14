@@ -41,7 +41,11 @@ public class Tile {
     
     int area;
     
-    String buyer;
+    @Column(name = "buyer_id")
+    String buyerId;
+    
+    @Column(name = "buyer_adr")
+    String buyerAdr;
     
     public void setPlanet(Planet planet) {
     	this.planet = planet;

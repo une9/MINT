@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-
-import com.ssafy.db.entity.Planet;
 import com.ssafy.db.entity.Tile;
 
 import io.swagger.annotations.ApiModel;
@@ -16,16 +13,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("TileResponse")
-public class TileRes {
+@ApiModel("HistoryResponse")
+public class HistoryRes {
 	
-	Long tid;
-	Long planet;
-    String image;
-    int price;
-   	LocalDateTime tradeDate;
-    String tokenId;
-    int area;
-    String buyerId;
+	int id;
+	String buyerId;
     String buyerAdr;
+    int price;
+    String name;
+    LocalDateTime tradeDate;
 }
