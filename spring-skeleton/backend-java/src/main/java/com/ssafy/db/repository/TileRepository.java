@@ -1,6 +1,5 @@
 package com.ssafy.db.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +14,4 @@ public interface TileRepository extends JpaRepository<Tile, Long>{
 	
 	//pid로 Tile 레코드 갯수 세기
 	int countByPlanetPidAndTokenIdIsNull(Long pid);
-	
-	List<Tile> findAll();
 }
