@@ -11,6 +11,21 @@
 
 }
 
+.card {
+    box-sizing: border-box;
+    padding: 0.75rem;
+    width: 28rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .Planet__metadata {
+        display: flex;
+    }
+}
+
+
+// default
 .Planet {
     &__description {
         border-left: 1px solid $point-main;

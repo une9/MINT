@@ -1,5 +1,3 @@
-import styles from "../styles/SideBarInfo.module.scss";
-
 const SideBarInfo = ({id, area, image, buyer, trade_date, price, token}) => {
     
     return(
@@ -7,12 +5,12 @@ const SideBarInfo = ({id, area, image, buyer, trade_date, price, token}) => {
             <header>
                 <h1>토지 정보</h1>
             </header>
-            <section className={styles.info}>
+            <section className="info" >
                 <h2>{id}</h2>
                 {
                     image 
-                    ? <img className={styles.image} src={image} alt="land" />
-                    : <div className={styles.image} />
+                    ? <img className="image" src={image} alt="land" />
+                    : <div className="image" />
                 }
 
                 <dl className="metadata">

@@ -1,17 +1,25 @@
 import styles from "../styles/Planet.module.scss";
 
-const Planet= ({ name, imgSrc, diameter, mass, belongsTo, distance, description }) => {
-    const version = description ? "description" : "";
+const Planet= ({ version, name, imgSrc, diameter, mass, belongsTo, distance, description }) => {
+    console.log(version)
     let slogan, detail;
     if (description) {
         [slogan, detail] = description.split("\n");
     } 
     return(
-        <article className={`${styles.Planet} ${styles[version]}`}>
+        <article className={`${styles.Planet} ${styles[version]} ${version === "card" ? "Box" : ""}`}>
             <div className={styles.Planet__metadata}>
                 <img src={imgSrc} alt="planet" />
                 <dl className="metadata">
-                    <h1>{name}</h1>
+                    {
+                        version === "description"
+                        ? <h1>{name}</h1>
+                        : 
+                        <div>
+                            <dt>이름</dt> <dd>{name}</dd>
+                        </div>
+                    }
+                    
                     <div>
                         <dt>지름</dt> <dd>{diameter}</dd>
                     </div>

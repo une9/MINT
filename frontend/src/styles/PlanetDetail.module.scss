@@ -1,1 +1,28 @@
 @import "./_variables.scss";
+
+.cartButton {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    border: none;
+    background-color: $point-main;
+
+    .cartBadge {
+        width: 1.875rem;
+        height: 1.875rem;
+        border-radius: 50%;
+        background-color: $point-alert;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        right: -0.5rem;
+        top: -0.25rem;
+
+        font-family: 'Pretendard-Black';
+        font-size: 1.25rem;
+    }
+}
