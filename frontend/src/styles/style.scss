@@ -78,13 +78,100 @@ body {
     right: 0;
     top: 0;
 
-    h1 {
+    h1, h2, section, header, dl, dt, dd, div, img, span {
         background-color: white;
         color: $point-sub;
     }
 
+    h1 {
+        font-family: 'Pretendard-Black';
+        font-size: 1.75rem;
+        margin-top: 0.25rem;
+        margin-bottom: 1.25rem;
+    }
+
     header {
-        background-color: white;
         border-bottom: 2px dashed $point-sub;
+    }
+
+    h2 {
+        font-family: 'Pretendard-Black';
+    }
+
+    dd, .price .priceText {
+        color: $font-dark;
+        font-family: 'Pretendard-Bold';
+    }
+
+    .price {
+        display: flex;
+        align-items: center;
+
+        .priceText {
+            font-family: 'Pretendard-Black';
+            font-size: 1.25rem;
+        }
+
+        dd {
+            display: flex;
+            align-items: center;
+        }
+
+        img {
+            height: 2rem;
+        }
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    .metadata {
+        width: 100%;
+        
+        div {
+            margin-bottom: 1rem;
+        }
+    }
+
+    .btns {
+        position: absolute;
+        bottom: 0;
+
+        button {
+            width: 14rem;
+            height: 3rem;
+            margin: 0.5rem 0;
+
+            border-radius: 1.5rem;
+            background-color: $point-dark;
+            border: none;
+        }
+
+    }
+}
+
+
+.metadata {
+    div {
+        margin-bottom: 0.25rem;
+    }
+
+    dt {
+        color: $point-main;
+        font-family: 'Pretendard-ExtraLight';
+        display: inline;
+    }
+
+    dt::after {
+        content: "|";
+        margin-left: 0.5rem;
+    }
+
+    dd {
+        display: inline-block;
+        margin-left: 0.5rem;
+
+        word-break: break-all;
     }
 }

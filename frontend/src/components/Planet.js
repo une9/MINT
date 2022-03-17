@@ -10,7 +10,7 @@ const Planet= ({ name, imgSrc, diameter, mass, belongsTo, distance, description 
         <article className={`${styles.Planet} ${styles[version]}`}>
             <div className={styles.Planet__metadata}>
                 <img src={imgSrc} alt="planet" />
-                <dl className={styles.metadata}>
+                <dl className="metadata">
                     <h1>{name}</h1>
                     <div>
                         <dt>지름</dt> <dd>{diameter}</dd>

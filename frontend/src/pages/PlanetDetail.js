@@ -26,7 +26,7 @@ const PlanetDetail= ( ) => {
 
         const tileRes = [
             {
-                id: 1,
+                id: "A-001",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -35,7 +35,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: 2,
+                id: "A-002",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -44,7 +44,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: 3,
+                id: "A-003",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -53,7 +53,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: 4,
+                id: "A-004",
                 area: 1,
                 image: null,
                 buyer: null,
