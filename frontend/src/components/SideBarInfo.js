@@ -22,7 +22,7 @@ const SideBarInfo = ({id, area, image, buyer, trade_date, price, token}) => {
                     </div>
                     <div className="price">
                         <dt>현재가</dt> 
-                        <dd><img src="../../ethereum.png" alt="ethereum" /><span className="priceText">{price} ETH</span></dd>
+                        <dd><img className="eth" src="../../ethereum.png" alt="ethereum" /><span className="priceText">{price} ETH</span></dd>
                     </div>
                 </dl>
             </section>

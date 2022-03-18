@@ -85,7 +85,7 @@ main > h1 {
     right: 0;
     top: 0;
 
-    h1, h2, section, header, dl, dt, dd, div, img, span {
+    h1, h2, section, header, dl, dt, dd, div, img, span, p {
         background-color: white;
         color: $point-sub;
     }
@@ -99,6 +99,7 @@ main > h1 {
 
     header {
         border-bottom: 2px dashed $point-sub;
+        height: 3.25rem;
     }
 
     h2 {
@@ -124,9 +125,10 @@ main > h1 {
             align-items: center;
         }
 
-        img {
-            height: 2rem;
-        }
+    }
+
+    .eth {
+        height: 2rem;
     }
 
     section {
@@ -151,7 +153,7 @@ main > h1 {
             margin: 0.5rem 0;
 
             border-radius: 1.5rem;
-            background-color: $point-dark;
+            background-color: $point-main;
             border: none;
         }
 
@@ -170,7 +172,122 @@ main > h1 {
     }
 
     .cartList {
+        border-bottom: 2px dashed $point-main;
+        height: calc(100vh - 18rem);
+        overflow-x: hidden;
+        overflow-y: scroll;
 
+
+        .cartItem {
+            background-color: $bg-grey;
+            border-radius: 16px;
+            display: flex;
+            margin-bottom: 0.75rem;
+            padding: 1.5rem 1rem;
+            position: relative;
+
+            .planetImg {
+                width: 64px;
+                height: 64px;
+            }
+            
+            img, div, p, span, h2 {
+                background-color: transparent;
+                color: $point-light;
+            }
+        }
+
+        .cartItem.cartItem--selected {
+            background-color: $point-sub;
+
+                img, div, p, span, h2 {
+                    color: white;
+                }
+        }
+
+        .itemInfo {
+            margin-left: 0.5rem;
+
+            p, h2 {
+                margin: 0;
+            }
+
+            .planetName {
+                font-size: 0.875rem;
+                margin-bottom: 0.125rem;
+            }
+
+            .landId {
+                font-size: 1.25rem;
+                margin-bottom: 0.25rem;
+            }
+
+        }
+
+        .itemPrice {
+            display: flex;
+            align-items: center;
+        }
+
+        .priceText {
+            font-family: 'Pretendard-Bold';
+            font-size: 0.875rem;
+        }
+
+        .eth {
+            height: 1.5rem;
+        }
+
+        .deleteBtn {
+            background: transparent;
+            border: none;
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+    }
+
+    .totalPrice {
+        padding-top: 0.5rem;
+        text-align: right;
+
+        h2 {
+            color: $font-dark;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .priceWrapper {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+
+        .priceText {
+            font-family: 'Pretendard-Black';
+            font-size: 1.75rem;
+            color: $point-main;
+        }
+
+
+    }
+
+    .cartList::-webkit-scrollbar {      // t스크롤바 전체
+        width: 8px;
+    }
+
+    .cartList::-webkit-scrollbar-thumb {        // 스크롤 막대
+        background-color: $point-dark;
+        border-radius: 4px;
+    }
+
+    .cartList::-webkit-scrollbar-track {        // 스크롤 막대 외부
+        background-color: rgb(233, 233, 233);
     }
     
 }
