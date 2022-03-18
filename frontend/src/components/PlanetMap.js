@@ -1,6 +1,6 @@
 import styles from "../styles/PlanetMap.module.scss";
 
-const PlanetMap= (tiles) => {
+const PlanetMap = (tiles) => {
     
     return(
         <article>

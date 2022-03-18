@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../styles/PlanetPurchase.module.scss";
 
 import Planet from "../components/Planet";
+import Land from "../components/Land";
 import PlanetMap from "../components/PlanetMap";
 import SideBarCart from "../components/SideBarCart";
 
@@ -168,20 +169,26 @@ const PlanetPurchase= () => {
        <div className={`${styles.PlanetPurchase} PlanetPage`}>
            <main>
                 <h1>행성 토지 정보</h1>
-                {
-                    cartItems.length && <Planet {...{...cartItems[selectedIdx].planet.data, ...{version: "card"}}} />
-                }
+                <div className={styles.PlanetPurchaseInfoWrapper}>
+                    <div>
+                        {
+                            cartItems.length && <Planet {...{...cartItems[selectedIdx].planet.data, ...{version: "card"}}} />
+                        }
 
-                {
-                    cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
-                }
+                        {
+                            cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
+                        }
+                    </div>
+                    <div>
+                        <Land {...{...cartItems[selectedIdx], ...{version: "card-open"}}} />
+                    </div>
+                </div>
             </main>
-            {
-                <SideBarCart 
-                    cartItems={cartItems}
-                    selectedIdx={selectedIdx}
-                    setSelectedIdx={setSelectedIdx} />
-            }
+            <SideBarCart  
+                cartItems={cartItems}
+                selectedIdx={selectedIdx}
+                setSelectedIdx={setSelectedIdx} />
+            
 
 
        </div>

@@ -1,6 +1,6 @@
 import styles from "../styles/Planet.module.scss";
 
-const Planet= ({ version, name, imgSrc, diameter, mass, belongsTo, distance, description }) => {
+const Planet = ({ version, name, imgSrc, diameter, mass, belongsTo, distance, description }) => {
     console.log(version)
     let slogan, detail;
     if (description) {

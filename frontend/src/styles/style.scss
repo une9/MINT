@@ -95,6 +95,7 @@ main > h1 {
         font-size: 1.75rem;
         margin-top: 0.25rem;
         margin-bottom: 1.25rem;
+        padding-left: 1rem;
     }
 
     header {
@@ -106,26 +107,26 @@ main > h1 {
         font-family: 'Pretendard-Black';
     }
 
-    dd, .price .priceText {
+    dd, .priceText {
         color: $font-dark;
         font-family: 'Pretendard-Bold';
     }
 
-    .price {
-        display: flex;
-        align-items: center;
+    // .price {
+    //     display: flex;
+    //     align-items: center;
 
-        .priceText {
-            font-family: 'Pretendard-Black';
-            font-size: 1.25rem;
-        }
+    //     .priceText {
+    //         font-family: 'Pretendard-Black';
+    //         font-size: 1.25rem;
+    //     }
 
-        dd {
-            display: flex;
-            align-items: center;
-        }
+    //     dd {
+    //         display: flex;
+    //         align-items: center;
+    //     }
 
-    }
+    // }
 
     .eth {
         height: 2rem;
@@ -315,4 +316,24 @@ main > h1 {
 
         word-break: break-all;
     }
+}
+
+.price {
+    display: flex;
+    align-items: center;
+
+    .eth {
+        height: 2rem;
+    }
+
+    span.priceText {
+        font-family: 'Pretendard-Black';
+        font-size: 1.25rem;
+    }
+
+    dd {
+        display: flex;
+        align-items: center;
+    }
+
 }

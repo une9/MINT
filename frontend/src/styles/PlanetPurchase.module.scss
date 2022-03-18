@@ -1,5 +1,11 @@
 @import "./_variables.scss";
 
 .PlanetPurchase {
-    
+    .PlanetPurchaseInfoWrapper {
+        display: flex;
+    }
+
+    .PlanetPurchaseInfoWrapper > div:first-child {
+        margin-right: 4rem;
+    }
 }

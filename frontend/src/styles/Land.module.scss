@@ -1,0 +1,54 @@
+@import "./_variables.scss";
+
+.Land {
+    header {
+        display: flex;
+        align-items: center;
+
+        h2 {
+            font-family: 'Pretendard-Black';
+            font-size: 1.5rem;
+            color: $point-main;
+        }
+    }
+
+    .tradeDate {
+        display: none;
+    }
+
+    .metadata {
+        dd, sup {
+            font-family: 'Pretendard-Black';
+        }
+    }
+
+    .metadata > div {
+        margin-bottom: 0.5rem;
+    }
+
+    span.priceText {
+        font-size: 1rem;
+    }
+
+}
+
+.Land.card-close {
+    header {
+        display: none;
+    }
+
+    .tradeDate {
+        display: block;
+    }
+}
+
+.landImg {
+    width: 64px;
+    height: 64px;
+    background-color: $point-light;
+    margin-right: 1.5rem;
+}
+
+.historyItems {
+    padding-left: 6px;
+}
