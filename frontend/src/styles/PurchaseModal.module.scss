@@ -1,0 +1,96 @@
+@import "variables";
+
+header, svg, h2, div, p, img, section, ul, li {
+    background-color: transparent;
+    color: $font-dark;
+}
+
+.PurchaseModalWrapper {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+
+.PurchaseModalWrapper.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PurchaseModal {
+    width: 1120px;
+    height: 640px;
+    box-sizing: border-box;
+    padding: 40px 48px;
+    
+
+    background-color: white;
+    border-radius: 64px;
+
+    header {
+        position: relative;
+    }
+
+    h2 {
+        color: $point-main;
+        font-family: 'Pretendard-Black';
+        font-size: 1.75rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+
+        display: flex;
+        align-items: center;
+
+        .metamaskLogo {
+            width: 2.5rem;
+            margin-left: 2rem;
+        }
+    }
+
+    ul, li {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        display: grid;
+        width: 660px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    .closeBtn {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+
+        svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        path {
+            fill: $point-main;
+            stroke-width: 0.75px;
+        }
+    }
+
+    .myWalletInfo {
+        margin-bottom: 3rem;
+    }
+
+    .walletAddr {
+        font-family: 'Pretendard-Black';
+    }
+}

@@ -15,21 +15,21 @@ const Planet = ({ version, name, imgSrc, diameter, mass, belongsTo, distance, de
                         version === "description"
                         ? <h1>{name}</h1>
                         : 
-                        <div>
+                        <div className="metadata__data">
                             <dt>이름</dt> <dd>{name}</dd>
                         </div>
                     }
                     
-                    <div>
+                    <div className="metadata__data">
                         <dt>지름</dt> <dd>{diameter}</dd>
                     </div>
-                    <div>
+                    <div className="metadata__data">
                         <dt>질량</dt> <dd>{mass}</dd>
                     </div>
-                    <div>
+                    <div className="metadata__data">
                         <dt>소속</dt> <dd>{belongsTo}</dd>
                     </div>
-                    <div>
+                    <div className="metadata__data">
                         <dt>거리</dt> <dd>{distance}</dd>
                     </div>
                 </dl>

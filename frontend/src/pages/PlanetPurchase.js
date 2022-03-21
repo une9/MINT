@@ -5,10 +5,12 @@ import Planet from "../components/Planet";
 import Land from "../components/Land";
 import PlanetMap from "../components/PlanetMap";
 import SideBarCart from "../components/SideBarCart";
+import PurchaseModal from "../components/PurchaseModal";
 
 const PlanetPurchase= () => {
     const [cartItems, setCartItems] = useState([]);
     const [selectedIdx, setSelectedIdx] = useState(0);
+    const [modalShow, setModalShow] = useState(true);
 
     useEffect(() => {
         // localstorage에서 가져오기
@@ -166,32 +168,36 @@ const PlanetPurchase= () => {
     }, []);
     
     return(
-       <div className={`${styles.PlanetPurchase} PlanetPage`}>
-           <main>
-                <h1>행성 토지 정보</h1>
-                <div className={styles.PlanetPurchaseInfoWrapper}>
-                    <div>
-                        {
-                            cartItems.length && <Planet {...{...cartItems[selectedIdx].planet.data, ...{version: "card"}}} />
-                        }
+        <>
+            <PurchaseModal
+                show={modalShow}
+                onHide={() => setModalShow(false)} 
+            />
+            <div className={`${styles.PlanetPurchase} PlanetPage`}>
+                <main>
+                        <h1>행성 토지 정보</h1>
+                        <div className={styles.PlanetPurchaseInfoWrapper}>
+                            <div>
+                                {
+                                    cartItems.length && <Planet {...{...cartItems[selectedIdx].planet.data, ...{version: "card"}}} />
+                                }
 
-                        {
-                            cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
-                        }
-                    </div>
-                    <div>
-                        <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
-                    </div>
-                </div>
-            </main>
-            <SideBarCart  
-                cartItems={cartItems}
-                selectedIdx={selectedIdx}
-                setSelectedIdx={setSelectedIdx} />
-            
-
-
-       </div>
+                                {
+                                    cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
+                                }
+                            </div>
+                            <div>
+                                <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
+                            </div>
+                        </div>
+                    </main>
+                    <SideBarCart  
+                        cartItems={cartItems}
+                        selectedIdx={selectedIdx}
+                        setSelectedIdx={setSelectedIdx}
+                        setModalShow={setModalShow} />
+            </div>
+        </>
     );
 }
 export default PlanetPurchase;

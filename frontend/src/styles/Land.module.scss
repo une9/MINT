@@ -1,4 +1,4 @@
-@import "./_variables.scss";
+@import "variables";
 
 .Land {
     header {
@@ -82,6 +82,7 @@
 
 .historyItems {
     padding-left: 6px;
+    margin: 0;
 }
 
 .landImgUploadBtn {

@@ -1,6 +1,6 @@
 import { VscChromeClose } from "react-icons/vsc";
 
-const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx}) => {
+const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx, setModalShow}) => {
     console.log(cartItems)
     
     return(
@@ -34,7 +34,7 @@ const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx}) => {
 
             </section>
             <section className="btns">
-                <button>구매하기</button>
+                <button onClick={() => setModalShow(true)}>구매하기</button>
             </section>
         </aside>
     );

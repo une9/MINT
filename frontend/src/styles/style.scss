@@ -58,6 +58,10 @@ main > h1 {
     margin-bottom: 1.25rem;
 }
 
+button {
+    cursor: pointer;
+}
+
 .Box {
     border: 1px solid $point-sub;
     border-radius: 16px;
