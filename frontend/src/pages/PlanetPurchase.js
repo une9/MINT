@@ -180,7 +180,7 @@ const PlanetPurchase= () => {
                         }
                     </div>
                     <div>
-                        <Land {...{...cartItems[selectedIdx], ...{version: "card-open"}}} />
+                        <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
                     </div>
                 </div>
             </main>

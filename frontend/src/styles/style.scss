@@ -196,6 +196,7 @@ main > h1 {
                 background-color: transparent;
                 color: $point-light;
             }
+
         }
 
         .cartItem.cartItem--selected {
@@ -247,8 +248,17 @@ main > h1 {
             padding: 0;
 
             position: absolute;
-            right: 0;
-            top: 0;
+            right: 0.125rem;
+            top: 0.25rem;
+
+            svg, path {
+                background-color: transparent;
+            }
+
+            svg {
+                width: 1rem;
+                height: 1rem;
+            }
         }
 
     }

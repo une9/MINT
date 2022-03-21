@@ -1,49 +1,85 @@
 import styles from "../styles/Land.module.scss";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
 
+import { VscChevronUp, VscChevronDown } from "react-icons/vsc";
+
 // version
-// card-open: 행성 구매페이지 (history: open)
-// card-close: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
+// card-purchase: 행성 구매페이지 (history: open)
+// card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
 const Land = ({ version, id, area, image, buyer, trade_date, price, token }) => {
     console.log(version)
 
     return(
-        <article className={`${styles.Land} ${styles[version]} ${version === "card-open" ? "Box" : ""}`}>
-            <header>
+        <article className={`${styles.Land} ${styles[version]} ${version === "card-purchase" ? "Box" : ""}`}>
+            {
+                version === "card-purchase" 
+                &&
+                <header>
+                    {
+                        image
+                        ? <img className={styles.landImg} src={image} alt="landImg" />
+                        : <div className={styles.landImg} />
+                    }
+                    <h2>{id}</h2>
+                </header>
+            }
+            <div className={styles.landInfoWrapper}>
                 {
-                    image
-                    ? <img className={styles.landImg} src={image} alt="landImg" />
-                    : <div className={styles.landImg} />
+                    version === "card-mypage"
+                    &&
+                    <div className={styles.landImgWrapper}>
+                        {
+                            image
+                            ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={image} alt="landImg" />
+                            : <div className={`${styles.landImg} ${styles.landImgBig}`} />
+                        }
+                        <button className={styles.landImgUploadBtn}>사진 등록</button>
+                    </div>
                 }
-                <h2>{id}</h2>
-            </header>
-            <dl className={`metadata ${styles.metadata}`}>
-                <div>
-                    <dt>크기</dt> <dd>{area}km<sup>2</sup></dd>
-                </div>
-                <div className="price">
-                    <dt>현재가</dt> 
-                    <dd>
-                        <img src="../../ethereum.png" alt="eth" className="eth" />
-                        <span className={`priceText ${styles.priceText}`}>{price} ETH</span>
-                    </dd>
-                </div>
-                <div>
-                    <dt>소유자</dt> <dd>{buyer}{`(${token ? token : " 없음 "})`}</dd>
-                </div>
-                <div className={styles.tradeDate}>
-                    <dt>취득일</dt> <dd>{trade_date}</dd>
-                </div>
-                <detail open>
-                    <summary>history</summary>
-                    <ul className={styles.historyItems}>
-                        <PurchaseHistoryItem price={0.01} />
-                        <PurchaseHistoryItem price={0.01} />
-                        <PurchaseHistoryItem price={0.01} />
-                    </ul>
-                </detail>
-            </dl>
+                <dl className={`metadata ${styles.metadata}`}>
+                    <div>
+                        <dt>크기</dt> <dd>{area}km<sup>2</sup></dd>
+                    </div>
+                    <div className="price">
+                        <dt>현재가</dt> 
+                        <dd>
+                            <img src="../../ethereum.png" alt="eth" className="eth" />
+                            <span className={`priceText ${styles.priceText}`}>{price} ETH</span>
+                        </dd>
+                    </div>
+                    {
+                        version !== "card-purchase" 
+                        &&
+                        <div className={styles.tradeDate}>
+                            <dt>취득일</dt> <dd>{trade_date}</dd>
+                        </div>
+                    }
+                    <div>
+                        <dt>소유자</dt> <dd>{buyer}{`(${token ? token : " 없음 "})`}</dd>
+                    </div>
+                    <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
+                        <summary>
+                            history 
+                            {
+                                version !== "card-purchase"
+                                &&
+                                <VscChevronDown className={styles.arrowDown} />
+                            }
+                        </summary>
+                        <ul className={styles.historyItems}>
+                            <PurchaseHistoryItem price={0.01} />
+                            <PurchaseHistoryItem price={0.01} />
+                            <PurchaseHistoryItem price={0.01} />
+                        </ul>
+                    </details>
+                </dl>
+            </div>
+            {
+                version === "card-mypage"
+                &&
+                <button className={styles.landInMapBtn}>지도에서 위치 확인하기</button>
+            }
 
         </article>
     );

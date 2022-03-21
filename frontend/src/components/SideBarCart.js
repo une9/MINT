@@ -1,3 +1,5 @@
+import { VscChromeClose } from "react-icons/vsc";
+
 const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx}) => {
     console.log(cartItems)
     
@@ -10,7 +12,7 @@ const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx}) => {
                 {
                     cartItems.map((item, idx) => (
                         <section key={`cartItem-${idx}`} className={`cartItem ${idx === selectedIdx ? "cartItem--selected" : ""}`}>
-                            <button className="deleteBtn">X</button>
+                            <button className="deleteBtn"><VscChromeClose/></button>
                             <img className="planetImg" src={item.planet.data.imgSrc} alt={`planet-${item.planet.data.name}`} />
                             <div className="itemInfo">
                                 <p className="planetName">{item.planet.data.name}</p>
