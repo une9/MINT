@@ -1,0 +1,190 @@
+@import "variables";
+
+.PurchaseModalWrapper {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+}
+
+.PurchaseModalWrapper.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.PurchaseModal {
+    width: 1120px;
+    height: 640px;
+    box-sizing: border-box;
+    padding: 40px 48px;
+    
+
+    background-color: white;
+    border-radius: 64px;
+    
+    header, svg, h2, div, p, img, section, ul, li, span {
+        background-color: transparent;
+        color: $font-dark;
+    }
+
+    header {
+        position: relative;
+    }
+
+    h2 {
+        color: $point-main;
+        font-family: 'Pretendard-Black';
+        font-size: 1.75rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+
+        display: flex;
+        align-items: center;
+
+        .metamaskLogo {
+            width: 2.5rem;
+            margin-left: 2rem;
+        }
+    }
+
+    ul, li {
+        margin: 0;
+        padding: 0;
+    }
+
+    .myPurchaseInfoWrapper {
+        border-right: 3px dashed $point-main;
+        padding-right: 2rem;
+    }
+
+    .myPurchaseInfo {
+        background-color: #F5F5F5;
+        border-radius: 32px;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        width: 700px;
+        height: calc(640px - 20rem);
+
+        &__inner {
+            // width: calc(100% - 6px);
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+    }
+
+    .myPurchaseInfo__inner::-webkit-scrollbar {      // t스크롤바 전체
+        width: 6px;
+    }
+
+    .myPurchaseInfo__inner::-webkit-scrollbar-thumb {        // 스크롤 막대
+        background-color: $point-dark;
+        border-radius: 3px;
+    }
+
+    .myPurchaseInfo__inner::-webkit-scrollbar-track {        // 스크롤 막대 외부
+        background-color: rgb(201, 201, 201);
+        border-radius: 3px;
+    }
+
+    .purchaseGridTitle {
+        padding: 0 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .purchaseGrid {
+        display: grid;
+        max-width: 700px;
+        box-sizing: border-box;
+        grid-template-columns: 1fr 3fr 3fr 1fr 0.3fr;
+    }
+
+    .purchaseGridLi {
+        margin-bottom: 0.75rem;
+    }
+
+    .purchaseGridItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__title {
+            font-family: "Pretendard-Black";
+            font-size: 0.875rem;
+            color: $point-main;
+            margin-right: 0.5rem;
+        }
+    }
+
+    .price {
+        img {
+            height: 1.75rem;
+        }
+
+        .priceText {
+            font-size: 1rem;
+        }
+    }
+
+    li {
+        list-style-type: none;
+    }
+
+    .closeBtn {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        right: -8px;
+        top: -8px;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+
+        svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        path {
+            fill: $point-main;
+            stroke-width: 0.75px;
+        }
+    }
+
+    .myWalletInfo {
+        margin-bottom: 3rem;
+    }
+
+    .walletAddr {
+        font-family: 'Pretendard-Black';
+    }
+
+    .purchaseNotice p{
+        color: #7A7A7A;
+        font-size: 0.875rem;
+    }
+
+}
+
+.purchaseModal__bottomWrapper {
+    display: flex;
+}
+
+.purchaseBtnWrapper {
+    padding: 0 2rem;
+    
+    &__inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+    }
+}
+

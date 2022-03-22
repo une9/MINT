@@ -1,0 +1,63 @@
+@import "variables";
+
+// version
+.description {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(24rem, auto));
+
+    .Planet__metadata {
+        display: flex;
+    }
+
+}
+
+.card {
+    box-sizing: border-box;
+    padding: 0.75rem;
+    width: 28rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .Planet__metadata {
+        display: flex;
+    }
+}
+
+
+// default
+.Planet {
+    &__description {
+        border-left: 1px solid $point-main;
+        padding-left: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__metadata {
+        align-items: center;
+    }
+
+    img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    dl {
+        margin-left: 2rem;
+    }
+    
+    h1 {
+        font-family: 'Pretendard-Black';
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+    }
+    
+    .slogan {
+        font-family: "Pretendard-Bold";
+        margin: 0 0 0.5rem 0;
+    }
+}
+
+
