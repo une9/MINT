@@ -184,6 +184,7 @@ button {
 
 
         .cartItem {
+            cursor: pointer;
             background-color: $bg-grey;
             border-radius: 16px;
             display: flex;
@@ -314,24 +315,47 @@ button {
     
     }
 
+    .price__fullLength {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.5rem;
+        border-radius: 5px;
+        display: none;
+        position: absolute;
+    }
+
+    .priceWrapper:hover {
+        .price__fullLength {
+            display: block;
+        }
+    }
+
     .eth {
         height: 2rem;
     }
 
-    .btns {
-        margin-top: 0.5rem;
+    
+}
 
-        button {
-            width: 14rem;
-            height: 3rem;
-            margin: 0.5rem 0;
+.btns {
+    margin-top: 0.5rem;
 
-            border-radius: 1.5rem;
-            background-color: $point-main;
-            border: none;
-        }
+    button {
+        width: 14rem;
+        height: 3rem;
+        margin: 0.5rem 0;
 
+        border-radius: 1.5rem;
+        background-color: $point-main;
+        border: none;
+
+        font-size: 1.125rem;
     }
+
+    .btn--disabled {
+        background-color: grey;
+    }
+
 }
 
 

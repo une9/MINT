@@ -1,9 +1,17 @@
 import PurchaseBtnSection from "./PurchaseBtnSection";
 import { VscChromeClose } from "react-icons/vsc";
 
-const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx, setModalShow}) => {
+const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, setCartItems }) => {
     console.log(cartItems)
-    
+    console.log("selectedIdx!!!", selectedIdx)
+    const onDelete = (event, targetIdx)=> {
+        event.stopPropagation();
+        if (targetIdx === cartItems.length - 1) {
+            setSelectedIdx(targetIdx-1);
+        }
+        setCartItems(prev => prev.filter((item, i) => i !== targetIdx))
+    }
+
     return(
         <aside className="SideBar">
             <header>
@@ -12,8 +20,10 @@ const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx, setModalShow}) => 
             <section className="cartList" >
                 {
                     cartItems.map((item, idx) => (
-                        <section key={`cartItem-${idx}`} className={`cartItem ${idx === selectedIdx ? "cartItem--selected" : ""}`}>
-                            <button className="deleteBtn"><VscChromeClose/></button>
+                        <section key={`cartItem-${idx}`} 
+                            className={`cartItem ${idx === selectedIdx ? "cartItem--selected" : ""}`}
+                            onClick={() => setSelectedIdx(idx)}>
+                            <button className="deleteBtn" onClick={(event) => onDelete(event, idx)}><VscChromeClose/></button>
                             <img className="planetImg" src={item.planet.data.imgSrc} alt={`planet-${item.planet.data.name}`} />
                             <div className="itemInfo">
                                 <p className="planetName">{item.planet.data.name}</p>
