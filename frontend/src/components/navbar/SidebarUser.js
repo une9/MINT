@@ -9,10 +9,11 @@ import '../../styles/Sidebar.scss';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import { FaHome } from 'react-icons/fa';
 import { MdOutlineDescription } from 'react-icons/md';
-import { VscDebugDisconnect } from 'react-icons/vsc';
+import { MdLogout } from 'react-icons/md';
+import { FiSettings } from 'react-icons/fi';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const Sidebar = () => {
+const SidebarUSer = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -20,9 +21,13 @@ const Sidebar = () => {
     <SideNav
       className="sidebar"
       onSelect={(selected) => {
-        const to = '/' + selected;
-        if (pathname !== to) {
-          navigate(to);
+        if (selected === 'logout') {
+          
+        } else {
+          const to = '/' + selected;
+          if (pathname !== to) {
+            navigate(to);
+          }
         }
       }}
     >
@@ -40,16 +45,22 @@ const Sidebar = () => {
           </NavIcon>
           <NavText>Description</NavText>
         </NavItem>
+        <NavItem eventKey="mypage">
+          <NavIcon className="sidebar-icon">
+            <FiSettings size="2em" />
+          </NavIcon>
+          <NavText>MY Page</NavText>
+        </NavItem>
       </Nav>
       <Nav className="sidebar-wallet">
-        <NavItem eventKey="login">
+        <NavItem eventKey="logout">
           <NavIcon className="sidebar-icon">
-            <VscDebugDisconnect size="2em" color="rgb(255,255,255)" />
+            <MdLogout size="2em" color="rgb(255,255,255)" />
           </NavIcon>
-          <NavText>Connect Wallet</NavText>
+          <NavText>Disconnect Wallet</NavText>
         </NavItem>
       </Nav>
     </SideNav>
   );
 };
-export default Sidebar;
+export default SidebarUSer;

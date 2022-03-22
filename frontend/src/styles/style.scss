@@ -46,13 +46,18 @@ $point-dark: #259068;
 
 /* global style */
 
-* {
-    font-family: 'Pretendard-Regular', sans-serif;
-    color: $font-light;
-    background-color: $bg-dark;
-}
+// {
+//     font-family: 'Pretendard-Regular', sans-serif;
+//     color: $font-light;
+//     background-color: $bg-dark;
+//     margin-left: 100px;
+// }
 
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Pretendard-Regular', sans-serif;
+    color: $font-light;
+    background-color: $bg-dark;
+    margin-left: 64px;
 }
