@@ -1,0 +1,125 @@
+@import "variables";
+
+.Land {
+    header {
+        display: flex;
+        align-items: center;
+
+        h2 {
+            font-family: 'Pretendard-Black';
+            font-size: 1.5rem;
+            color: $point-main;
+        }
+    }
+
+    .metadata {
+        margin-bottom: 0;
+
+        dd, sup {
+            font-family: 'Pretendard-Black';
+        }
+    }
+
+    .metadata > div {
+        margin-bottom: 0.5rem;
+    }
+
+    span.priceText {
+        font-size: 1rem;
+    }
+
+}
+
+.landImgWrapper {
+    .landImgBig {
+        width: 128px;
+        height: 128px;
+    }
+}
+
+
+
+.landImg {
+    width: 64px;
+    height: 64px;
+    background-color: $point-light;
+    margin-right: 1.5rem;
+}
+
+.purchaseHistory {
+    width: 26rem;
+
+    summary {
+        cursor: pointer;
+        outline: none;
+        list-style: none;
+        color: $point-main;
+        margin: 1rem 0 1.5rem 0;
+
+        display: flex;
+        align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .arrowDown {
+        margin-left: 1rem;
+        fill: $point-main;
+
+        transform: rotate( -360deg );            
+        transition: transform 150ms ease;
+    }
+}
+
+.purchaseHistory[open] {
+    .arrowDown {
+        transform: rotate( -180deg );            
+        transition: transform 150ms ease;
+    }
+}
+
+.historyItems {
+    padding-left: 6px;
+    margin: 0;
+}
+
+.landImgUploadBtn {
+    width: 128px;
+    height: 36px;
+    border: 1px solid $point-main;
+    border-radius: 24px;
+    color: $point-main;
+    margin-top: 1rem;
+}
+
+.landInMapBtn {
+    width: 16rem;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    border: none;
+    background-color: $point-main;
+    margin-top: 2.5rem;
+}
+
+
+// version
+.Land.card-mypage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .landInfoWrapper {
+        display: flex;
+    }
+
+    .purchaseHistory {
+        margin-left: 4rem;
+    }
+
+    .metadata {
+        margin-top: 0;
+        margin-left: 1.5rem;
+    }
+}
