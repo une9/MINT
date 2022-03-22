@@ -1,3 +1,4 @@
+import PurchaseBtnSection from "./PurchaseBtnSection";
 import { VscChromeClose } from "react-icons/vsc";
 
 const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx, setModalShow}) => {
@@ -25,17 +26,10 @@ const SideBarCart = ({cartItems, selectedIdx, setSelectedIdx, setModalShow}) => 
                         </section>))
                 }
             </section>
-            <section className="totalPrice">
-                <h2>총 금액 {`(${cartItems.length})`}</h2>
-                <div className="priceWrapper">
-                    <img src="../../ethereum.png" alt="ethereum" className="eth"/>
-                    <span className="priceText">{`${cartItems.reduce((acc, item) => { return acc + item.price }, 0)}`} ETH</span>
-                </div>
-
-            </section>
-            <section className="btns">
-                <button onClick={() => setModalShow(true)}>구매하기</button>
-            </section>
+            <PurchaseBtnSection 
+                cartSize={cartItems.length} 
+                totalPrice={cartItems.reduce((acc, item) => { return acc + item.price }, 0)}
+                onClick={() => setModalShow(true)} />
         </aside>
     );
 }

@@ -172,6 +172,7 @@ const PlanetPurchase= () => {
             <PurchaseModal
                 show={modalShow}
                 onHide={() => setModalShow(false)} 
+                cartItems={cartItems}
             />
             <div className={`${styles.PlanetPurchase} PlanetPage`}>
                 <main>
