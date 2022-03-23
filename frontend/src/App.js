@@ -15,8 +15,8 @@ const App= ( ) => {
   });
     return(
         <div>
-            {/* <Sidebar/> */}
-            <SidebarUSer/>
+            <Sidebar/>
+            {/* <SidebarUSer/> */}
             {/* <SidebarAdmin/> */}
             <Outlet />
 
