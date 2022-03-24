@@ -36,10 +36,12 @@ const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, set
                         </section>))
                 }
             </section>
-            <PurchaseBtnSection 
-                cartSize={cartItems.length} 
-                totalPrice={cartItems.reduce((acc, item) => { return acc + item.price }, 0)}
-                onClick={() => setModalShow(true)} />
+            <div className="PurchaseBtnSectionWrapper">
+                <PurchaseBtnSection 
+                    cartSize={cartItems.length} 
+                    totalPrice={cartItems.reduce((acc, item) => { return acc + item.price }, 0)}
+                    onClick={() => setModalShow(true)} />
+            </div>
         </aside>
     );
 }

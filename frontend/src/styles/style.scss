@@ -210,10 +210,12 @@ button {
     }
 
     .cartList {
-        border-bottom: 2px dashed $point-main;
+        // border-bottom: 2px dashed $point-main;
         height: calc(100vh - 18rem);
         overflow-x: hidden;
         overflow-y: scroll;
+        padding: 0 1rem;
+        margin-top: 1rem;
 
 
         .cartItem {
@@ -240,9 +242,15 @@ button {
         .cartItem.cartItem--selected {
             background-color: $point-sub;
 
-                img, div, p, span, h2 {
-                    color: white;
+            img, div, p, span, h2 {
+                color: white;
+            }
+
+            .deleteBtn {
+                path {
+                    fill: white;
                 }
+            }
         }
 
         .itemInfo {
@@ -312,11 +320,18 @@ button {
 
     .cartList::-webkit-scrollbar-track {        // 스크롤 막대 외부
         background-color: rgb(233, 233, 233);
+        border-radius: 4px;
     }
     
 }
 
 // PurchaseBtnSection
+
+.PurchaseBtnSectionWrapper {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px dashed $point-main;
+}
 
 .PurchaseBtnSection {
     display: flex;
@@ -355,6 +370,7 @@ button {
         border-radius: 5px;
         display: none;
         position: absolute;
+        z-index: 10;
     }
 
     .priceWrapper:hover {
@@ -382,6 +398,7 @@ button {
         background-color: $point-main;
         border: none;
 
+        color: white;
         font-size: 1.125rem;
     }
 
@@ -394,6 +411,8 @@ button {
 
 
 .metadata {
+    margin: 0;
+
     div {
         margin-bottom: 0.25rem;
     }
@@ -412,6 +431,7 @@ button {
     dd {
         display: inline-block;
         margin-left: 0.5rem;
+        margin-bottom: 0;
 
         word-break: break-all;
     }

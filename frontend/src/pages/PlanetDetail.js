@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "../styles/PlanetDetail.module.scss";
+import { BsCart3 } from "react-icons/bs";
 
 import Planet from "../components/Planet";
 import PlanetMap from "../components/PlanetMap";
@@ -97,7 +98,7 @@ const PlanetDetail= ( ) => {
                 }
                 <button className={styles.cartButton} 
                     onClick={() => { navigate("/planet/purchase"); }}>
-                    카트
+                    <BsCart3 />
                     <div className={styles.cartBadge}>{cartItems.length}</div>
                 </button>
             </main>
