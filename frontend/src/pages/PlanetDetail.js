@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "../styles/PlanetDetail.module.scss";
+import { BsCart3 } from "react-icons/bs";
 
 import Planet from "../components/Planet";
 import PlanetMap from "../components/PlanetMap";
 import SideBarInfo from "../components/SideBarInfo";
+import PurchaseModal from "../components/PurchaseModal";
 
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
@@ -13,6 +15,11 @@ const PlanetDetail= ( ) => {
     const [tiles, setTiles] = useState([]);
     const [selectedTile, setSelectedTile] = useState({});
     const [cartItems, setCartItems] = useState([]);
+
+    const [modalShow, setModalShow] = useState(false);
+    const onModalHide = () => setModalShow(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const planetRes = {
@@ -83,18 +90,36 @@ const PlanetDetail= ( ) => {
                 }
 
                 {
-                    planetInfo.name && <PlanetMap tiles={tiles} />
+                    planetInfo.name 
+                    && 
+                    <PlanetMap 
+                        version={"purchase"}
+                        tiles={tiles} />
                 }
-                <button className={styles.cartButton}>
-                    카트
+                <button className={styles.cartButton} 
+                    onClick={() => { navigate("/planet/purchase"); }}>
+                    <BsCart3 />
                     <div className={styles.cartBadge}>{cartItems.length}</div>
                 </button>
             </main>
             {
-                <SideBarInfo {...selectedTile} />
+                selectedTile
+                &&
+                <PurchaseModal
+                    show={modalShow}
+                    onHide={onModalHide} 
+                    itemsToBuy={[{
+                        planet: {
+                            id: planetId,
+                            data: planetInfo
+                        },
+                        ...selectedTile
+                    }]}
+                />
             }
-
-            
+            <SideBarInfo 
+            {...selectedTile}
+            onModalShow={()=> setModalShow(true)} />
         </div>
     );
 }

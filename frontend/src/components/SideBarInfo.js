@@ -1,9 +1,18 @@
-const SideBarInfo = ({id, area, image, buyer, trade_date, price, token}) => {
-    
+import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+
+const SideBarInfo = ({id, area, image, buyer, trade_date, price, token, onModalShow}) => {
+    const onToggleDibs = () => {
+
+    }
+
     return(
         <aside className="SideBar">
             <header>
                 <h1>토지 정보</h1>
+                <button className="toggleDibsOnLandBtn" onClick={onToggleDibs}>
+                    {/* <AiFillStar /> */}
+                    <AiOutlineStar />
+                </button>
             </header>
             <section className="info" >
                 <h2>{id}</h2>
@@ -27,8 +36,12 @@ const SideBarInfo = ({id, area, image, buyer, trade_date, price, token}) => {
                 </dl>
             </section>
             <section className="btns">
-                <button>장바구니에 넣기</button>
-                <button>구매하기</button>
+                <button>
+                    장바구니에 넣기
+                </button>
+                <button onClick={onModalShow}>
+                    구매하기
+                </button>
             </section>
         </aside>
     );
