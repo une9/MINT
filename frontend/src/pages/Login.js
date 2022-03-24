@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Lottie from 'react-lottie';
 import Mint_Lodo from '../lottie/Mint_Logo_Long_Font.json';
 import styles from '../styles/Login.scss';
+import Metamask from '../components/login/Metamask';
 const lottieOptions = {
   animationData: Mint_Lodo,
   loop: true,
@@ -34,7 +35,9 @@ const Login = () => {
           />
         </div>
       </div>
-      <div className="right_login">흠?</div>
+      <div className="right_login">
+          <Metamask/>
+      </div>
     </div>
   );
 };
