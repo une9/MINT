@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(value = "ImageAPI")
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 public class ImageController {
 
 	@Value("${image.file.path}")
