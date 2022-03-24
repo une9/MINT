@@ -2,7 +2,7 @@ import PurchaseBtnSection from "./PurchaseBtnSection";
 import styles from "../styles/PurchaseModal.module.scss";
 import { VscChromeClose } from "react-icons/vsc";
 
-const PurchaseModal = ({ show, onHide, cartItems }) => {
+const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
     console.log("PurchaseModal Created")
 
     const myWalletName = "ssafy";
@@ -16,7 +16,7 @@ const PurchaseModal = ({ show, onHide, cartItems }) => {
         } else return addr
     }
 
-    const onClick = () => {
+    const buy = () => {
         console.log("구매!")
     }
 
@@ -48,7 +48,7 @@ const PurchaseModal = ({ show, onHide, cartItems }) => {
                         <div className={styles.myPurchaseInfo}>
                             <ul className={styles.myPurchaseInfo__inner}>
                                 {
-                                    cartItems.map((item, idx) => (
+                                    itemsToBuy.map((item, idx) => (
                                         <li key={`purchaseItem-${idx}`} className={`${styles.purchaseGrid} ${styles.purchaseGridLi}`}>
                                             <span className={styles.purchaseGridItem}>
                                                 <span className={styles.purchaseGridItem__title}>{item.id}</span>
@@ -87,9 +87,9 @@ const PurchaseModal = ({ show, onHide, cartItems }) => {
                             </div>
                             <div>
                                 <PurchaseBtnSection 
-                                    cartSize={cartItems.length} 
-                                    totalPrice={cartItems.reduce((acc, item) => { return acc + item.price }, 0)}
-                                    onClick={onClick} />
+                                    cartSize={itemsToBuy.length} 
+                                    totalPrice={itemsToBuy.reduce((acc, item) => { return acc + item.price }, 0)}
+                                    onClick={buy} />
                             </div>
                         </section>
                     </div>

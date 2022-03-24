@@ -71,10 +71,17 @@ button {
 .PlanetPage {
     display: flex;
     align-items: center;
-    margin-right: $sideBar-width;
+    padding-right: $sideBar-width;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
     
     main {
+        box-sizing: border-box;
         padding: 4rem;
+        width: 100%;
+        height: 100%;
+        position: relative;
     }
 }
 
@@ -89,7 +96,7 @@ button {
     right: 0;
     top: 0;
 
-    h1, h2, section, header, dl, dt, dd, div, img, span, p {
+    h1, h2, section, header, dl, dt, dd, div, img, span, p, svg {
         background-color: white;
         color: $point-sub;
     }
@@ -105,6 +112,27 @@ button {
     header {
         border-bottom: 2px dashed $point-sub;
         height: 3.25rem;
+        position: relative;
+
+        svg {
+            fill: $point-main;
+            height: 1.5rem;
+            width: 1.5rem;
+
+            path {
+                stroke-width: 1.5rem;
+            }
+        }
+    }
+
+    .toggleDibsOnLandBtn {
+        background-color: transparent;
+        border: none;
+        position: absolute;
+        height: 1.5rem;
+        width: 1.5rem;
+        right: 0.75rem;
+        top: 0.25rem;
     }
 
     h2 {

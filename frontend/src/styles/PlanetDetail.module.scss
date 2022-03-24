@@ -1,7 +1,9 @@
 @import "variables";
 
 .cartButton {
-    position: relative;
+    position: absolute;
+    right: 2rem;
+    bottom: 1.25rem;
     width: 4rem;
     height: 4rem;
     border-radius: 2rem;

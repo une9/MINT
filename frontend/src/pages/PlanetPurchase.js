@@ -11,7 +11,9 @@ import { useNavigate } from "react-router-dom";
 const PlanetPurchase= () => {
     const [cartItems, setCartItems] = useState([]);
     const [selectedIdx, setSelectedIdx] = useState(0);
+
     const [modalShow, setModalShow] = useState(false);
+    const onModalHide = () => setModalShow(false);
 
     const navigate = useNavigate();
 
@@ -171,50 +173,49 @@ const PlanetPurchase= () => {
     }, []);
 
     return(
-        <>
+        <div className={`${styles.PlanetPurchase} PlanetPage`}>
+            <main>
+                <h1>행성 토지 정보</h1>
+                {
+                    cartItems.length > 0
+                    ?
+                    <div className={styles.PlanetPurchaseInfoWrapper}>
+                        <div>
+                            {
+                                cartItems.length && <Planet {...{...cartItems[selectedIdx].planet.data, ...{version: "card"}}} />
+                            }
+
+                            {
+                                cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
+                            }
+                        </div>
+                        <div>
+                            <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
+                        </div>
+                    </div>
+                    :
+                    <div className="btns">
+                        <button onClick={() => {
+                            navigate("/");
+                        }}>
+                            메인페이지로 가기
+                        </button>
+                    </div>
+                }
+            </main>
+            
             <PurchaseModal
                 show={modalShow}
-                onHide={() => setModalShow(false)} 
-                cartItems={cartItems}
+                onHide={onModalHide} 
+                itemsToBuy={cartItems}
             />
-            <div className={`${styles.PlanetPurchase} PlanetPage`}>
-                <main>
-                        <h1>행성 토지 정보</h1>
-                        {
-                            cartItems.length > 0
-                            ?
-                            <div className={styles.PlanetPurchaseInfoWrapper}>
-                                <div>
-                                    {
-                                        cartItems.length && <Planet {...{...cartItems[selectedIdx].planet.data, ...{version: "card"}}} />
-                                    }
-
-                                    {
-                                        cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
-                                    }
-                                </div>
-                                <div>
-                                    <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
-                                </div>
-                            </div>
-                            :
-                            <div className="btns">
-                                <button onClick={() => {
-                                    navigate("/");
-                                }}>
-                                    메인페이지로 가기
-                                </button>
-                            </div>
-                        }
-                    </main>
-                    <SideBarCart  
-                        cartItems={cartItems}
-                        selectedIdx={selectedIdx}
-                        setSelectedIdx={setSelectedIdx}
-                        setModalShow={setModalShow}
-                        setCartItems={setCartItems} />
-            </div>
-        </>
+            <SideBarCart  
+                cartItems={cartItems}
+                selectedIdx={selectedIdx}
+                setSelectedIdx={setSelectedIdx}
+                setModalShow={setModalShow}
+                setCartItems={setCartItems} />
+        </div>
     );
 }
 export default PlanetPurchase;
