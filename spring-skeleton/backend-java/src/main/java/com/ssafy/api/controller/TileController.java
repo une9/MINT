@@ -26,7 +26,6 @@ import io.swagger.annotations.ApiResponses;
 
 @Api(value = "Tile API")
 @RestController
-@RequestMapping("/api")
 public class TileController {
 	
 	@Autowired

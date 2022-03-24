@@ -23,7 +23,6 @@ import io.swagger.annotations.ApiParam;
 
 @Api(value = "행성 API", tags = {"Planet"})
 @RestController
-@RequestMapping("/api")
 public class PlanetController {
 	
 	@Autowired
