@@ -1,7 +1,7 @@
 @import "variables";
 
 // version
-.description {
+.description.Planet {
     display: grid;
     grid-template-columns: repeat(2, minmax(24rem, auto));
 
@@ -9,9 +9,17 @@
         display: flex;
     }
 
+    img {
+        width: 120px;
+        height: 120px;
+    }
+
+    dl {
+        margin-left: 2rem;
+    }
 }
 
-.card {
+.card.Planet {
     box-sizing: border-box;
     // padding: 0.75rem;
     width: 28rem;
@@ -21,6 +29,15 @@
 
     .Planet__metadata {
         display: flex;
+    }
+
+    img {
+        width: 120px;
+        height: 120px;
+    }
+
+    dl {
+        margin-left: 2rem;
     }
 }
 
@@ -40,12 +57,12 @@
     }
 
     img {
-        width: 120px;
-        height: 120px;
+        width: 360px;
+        height: 360px;
     }
     
     dl {
-        margin-left: 2rem;
+        margin-left: 5rem;
     }
     
     h1 {
@@ -58,6 +75,7 @@
         font-family: "Pretendard-Bold";
         margin: 0 0 0.5rem 0;
     }
+
 }
 
 
