@@ -1,5 +1,10 @@
 import styles from "../styles/Planet.module.scss";
 
+// version
+// 1. description: 행성 설명 포함된 버전
+// 2. card: 행성 설명x 간단하게 카드형식으로 표현되는 버전
+// 3. (default) 기본
+
 const Planet = ({ version, name, imgSrc, diameter, mass, belongsTo, distance, description }) => {
     console.log(version)
     let slogan, detail;
