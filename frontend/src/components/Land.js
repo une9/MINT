@@ -1,7 +1,7 @@
 import styles from "../styles/Land.module.scss";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
 
-import { VscChevronUp, VscChevronDown } from "react-icons/vsc";
+import { VscChevronDown } from "react-icons/vsc";
 
 // version
 // card-purchase: 행성 구매페이지 (history: open)
