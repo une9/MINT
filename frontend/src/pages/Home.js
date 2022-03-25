@@ -16,14 +16,12 @@ const Home = () => {
     axios
     .get(process.env.REACT_APP_SERVER_URL +"/api/planets",{})
     .then((res)=>{
-
         const planetData = res.data.planet;
         setPlanetList((prevState) => ({
             ...prevState,
             planetData,
         }));
         console.log(planetData);
-      
     })
   },[]);
   const lottieOptions1 = {
