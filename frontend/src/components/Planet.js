@@ -6,7 +6,7 @@ import styles from "../styles/Planet.module.scss";
 // 3. (default) 기본
 
 const Planet = ({ version, name, imgSrc, diameter, mass, belongsTo, distance, description }) => {
-    console.log(version)
+    // console.log(version)
     let slogan, detail;
     if (description) {
         [slogan, detail] = description.split("\n");

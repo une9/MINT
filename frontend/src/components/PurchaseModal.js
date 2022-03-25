@@ -3,7 +3,7 @@ import styles from "../styles/PurchaseModal.module.scss";
 import { VscChromeClose } from "react-icons/vsc";
 
 const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
-    console.log("PurchaseModal Created")
+    // console.log("PurchaseModal Created")
 
     const myWalletName = "ssafy";
     const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";

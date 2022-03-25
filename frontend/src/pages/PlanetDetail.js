@@ -10,10 +10,11 @@ import PurchaseModal from "../components/PurchaseModal";
 
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
-    console.log(planetId)
+    // console.log(planetId)
     const [planetInfo, setPlanetInfo] = useState({});
     const [tiles, setTiles] = useState([]);
-    const [selectedTile, setSelectedTile] = useState({});
+    // const [selectedTile, setSelectedTile] = useState({});
+    const [selectedTileId, setSelectedTileId] = useState(0);
     const [cartItems, setCartItems] = useState([]);
 
     const [modalShow, setModalShow] = useState(false);
@@ -24,6 +25,7 @@ const PlanetDetail= ( ) => {
     useEffect(() => {
         const planetRes = {
             name: "kepler-1649c",
+            // name: "teegarden",
             imgSrc: "../../planet_ex.png",
             diameter: "지구의 약 1.06배",
             mass: "지구의 약 4배",
@@ -36,7 +38,7 @@ const PlanetDetail= ( ) => {
 
         const tileRes = [
             {
-                id: "A-001",
+                id: "Kep1649-A-001",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -45,7 +47,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: "A-002",
+                id: "Kep1649-A-002",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -54,7 +56,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: "A-003",
+                id: "Kep1649-A-003",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -63,7 +65,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: "A-004",
+                id: "Kep1649-A-004",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -74,11 +76,11 @@ const PlanetDetail= ( ) => {
         ]
         setTiles(tileRes);
     }, []);
-    console.log(planetInfo)
+    // console.log(planetInfo)
 
     useEffect(() => {
         if (tiles.length > 0) {
-            setSelectedTile(tiles[0]);
+            setSelectedTileId(tiles[0].id);
         }
     }, [tiles]);
 
@@ -89,13 +91,18 @@ const PlanetDetail= ( ) => {
                     planetInfo.name && <Planet {...planetInfo} />
                 }
 
-                {
-                    planetInfo.name 
-                    && 
-                    <PlanetMap 
-                        version={"purchase"}
-                        tiles={tiles} />
-                }
+                <div className={styles.planetInfoWrapper}>
+                    {
+                        planetInfo.name 
+                        && 
+                        <PlanetMap 
+                            version={"purchase"}
+                            planetName={planetInfo.name}
+                            tiles={tiles}
+                            selectedTileId={selectedTileId}
+                            setSelectedTileId={setSelectedTileId} />
+                    }
+                </div>
                 <button className={styles.cartButton} 
                     onClick={() => { navigate("/planet/purchase"); }}>
                     <BsCart3 />
@@ -103,7 +110,7 @@ const PlanetDetail= ( ) => {
                 </button>
             </main>
             {
-                selectedTile
+                tiles.length > 0
                 &&
                 <PurchaseModal
                     show={modalShow}
@@ -113,12 +120,12 @@ const PlanetDetail= ( ) => {
                             id: planetId,
                             data: planetInfo
                         },
-                        ...selectedTile
+                        ...tiles[selectedTileId]
                     }]}
                 />
             }
             <SideBarInfo 
-            {...selectedTile}
+            {...tiles[selectedTileId]}
             onModalShow={()=> setModalShow(true)} />
         </div>
     );
