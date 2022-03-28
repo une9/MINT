@@ -6,7 +6,7 @@ import styles from "../styles/PlanetMap.module.scss";
 // 2. purchase (구매과정, 선택 셀 색깔 민트색)
 // 3. admin (관리자 페이지, 선택 셀(구매 완료된 셀들) 색깔 빨간색)
 
-const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId }) => {
+const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles }) => {
     console.log(planetName)
     // console.log(selectedTileId)
 
@@ -23,7 +23,8 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                     <li key={`grid-item-${idx}`}
                         className={`${styles.planetMapGridItem} 
                             ${styles[tileId]}
-                            ${tileId === selectedTileId ? styles['planetMapGridItem--selected'] : ""}`}
+                            ${tileId === selectedTileId ? styles['planetMapGridItem--selected'] : ""}
+                            ${version === "admin" && soldTiles.includes(tileId) ? styles['planetMapGridItem--sold'] : ""}`}
                         onClick={() => onClickTile(tileId)}
                     >
                     </li>

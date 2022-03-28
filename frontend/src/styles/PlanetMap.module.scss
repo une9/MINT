@@ -197,8 +197,7 @@ $pur: 50px;
         cursor: pointer;
 
         &--selected {
-            background-color: $point-light;
-            opacity: 0.7;
+            background-color: #acf3d386;
         }
     }
 }
@@ -221,6 +220,12 @@ $pur: 50px;
     .planetMapGridItem {
         height: $pur;
         width: $pur;
+    }
+}
+
+.PlanetMap.admin {
+    .planetMapGridItem--sold {
+        background-color: #e3282854;
     }
 }
 
