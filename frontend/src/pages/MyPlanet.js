@@ -12,7 +12,6 @@ const MyPlanet = () => {
     const [myPlanet, setMyPlanet] = useState({});
     const [myLands, setMyLands] = useState([]);
 
-
     useEffect(() => {
         const planetRes = {
             name: "kepler-1649c",

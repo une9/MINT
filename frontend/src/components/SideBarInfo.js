@@ -22,18 +22,20 @@ const SideBarInfo = ({id, area, image, buyer, trade_date, price, token, onModalS
                     : <div className="image" />
                 }
 
-                <dl className="metadata">
-                    <div>
-                        <dt>크기</dt> <dd>{area}</dd>
-                    </div>
-                    <div>
-                        <dt>소유자</dt> <dd>{buyer && token ? `${buyer}(${token})` : "(없음)"}</dd>
-                    </div>
-                    <div className="price">
-                        <dt>현재가</dt> 
-                        <dd><img className="eth" src="../../ethereum.png" alt="ethereum" /><span className="priceText">{price} ETH</span></dd>
-                    </div>
-                </dl>
+                <div className="SideBarCart__metadataWrapper">
+                    <dl className="metadata">
+                        <div>
+                            <dt>크기</dt> <dd>{area}</dd>
+                        </div>
+                        <div>
+                            <dt>소유자</dt> <dd>{buyer && token ? `${buyer}(${token})` : "(없음)"}</dd>
+                        </div>
+                        <div className="price">
+                            <dt>현재가</dt> 
+                            <dd><img className="eth" src="../../ethereum.png" alt="ethereum" /><span className="priceText">{price} ETH</span></dd>
+                        </div>
+                    </dl>
+                </div>
             </section>
             <section className="btns">
                 <button>

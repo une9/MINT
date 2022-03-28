@@ -8,6 +8,7 @@ import PlanetDetail from './pages/PlanetDetail';
 import PlanetPurchase from './pages/PlanetPurchase';
 import AdminPlanetTransaction from './pages/AdminPlanetTransaction'
 import AdminPlanetCadastre from './pages/AdminPlanetCadastre';
+import AdminPlanetCadastreDetail from './pages/AdminPlanetCadastreDetail';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const AppRouter= ( ) => {
@@ -24,6 +25,7 @@ const AppRouter= ( ) => {
                     <Route path="planet/purchase" element={<PlanetPurchase />} /> 
                     <Route path="transaction" element={<AdminPlanetTransaction />} /> 
                     <Route path="cadastre" element={<AdminPlanetCadastre />} /> 
+                    <Route path="cadastre/detail" element={<AdminPlanetCadastreDetail />} /> 
                 </Route>
             </Routes>
         </BrowserRouter>
