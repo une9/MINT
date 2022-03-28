@@ -1,5 +1,6 @@
 import styles from '../styles/Home.scss';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import { Carousel } from 'react-bootstrap';
 import Kepler_1649c from '../lottie/Planet_Kepler_1649C.json';
@@ -16,6 +17,7 @@ const Home = () => {
   ];
   const [isStopped, SetIsStopped] = useState(false);
   const [isPaused, SetIsPaused] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -26,10 +28,9 @@ const Home = () => {
           ...prevState,
           planetData,
         }));
+        console.log(planetData);
       });
   }, []);
-
-  const movepage = () => {};
 
   return (
     <div className="main" style={styles}>
@@ -38,7 +39,8 @@ const Home = () => {
         <Carousel>
           {planetList!==undefined &&
             planetList.planetData.map((planet,index) => (
-              <Carousel.Item>
+              <Carousel.Item 
+              onClick={()=> {navigate(`/planet/${planet.pid}`)}}>
                 <div className="planet-name" >{planet.name}</div>
                 <Lottie
                   options={{
@@ -52,7 +54,6 @@ const Home = () => {
                   }}
                   isStopped={isStopped}
                   isPaused={isPaused}
-                  onClick={movepage}
                   style={{ width: '500px', height: '500px' }} // svg의 부모 div에 적용
                   eventListeners={[
                     {
