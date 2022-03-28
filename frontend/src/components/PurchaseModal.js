@@ -51,7 +51,7 @@ const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
                                     itemsToBuy.map((item, idx) => (
                                         <li key={`purchaseItem-${idx}`} className={`${styles.purchaseGrid} ${styles.purchaseGridLi}`}>
                                             <span className={styles.purchaseGridItem}>
-                                                <span className={styles.purchaseGridItem__title}>{item.id}</span>
+                                                <span className={`${styles.purchaseGridItem__title} ${styles.purchaseGridItem__landId}`}>{item.id}</span>
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                                 <span className={styles.purchaseGridItem__title}>FROM</span>

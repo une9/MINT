@@ -1,11 +1,19 @@
 @import "variables";
 
 // 비율 단위
-$m: 110px;
+$det: 110px;
+$pur: 50px;
 
 
 // mixin
-@mixin block( $width, $height, $top, $left ) {
+@mixin mapSize ( $size ) {
+    height: calc(5 * $size);
+    min-height: calc(5 * $size);
+    width: calc(9 * $size);
+    min-width: calc(9 * $size);
+}
+
+@mixin block( $width, $height, $top, $left, $m ) {
     width: calc($width * $m);
     height: calc($height * $m);
     position: absolute;
@@ -13,7 +21,7 @@ $m: 110px;
     left: calc($left * $m);
 }
 
-@mixin land( $len ) {
+@mixin land( $len, $m ) {
     width: calc($len * $m);
     height: calc($len * $m);
 }
@@ -34,16 +42,134 @@ $m: 110px;
     border-bottom-right-radius: 32px;
 }
 
+
+// planet mixin
+@mixin Kep1649c( $m ) {
+    // 구역
+    // $width, $height, $top, $left
+
+    .KepC-A {
+        @include block(4, 3, 0, 0, $m);
+    }
+
+    .KepC-B {
+        @include block(2, 3, 0, 4, $m);
+    }
+
+    .KepC-C {
+        @include block(3, 3, 0, 6, $m);
+    }
+
+    .KepC-D {
+        @include block(5, 2, 3, 0, $m);
+    }
+
+    .KepC-E {
+        @include block(4, 2, 3, 5, $m);
+    }
+
+
+    // 구역 크기 & 모서리
+    .KepC-A-001 {
+        @include blockTopLeft;
+    }
+
+    .KepC-B-001 {
+        @include land(2, $m);
+    }
+
+    .KepC-C-001 {
+        @include land(3, $m);
+        @include blockTopRight;
+    }
+
+    .KepC-D-001 {
+        @include land(2, $m);
+        @include blockBottomLeft;
+    }
+
+    .KepC-D-002 {
+        @include land(2, $m);
+    }
+
+    .KepC-E-001 {
+        @include land(2, $m);
+    }
+
+    .KepC-E-005 {
+        @include blockBottomRight;
+    }
+    
+}
+
+@mixin TG ( $m ) {
+    // 구역
+    // $width, $height, $top, $left
+
+    .TG-A {
+        @include block(2, 5, 0, 0, $m);
+    }
+
+    .TG-B {
+        @include block(3, 2, 0, 2, $m);
+    }
+
+    .TG-C {
+        @include block(4, 2, 0, 5, $m);
+    }
+
+    .TG-D {
+        @include block(2, 3, 2, 2, $m);
+    }
+
+    .TG-E {
+        @include block(2, 3, 2, 4, $m);
+    }
+
+    .TG-F {
+        @include block(3, 3, 2, 6, $m);
+    }
+
+
+    // 구역 크기 & 모서리
+    .TG-A-001 {
+        @include blockTopLeft;
+        @include land(2, $m);
+    }
+
+    .TG-A-006 {
+        @include blockBottomLeft;
+    }
+
+    .TG-C-001 {
+        @include land(2, $m);
+    }
+
+    .TG-C-003 {
+        @include blockTopRight;
+    }
+
+    .TG-D-003 {
+        @include land(2, $m);
+    }
+
+    .TG-E-001 {
+        @include land(2, $m);
+    }
+
+    .TG-F-001 {
+        @include land(3, $m);
+        @include blockBottomRight;
+    }
+    
+}
+
+
 // style
 
 .PlanetMap {
-    height: calc(5 * $m);
-    min-height: calc(5 * $m);
-    width: calc(9 * $m);
-    min-width: calc(9 * $m);
     // border: 0.5px solid white;
     border-radius: 32px;
-    margin-top: 3rem;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     padding: 24px;
@@ -65,8 +191,6 @@ $m: 110px;
     .planetMapGridItem {
         border: 0.5px solid white;
         list-style-type: none;
-        height: $m;
-        width: $m;
 
         float: left;
 
@@ -79,125 +203,45 @@ $m: 110px;
     }
 }
 
+.PlanetMap.detail,
+.PlanetMap.admin {
+    @include mapSize( $det );
+    margin-top: 3rem;
+
+    .planetMapGridItem {
+        height: $det;
+        width: $det;
+    }
+}
+
+.PlanetMap.purchase {
+    @include mapSize( $pur );
+    margin-top: 1.5rem;
+
+    .planetMapGridItem {
+        height: $pur;
+        width: $pur;
+    }
+}
+
 
 // kepler-1649c
-.planetMapGrid.kepler-1649c {
-    // 구역
-    // $width, $height, $top, $left
+.PlanetMap.detail .planetMapGrid.kepler-1649c,
+.PlanetMap.admin .planetMapGrid.kepler-1649c {
+    @include Kep1649c( $det );
+}
 
-    .Kep1649-A {
-        @include block(4, 3, 0, 0);
-    }
-
-    .Kep1649-B {
-        @include block(2, 3, 0, 4);
-    }
-
-    .Kep1649-C {
-        @include block(3, 3, 0, 6);
-    }
-
-    .Kep1649-D {
-        @include block(5, 2, 3, 0);
-    }
-
-    .Kep1649-E {
-        @include block(4, 2, 3, 5);
-    }
-
-
-    // 구역 크기 & 모서리
-    .Kep1649-A-001 {
-        @include blockTopLeft;
-    }
-
-    .Kep1649-B-001 {
-        @include land(2);
-    }
-
-    .Kep1649-C-001 {
-        @include land(3);
-        @include blockTopRight;
-    }
-
-    .Kep1649-D-001 {
-        @include land(2);
-        @include blockBottomLeft;
-    }
-
-    .Kep1649-D-002 {
-        @include land(2);
-    }
-
-    .Kep1649-E-001 {
-        @include land(2);
-    }
-
-    .Kep1649-E-005 {
-        @include blockBottomRight;
-    }
-    
+.PlanetMap.purchase .planetMapGrid.kepler-1649c {
+    @include Kep1649c( $pur );
 }
 
 
 // teegarden
-.planetMapGrid.teegarden {
-    // 구역
-    // $width, $height, $top, $left
+.PlanetMap.detail .planetMapGrid.teegarden,
+.PlanetMap.admin .planetMapGrid.teegarden {
+    @include TG( $det );
+}
 
-    .TG-A {
-        @include block(2, 5, 0, 0);
-    }
-
-    .TG-B {
-        @include block(3, 2, 0, 2);
-    }
-
-    .TG-C {
-        @include block(4, 2, 0, 5);
-    }
-
-    .TG-D {
-        @include block(2, 3, 2, 2);
-    }
-
-    .TG-E {
-        @include block(2, 3, 2, 4);
-    }
-
-    .TG-F {
-        @include block(3, 3, 2, 6);
-    }
-
-
-    // 구역 크기 & 모서리
-    .TG-A-001 {
-        @include blockTopLeft;
-        @include land(2);
-    }
-
-    .TG-A-006 {
-        @include blockBottomLeft;
-    }
-
-    .TG-C-001 {
-        @include land(2);
-    }
-
-    .TG-C-003 {
-        @include blockTopRight;
-    }
-
-    .TG-D-003 {
-        @include land(2);
-    }
-
-    .TG-E-001 {
-        @include land(2);
-    }
-
-    .TG-F-001 {
-        @include land(3);
-        @include blockBottomRight;
-    }
+.PlanetMap.purchase .planetMapGrid.teegarden {
+    @include TG( $pur );
 }

@@ -2,14 +2,16 @@ import { useState } from "react";
 import styles from "../styles/PlanetMap.module.scss";
 
 // versions
-// 1. purchase (구매과정, 선택 셀 색깔 민트색)
-// 2. admin (관리자 페이지, 선택 셀(구매 완료된 셀들) 색깔 빨간색)
+// 1. detail (상세, 선택 셀 색깔 민트색)
+// 2. purchase (구매과정, 선택 셀 색깔 민트색)
+// 3. admin (관리자 페이지, 선택 셀(구매 완료된 셀들) 색깔 빨간색)
 
 const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId }) => {
     console.log(planetName)
     // console.log(selectedTileId)
 
     const onClickTile = (targetTileId) => {
+        if (version !== "detail") return;
         console.log(targetTileId)
         setSelectedTileId(targetTileId);
     }
@@ -49,7 +51,7 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                 {
                     planetName === "kepler-1649c"
                     &&
-                    blockGenerator([12, 3, 1, 4, 5], "Kep1649")
+                    blockGenerator([12, 3, 1, 4, 5], "KepC")
                 }
                 {
                     planetName === "teegarden"

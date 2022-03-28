@@ -14,7 +14,8 @@ const PlanetDetail= ( ) => {
     const [planetInfo, setPlanetInfo] = useState({});
     const [tiles, setTiles] = useState([]);
     // const [selectedTile, setSelectedTile] = useState({});
-    const [selectedTileId, setSelectedTileId] = useState(0);
+    const [selectedTileIdx, setSelectedTileIdx] = useState(0);
+    const [selectedTileId, setSelectedTileId] = useState("");
     const [cartItems, setCartItems] = useState([]);
 
     const [modalShow, setModalShow] = useState(false);
@@ -38,7 +39,7 @@ const PlanetDetail= ( ) => {
 
         const tileRes = [
             {
-                id: "Kep1649-A-001",
+                id: "KepC-A-001",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -47,7 +48,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: "Kep1649-A-002",
+                id: "KepC-A-002",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -56,7 +57,7 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: "Kep1649-A-003",
+                id: "KepC-A-003",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -65,12 +66,21 @@ const PlanetDetail= ( ) => {
                 token: null,
             },
             {
-                id: "Kep1649-A-004",
+                id: "KepC-A-004",
                 area: 1,
                 image: null,
                 buyer: null,
                 trade_date: null,
                 price: 0.01,
+                token: null,
+            },
+            {
+                id: "KepC-B-001",
+                area: 2,
+                image: null,
+                buyer: null,
+                trade_date: null,
+                price: 0.04,
                 token: null,
             },
         ]
@@ -84,6 +94,15 @@ const PlanetDetail= ( ) => {
         }
     }, [tiles]);
 
+    useEffect(() => {
+        for (let i = 0; i < tiles.length; i++) {
+            if (tiles[i].id === selectedTileId) {
+                setSelectedTileIdx(i);
+                break
+            }
+        }
+    }, [selectedTileId]);
+
     return(
         <div className={`${styles.PlanetDetail} PlanetPage`}>
             <main>
@@ -96,7 +115,7 @@ const PlanetDetail= ( ) => {
                         planetInfo.name 
                         && 
                         <PlanetMap 
-                            version={"purchase"}
+                            version={"detail"}
                             planetName={planetInfo.name}
                             tiles={tiles}
                             selectedTileId={selectedTileId}
@@ -125,7 +144,7 @@ const PlanetDetail= ( ) => {
                 />
             }
             <SideBarInfo 
-            {...tiles[selectedTileId]}
+            {...tiles[selectedTileIdx]}
             onModalShow={()=> setModalShow(true)} />
         </div>
     );
