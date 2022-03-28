@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom';
 import './styles/style.scss';
 import AppRouter from './Router'
 import reportWebVitals from './reportWebVitals';
+import { Web3Provider } from '@ethersproject/providers';
+import { Web3ReactProvider } from '@web3-react/core';
 
+function getLibrary(provider) {
+  const library = new Web3Provider(provider, "any");
+  return library;
+}
 
 ReactDOM.render(
   <React.StrictMode>
+    <Web3ReactProvider getLibrary={getLibrary}>
       <AppRouter/>
+    </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

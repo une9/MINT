@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 const PlanetPurchase= () => {
     const [cartItems, setCartItems] = useState([]);
     const [selectedIdx, setSelectedIdx] = useState(0);
+    const [selectedId, setSelectedId] = useState("");
 
     const [modalShow, setModalShow] = useState(false);
     const onModalHide = () => setModalShow(false);
@@ -33,7 +34,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-001",
+                id: "KepC-A-001",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -54,7 +55,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-001",
+                id: "KepC-A-002",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -75,7 +76,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-001",
+                id: "KepC-B-001",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -96,7 +97,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-001",
+                id: "KepC-C-001",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -117,7 +118,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-001",
+                id: "KepC-D-002",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -138,7 +139,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-002",
+                id: "KepC-A-006",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -159,7 +160,7 @@ const PlanetPurchase= () => {
                         description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
                     }
                 },
-                id: "A-003",
+                id: "KepC-A-010",
                 area: 1,
                 image: null,
                 buyer: null,
@@ -171,6 +172,21 @@ const PlanetPurchase= () => {
         setCartItems(cartItemsInStorage);
 
     }, []);
+
+    useEffect(() => {
+        if (cartItems.length > 0) {
+            setSelectedId(cartItems[0].id);
+        }
+    }, [cartItems]);
+
+    useEffect(() => {
+        for (let i = 0; i < cartItems.length; i++) {
+            if (cartItems[i].id === selectedId) {
+                setSelectedIdx(i);
+                break
+            }
+        }
+    }, [selectedId]);
 
     return(
         <div className={`${styles.PlanetPurchase} PlanetPage`}>
@@ -186,7 +202,14 @@ const PlanetPurchase= () => {
                             }
 
                             {
-                                cartItems.length && <PlanetMap tiles={cartItems[selectedIdx]} />
+                                cartItems.length 
+                                && 
+                                 <PlanetMap 
+                                    version={"purchase"}
+                                    planetName={cartItems[selectedIdx].planet.data.name}
+                                    tiles={cartItems[selectedIdx]}
+                                    selectedTileId={cartItems[selectedIdx].id}
+                                    setSelectedTileId={setSelectedId} />
                             }
                         </div>
                         <div>

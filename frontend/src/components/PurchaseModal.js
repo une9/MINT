@@ -3,7 +3,7 @@ import styles from "../styles/PurchaseModal.module.scss";
 import { VscChromeClose } from "react-icons/vsc";
 
 const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
-    console.log("PurchaseModal Created")
+    // console.log("PurchaseModal Created")
 
     const myWalletName = "ssafy";
     const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
@@ -51,7 +51,7 @@ const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
                                     itemsToBuy.map((item, idx) => (
                                         <li key={`purchaseItem-${idx}`} className={`${styles.purchaseGrid} ${styles.purchaseGridLi}`}>
                                             <span className={styles.purchaseGridItem}>
-                                                <span className={styles.purchaseGridItem__title}>{item.id}</span>
+                                                <span className={`${styles.purchaseGridItem__title} ${styles.purchaseGridItem__landId}`}>{item.id}</span>
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                                 <span className={styles.purchaseGridItem__title}>FROM</span>
