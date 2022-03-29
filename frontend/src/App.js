@@ -2,8 +2,11 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./components/navbar/Sidebar";
 import SidebarUSer from "./components/navbar/SidebarUser";
 import SidebarAdmin from "./components/navbar/SidebarAdmin";
+import isLogin from "./utils/isLogin";
 import { useEffect } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 
 const App= ( ) => {
     const navigate = useNavigate();
@@ -15,7 +18,10 @@ const App= ( ) => {
   });
     return(
         <div style={{height:"100%"}}>
-            <Sidebar/>
+          {isLogin()?(
+            <SidebarUSer/>
+          ):( <Sidebar/>)}
+           
             {/* <SidebarUSer/> */}
             {/* <SidebarAdmin/> */}
             <Outlet />

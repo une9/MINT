@@ -9,11 +9,16 @@ import Proxima_B from '../lottie/Planet_Proxima-b.json';
 import Ross_128b from '../lottie/Planet_Ross_128B.json';
 import Teegarden_b from '../lottie/Planet_Teegarden_B.json';
 import axios from 'axios';
+import ReactTooltip from 'react-tooltip';
 
 const Home = () => {
   const [planetList, setPlanetList] = useState();
   const planetName = [
-    Teegarden_b,Ross_128b,Kepler_1649c,Kepler_22b,Proxima_B
+    Teegarden_b,
+    Ross_128b,
+    Kepler_1649c,
+    Kepler_22b,
+    Proxima_B,
   ];
   const [isStopped, SetIsStopped] = useState(false);
   const [isPaused, SetIsPaused] = useState(true);
@@ -37,31 +42,49 @@ const Home = () => {
       {/* <div> */}
       <div>
         <Carousel>
-          {planetList!==undefined &&
-            planetList.planetData.map((planet,index) => (
-              <Carousel.Item 
-              onClick={()=> {navigate(`/planet/${planet.pid}`)}}>
-                <div className="planet-name" >{planet.name}</div>
-                <Lottie
-                  options={{
-                    animationData: planetName[index],
-                    loop: true,
-                    autoplay: true,
-                    rendererSettings: {
-                      className: 'add-class', // svg에 적용
-                      preserveAspectRatio: 'xMidYMid slice',
-                    },
+          {planetList !== undefined &&
+            planetList.planetData.map((planet, index) => (
+              <Carousel.Item>
+                <div className="planet-name">{planet.name}</div>
+                <div
+                  onClick={() => {
+                    navigate(`/planet/${planet.pid}`);
                   }}
-                  isStopped={isStopped}
-                  isPaused={isPaused}
-                  style={{ width: '500px', height: '500px' }} // svg의 부모 div에 적용
-                  eventListeners={[
-                    {
-                      eventName: 'complete',
-                      callback: () => console.log('the animation completed'),
-                    },
-                  ]}
-                />
+                  data-tip={planet.content}
+                  data-for={planet.name}
+                  className="lottie-div"
+                >
+                  <Lottie
+                    options={{
+                      animationData: planetName[index],
+                      loop: true,
+                      autoplay: true,
+                      rendererSettings: {
+                        className: 'add-class', // svg에 적용
+                        preserveAspectRatio: 'xMidYMid slice',
+                      },
+                    }}
+                    isStopped={isStopped}
+                    isPaused={isPaused}
+                    style={{ width: '500px', height: '500px' }} // svg의 부모 div에 적용
+                    eventListeners={[
+                      {
+                        eventName: 'complete',
+                        callback: () => console.log('the animation completed'),
+                      },
+                    ]}
+                  />
+
+                  <ReactTooltip
+                    id={planet.name}
+                    type="dark"
+                    place="right"
+                    effect="solid"
+                    insecure={true}
+                    multiline={true}
+                    className="tooltip"
+                  ></ReactTooltip>
+                </div>
               </Carousel.Item>
             ))}
         </Carousel>

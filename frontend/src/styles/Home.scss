@@ -10,6 +10,25 @@
     }
     background-image: url('../../public/image/stars.png');
     background-size: 50%;
+    .tooltip{
+        margin-left: -50px !important;
+        width: 43vh !important;
+        word-break:keep-all !important;
+        span:nth-of-type(1){
+            font-weight: 900 !important;
+            font-size: medium !important;
+            margin-bottom: 10PX;
+        }
+    }
+    .lottie-div{
+        display: inline-block;
+    }
+    span.multi-line {
+        text-align: left;
+    }
+    div.carousel-item{
+        text-align: center;
+    }
 }
 body{
     // background-image: url('../../public/image/stars.png');

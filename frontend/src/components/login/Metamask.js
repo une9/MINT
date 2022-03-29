@@ -1,6 +1,7 @@
 import { useWeb3React } from '@web3-react/core';
 import styles from '../../styles/Metamask.scss';
 import {InjectedConnector} from '@web3-react/injected-connector';
+import { useNavigate } from 'react-router-dom';
 
 const Metamask = ()=>{
     const {
@@ -12,6 +13,7 @@ const Metamask = ()=>{
         deactivate
     } = useWeb3React();
     
+    const navigate = useNavigate();
     const injected = new InjectedConnector();
 
     const handleConnect = () => {
@@ -28,9 +30,13 @@ const Metamask = ()=>{
         });
 
         localStorage.setItem("account", {account});
+        localStorage.setItem("chainId", {chainId});
     }
     const buttonClick= ()=>{
         handleConnect();
+        const uri = localStorage.getItem('path');
+        navigate(uri);
+
     }
     return(
         <div className="login-box" style={styles}>
