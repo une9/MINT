@@ -33,18 +33,32 @@ contract TileFactory is TileNFT {
     function createAndBuy(
         string memory _galaxyName,
         string memory _planetName,
-        string memory _tileName
+        string memory _tileName,
+        uint256 _price
     ) public payable {
-        tileIds++;
-
         require(
             msg.sender != address(0),
             "The caller must not have an address of 0."
         );
-        require(!_exists(tileIds), "already exists token");
+        require(!_exists(tileIds + 1), "already exists token");
+
+        require(
+            owner != address(0),
+            "CurrentOwner must not have an address of 0."
+        );
+        require(owner != msg.sender, "TileOwner should not be a caller.");
+
+        require(
+            msg.value >= _price,
+            "price sent in to buy should be equal to or more than the token's price"
+        );
+
+        //토큰 전송 및 지불
+        owner.transfer(msg.value);
+
+        tileIds++;
 
         //토큰 발행
-
         mint(tileIds);
 
         Tile memory newTile = Tile(
@@ -59,20 +73,6 @@ contract TileFactory is TileNFT {
         );
 
         tileInfo[tileIds] = newTile;
-
-        require(
-            owner != address(0),
-            "CurrentOwner must not have an address of 0."
-        );
-        require(owner != msg.sender, "TileOwner should not be a caller.");
-
-        require(
-            msg.value >= newTile.price,
-            "price sent in to buy should be equal to or more than the token's price"
-        );
-
-        //토큰 전송 및 지불
-        owner.transfer(msg.value);
 
         emit nftPurchase(tileIds, block.timestamp);
     }
