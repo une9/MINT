@@ -36,13 +36,11 @@ contract TileFactory is TileNFT {
         string memory _tileName,
         uint256 _price
     ) public payable {
-        tileIds++;
-
         require(
             msg.sender != address(0),
             "The caller must not have an address of 0."
         );
-        require(!_exists(tileIds), "already exists token");
+        require(!_exists(tileIds + 1), "already exists token");
 
         require(
             owner != address(0),
@@ -57,6 +55,8 @@ contract TileFactory is TileNFT {
 
         //토큰 전송 및 지불
         owner.transfer(msg.value);
+
+        tileIds++;
 
         //토큰 발행
         mint(tileIds);
