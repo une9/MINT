@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Lottie from 'react-lottie';
 import styles from "../styles/PlanetMap.module.scss";
 
 // versions
@@ -6,9 +7,13 @@ import styles from "../styles/PlanetMap.module.scss";
 // 2. purchase (구매과정, 선택 셀 색깔 민트색)
 // 3. admin (관리자 페이지, 선택 셀(구매 완료된 셀들) 색깔 빨간색)
 
+const ConvertToplanetCode = {
+    "Kepler_1649c": "KepC",
+    "teegarden": "TG"
+}
+
 const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles }) => {
-    console.log(planetName)
-    // console.log(selectedTileId)
+    const planetCode = ConvertToplanetCode[planetName];
 
     const onClickTile = (targetTileId) => {
         if (version !== "detail") return;
@@ -48,16 +53,16 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
         <article className={`${styles.PlanetMap} ${styles[version]}`}>
             <img src={`../../../planetMap/${planetName}.svg`} 
                 alt={`planet map - ${planetName}`} className={styles.planet2DMap} />
-            <ul className={`${styles.planetMapGrid} ${styles[planetName]}`}>
+            <ul className={`${styles.planetMapGrid} ${styles[planetCode]}`}>
                 {
-                    planetName === "kepler-1649c"
+                    planetCode === "KepC"
                     &&
-                    blockGenerator([12, 3, 1, 4, 5], "KepC")
+                    blockGenerator([12, 3, 1, 4, 5], planetCode)
                 }
                 {
-                    planetName === "teegarden"
+                    planetCode === "TG"
                     &&
-                    blockGenerator([7, 6, 5, 3, 3, 1], "TG")
+                    blockGenerator([7, 6, 5, 3, 3, 1], planetCode)
                 }
             </ul>
         </article>

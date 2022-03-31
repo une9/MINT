@@ -230,23 +230,23 @@ $pur: 50px;
 }
 
 
-// kepler-1649c
-.PlanetMap.detail .planetMapGrid.kepler-1649c,
-.PlanetMap.admin .planetMapGrid.kepler-1649c {
+// kepler_1649c
+.PlanetMap.detail .planetMapGrid.KepC,
+.PlanetMap.admin .planetMapGrid.KepC {
     @include Kep1649c( $det );
 }
 
-.PlanetMap.purchase .planetMapGrid.kepler-1649c {
+.PlanetMap.purchase .planetMapGrid.KepC {
     @include Kep1649c( $pur );
 }
 
 
 // teegarden
-.PlanetMap.detail .planetMapGrid.teegarden,
-.PlanetMap.admin .planetMapGrid.teegarden {
+.PlanetMap.detail .planetMapGrid.TG,
+.PlanetMap.admin .planetMapGrid.TG {
     @include TG( $det );
 }
 
-.PlanetMap.purchase .planetMapGrid.teegarden {
+.PlanetMap.purchase .planetMapGrid.TG {
     @include TG( $pur );
 }

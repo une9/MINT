@@ -8,6 +8,12 @@ import SideBarCart from "../components/SideBarCart";
 import PurchaseModal from "../components/PurchaseModal";
 import { useNavigate } from "react-router-dom";
 
+// outlet context
+import { useOutletContext } from "react-router-dom";
+
+import { ethers } from 'ethers';
+// import contract from '../smartcontract/TileFactory.json'
+
 const PlanetPurchase= () => {
     const [cartItems, setCartItems] = useState([]);
     const [selectedIdx, setSelectedIdx] = useState(0);
@@ -17,6 +23,10 @@ const PlanetPurchase= () => {
     const onModalHide = () => setModalShow(false);
 
     const navigate = useNavigate();
+
+    // web3 관련 객체 가져오기
+    const myWeb3 = useOutletContext();
+    console.log(myWeb3)
 
     useEffect(() => {
         // localstorage에서 가져오기
@@ -188,6 +198,61 @@ const PlanetPurchase= () => {
         }
     }, [selectedId]);
 
+
+    // smart contract
+    const contractCall = async () => {
+        // const abi = contract.abi;
+        // const contractAddress = "0xe51250721f911098273062509165185f0e18DF82";
+
+        try {
+            const { ethereum } = window;
+
+            if ( ethereum ){
+                // const provider = new ethers.providers.Web3Provider(ethereum);
+                // const signer = provider.getSigner();
+                // const nftContract = new ethers.Contract(contractAddress, abi, signer);
+                // console.log("컨트랙트 연결");
+
+                // const gasPrice = await provider.getGasPrice();
+                // const gasPriceInDecString = Number(gasPrice._hex).toString();
+                // // console.log(gasPrice)
+                // console.log("gas price: ", gasPriceInDecString);
+
+                let amountInEther = '0.001';
+                // Create a transaction object
+                let tx = {
+                    // Convert currency unit from ether to wei
+                    value: ethers.utils.parseEther(amountInEther)
+                };
+
+                // 구매 함수 호출
+                // await nftContract.createAndBuy("우리은하", "TEST", "TEST-A-001", 10**15, tx);
+
+                const myTiles = await myWeb3.nftContract.getMyTile();
+                console.log("getMyTile: ", myTiles);
+
+                let currentTileId = await myWeb3.nftContract.currentTileId();
+                console.log("currentTileId:", currentTileId);
+                const currentTileIdHex = currentTileId._hex;
+                const currentTileIdDec = Number(currentTileIdHex);
+                console.log("currentTileId(hex):", currentTileIdHex);
+                console.log("currentTileId(decimal):", currentTileIdDec);
+
+                // let balance = await provider.getBalance(contractAddress);
+                // console.log(balance);
+            } else {
+                console.log("metamast 연결 X")
+            }
+        }
+        catch (error) {
+            console.log(error);        
+        }
+    }
+
+
+
+
+
     return(
         <div className={`${styles.PlanetPurchase} PlanetPage`}>
             <main>
@@ -214,6 +279,13 @@ const PlanetPurchase= () => {
                         </div>
                         <div>
                             <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
+
+                            {/* test용 */}
+                            <div>
+                                <button onClick={contractCall}>contractCall</button>
+                            </div>
+                            {/* test용 */}
+
                         </div>
                     </div>
                     :
@@ -237,7 +309,8 @@ const PlanetPurchase= () => {
                 selectedIdx={selectedIdx}
                 setSelectedIdx={setSelectedIdx}
                 setModalShow={setModalShow}
-                setCartItems={setCartItems} />
+                setCartItems={setCartItems}
+            />
         </div>
     );
 }
