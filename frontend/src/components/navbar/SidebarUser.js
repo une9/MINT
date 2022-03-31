@@ -12,10 +12,19 @@ import { MdOutlineDescription } from 'react-icons/md';
 import { MdLogout } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
 import { useNavigate, useLocation } from 'react-router-dom';
+import useMetaMask from '../../hook/MetamaskHook';
 
 const SidebarUSer = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { connect, disconnect, isActive, account, shouldDisable } = useMetaMask();
+
+  // const onClickLogout = () => {
+
+  //   localStorage.removeItem("accessToken");
+  //   navigate(localStorage.getItem("path"));
+  //   window.location.reload();
+  // };
 
   return (
     <SideNav
@@ -27,12 +36,16 @@ const SidebarUSer = () => {
           const to = '/' + selected;
           if (pathname !== to) {
             navigate(to);
+            localStorage.setItem('path',pathname);
+          }
+          else{
+            localStorage.setItem('path','/' + selected);
           }
         }
       }}
     >
       <Toggle />
-      <Nav defaultSelected="home">
+      <Nav defaultSelected={pathname.substring(1)}>
         <NavItem eventKey="home">
           <NavIcon className="sidebar-icon">
             <FaHome size="1.8em" />
@@ -53,7 +66,7 @@ const SidebarUSer = () => {
         </NavItem>
       </Nav>
       <Nav className="sidebar-wallet">
-        <NavItem eventKey="logout">
+        <NavItem eventKey="logout" onClick={disconnect}>
           <NavIcon className="sidebar-icon">
             <MdLogout size="2em" color="rgb(255,255,255)" />
           </NavIcon>
