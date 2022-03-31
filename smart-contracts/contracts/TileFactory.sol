@@ -24,7 +24,11 @@ contract TileFactory is TileNFT {
 
     mapping(uint256 => Tile) tileInfo;
 
-    event nftPurchase(uint256 indexed tileId, uint256 indexed purchaseTime);
+    event nftPurchase(
+        uint256 indexed tileId,
+        address indexed buyer,
+        uint256 indexed purchaseTime
+    );
 
     function currentTileId() public view returns (uint256) {
         return tileIds;
@@ -74,7 +78,7 @@ contract TileFactory is TileNFT {
 
         tileInfo[tileIds] = newTile;
 
-        emit nftPurchase(tileIds, block.timestamp);
+        emit nftPurchase(tileIds, msg.sender, block.timestamp);
     }
 
     function getAllTile() public view returns (Tile[] memory) {
