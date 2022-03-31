@@ -16,8 +16,8 @@ import lombok.Setter;
 @Setter
 @ApiModel("TileResponse")
 public class TileRes {
-	@ApiModelProperty(name="타일 ID", example="1")
-	long tid;
+	@ApiModelProperty(name="타일 ID", example="KepC-A-001")
+	String tid;
 	
 	@ApiModelProperty(name="면적", example="3000")
 	int area;

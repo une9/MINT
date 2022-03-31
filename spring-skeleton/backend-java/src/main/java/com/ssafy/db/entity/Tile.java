@@ -25,7 +25,7 @@ public class Tile {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tile_id")
-    Long tid;
+    String tid;
 	
 	@ManyToOne
 	@JoinColumn(name = "planet_id")

@@ -34,7 +34,7 @@ public class QTile extends EntityPathBase<Tile> {
 
     public final NumberPath<Integer> price = createNumber("price", Integer.class);
 
-    public final NumberPath<Long> tid = createNumber("tid", Long.class);
+    public final StringPath tid = createString("tid");
 
     public final StringPath tokenId = createString("tokenId");
 

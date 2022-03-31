@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ssafy.db.entity.Tile;
 
 @Repository
-public interface TileRepository extends JpaRepository<Tile, Long>{
+public interface TileRepository extends JpaRepository<Tile, String>{
 	//tid로 Tile entity 가져오기
 	Optional<Tile> findByTid(Long tid);
 	

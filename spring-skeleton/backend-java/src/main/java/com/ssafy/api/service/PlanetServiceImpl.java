@@ -24,10 +24,16 @@ public class PlanetServiceImpl implements PlanetService {
 	TileRepository tileRepository;
 	
 	@Override
-	public List<Planet> getPlanet() {
+	public List<Planet> getPlanets() {
 		List<Planet> planets = planetRepository.findAll();
 		
 		return planets;
+	}
+	
+	@Override
+	public Planet getPlanet(Long pid) {
+		Optional<Planet> planet = planetRepository.findById(pid);
+		return planet.get();
 	}
 	
 	@Override

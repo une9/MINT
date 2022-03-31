@@ -7,6 +7,6 @@ import com.ssafy.db.entity.Tile;
 
 public interface TileService {
 	List<Tile> getAllTiles();
-	Tile getTile(long tid);
+	Tile getTile(String tid);
 	boolean tileModify(TilePutReq tileInfo);
 }
