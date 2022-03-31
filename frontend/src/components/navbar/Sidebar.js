@@ -23,6 +23,7 @@ const Sidebar = () => {
         const to = '/' + selected;
         if (pathname !== to) {
           navigate(to);
+          localStorage.setItem('path',{pathname});
         }
       }}
     >
