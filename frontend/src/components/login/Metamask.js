@@ -8,8 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Metamask = ()=>{
-
-    
     const { connect, disconnect, isActive, account, shouldDisable } = useMetaMask();
     const navigate = useNavigate();
     const [path, setPath] = useState(""); 
@@ -21,7 +19,13 @@ const Metamask = ()=>{
     useEffect(() => {
         handelPath()
     }, [handelPath])
-
+    
+    const click = ()=>{
+        connect();
+        if(account&&account.length>0){
+            navigate(path);
+        }
+    }
     // const connectWalletHandler = async () => {     
     //     const { ethereum } = window;
 
@@ -45,11 +49,6 @@ const Metamask = ()=>{
     //         console.log(err);
     //     }
     // }
-    const click = ()=>{
-        connect();
-        handelPath();
-        navigate(path);
-    }
 
 
     return(

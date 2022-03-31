@@ -19,12 +19,11 @@ const SidebarUSer = () => {
   const navigate = useNavigate();
   const { connect, disconnect, isActive, account, shouldDisable } = useMetaMask();
 
-  // const onClickLogout = () => {
-
-  //   localStorage.removeItem("accessToken");
-  //   navigate(localStorage.getItem("path"));
-  //   window.location.reload();
-  // };
+  const onClickLogout = () => {
+    disconnect();
+    if(pathname.includes('mypage'))
+    navigate('/home');
+  };
 
   return (
     <SideNav
@@ -66,7 +65,7 @@ const SidebarUSer = () => {
         </NavItem>
       </Nav>
       <Nav className="sidebar-wallet">
-        <NavItem eventKey="logout" onClick={disconnect}>
+        <NavItem eventKey="logout" onClick={onClickLogout}>
           <NavIcon className="sidebar-icon">
             <MdLogout size="2em" color="rgb(255,255,255)" />
           </NavIcon>
