@@ -18,7 +18,7 @@ import lombok.Setter;
 public class TilePutReq {
 	
 	@ApiModelProperty(name="타일 ID", example="1")
-	long tid;
+	String tid;
 	
 	@ApiModelProperty(name="면적", example="3000")
 	int area;

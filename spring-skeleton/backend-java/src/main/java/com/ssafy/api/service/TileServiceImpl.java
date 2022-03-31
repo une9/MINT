@@ -26,7 +26,7 @@ public class TileServiceImpl implements TileService {
 	}
 
 	@Override
-	public Tile getTile(long tid) { // tid로 타일 조회
+	public Tile getTile(String tid) { // tid로 타일 조회
 		return tileRepository.getOne(tid);
 	}
 

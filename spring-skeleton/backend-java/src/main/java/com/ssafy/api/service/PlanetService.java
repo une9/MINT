@@ -11,6 +11,7 @@ import com.ssafy.db.entity.Tile;
 public interface PlanetService {
 	List<Tile> getTilesByPid(Long pid);
 	int getRemainTile(Long pid);
-	List<Planet> getPlanet();
+	Planet getPlanet(Long pid);
+	List<Planet> getPlanets();
 	List<Tile> getAllTile();
 }

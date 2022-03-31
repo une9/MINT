@@ -1,13 +1,8 @@
 package com.ssafy.api.response;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.Tile;
+import com.ssafy.db.entity.Planet;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +18,17 @@ public class PlanetRes{
 	String galaxy;
 	String content;
     int totalCell;
+    
+	public static PlanetRes of(Planet planet) {
+		PlanetRes res = new PlanetRes();
+		res.setPid(planet.getPid());
+		res.setName(planet.getName());
+		res.setDiameter(planet.getDiameter());
+		res.setMass(planet.getMass());
+		res.setGalaxy(planet.getGalaxy());
+		res.setContent(planet.getContent());
+		res.setTotalCell(planet.getTotalCell());
+		
+		return res;
+	}
 }
