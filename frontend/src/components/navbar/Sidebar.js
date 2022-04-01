@@ -16,6 +16,7 @@ const Sidebar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+
   return (
     <SideNav
       className="sidebar"
@@ -23,12 +24,15 @@ const Sidebar = () => {
         const to = '/' + selected;
         if (pathname !== to) {
           navigate(to);
-          localStorage.setItem('path',{pathname});
+          localStorage.setItem('path',pathname);
+        }
+        else{
+          localStorage.setItem('path','/' + selected);
         }
       }}
     >
       <Toggle />
-      <Nav defaultSelected="home">
+      <Nav defaultSelected={pathname.substring(1)}>
         <NavItem eventKey="home">
           <NavIcon className="sidebar-icon">
             <FaHome size="1.8em" />

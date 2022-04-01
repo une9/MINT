@@ -5,6 +5,7 @@ import AppRouter from './Router'
 import reportWebVitals from './reportWebVitals';
 import { Web3Provider } from '@ethersproject/providers';
 import { Web3ReactProvider } from '@web3-react/core';
+import { MetaMaskProvider } from './hook/MetamaskHook'
 
 function getLibrary(provider) {
   const library = new Web3Provider(provider, "any");
@@ -14,7 +15,9 @@ function getLibrary(provider) {
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
-      <AppRouter/>
+      <MetaMaskProvider>
+        <AppRouter/>
+      </MetaMaskProvider>
     </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById('root')
