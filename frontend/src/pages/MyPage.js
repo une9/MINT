@@ -78,7 +78,7 @@ const MyPage= ( ) => {
                             <ul className={styles.ProfileBox__inner}>
                                 {
                                     boughtPlanets.map((item, idx) => (
-                                        <li className={styles.ProfileBox__item} onClick={() => navigate(`/mypage/${item.planetId}`)}>
+                                        <li className={styles.ProfileBox__item} onClick={() => navigate(`/mypage/${item.planetId}`)} key={idx}>
                                             <img src={item.imgSrc} alt={`bought-planet-${idx}`} className={styles.planetImg} />
                                             <p className={styles.planetName}>{item.planetName}</p>
                                         </li>
@@ -94,7 +94,7 @@ const MyPage= ( ) => {
                             <ul className={styles.ProfileBox__inner}>
                                 {
                                     dibbedLands.map((item, idx) => (
-                                        <li className={styles.ProfileBox__item}>
+                                        <li className={styles.ProfileBox__item} key={idx}>
                                             <img src={item.imgSrc} alt="planet" className={styles.planetImg} />
                                             <p className={styles.planetName}>{item.planetName}</p>
                                             <p className={styles.landName}>{item.landId}</p>
