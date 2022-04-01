@@ -2,27 +2,54 @@ import { useWeb3React } from '@web3-react/core';
 import styles from '../../styles/Metamask.scss';
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { Web3Provider } from '@ethersproject/providers';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import useMetaMask from '../../hook/MetamaskHook';
+import { useNavigate } from 'react-router-dom';
+
 
 const Metamask = ()=>{
-
-    const [currentAccount, setCurrentAccount] = useState(null);
-
-    const connectWalletHandler = async () => { 
-        const { ethereum } = window;
-
-        if (!ethereum) {
-            window.open('https://metamask.io/download.html');
-        }
-
-        try {
-            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            console.log("Address : ", accounts[0]);
-            setCurrentAccount(accounts[0]);
-        } catch (err) {
-            console.log(err);
+    const { connect, disconnect, isActive, account, shouldDisable } = useMetaMask();
+    const navigate = useNavigate();
+    const [path, setPath] = useState(""); 
+    
+    const handelPath = useCallback(() => {
+        setPath(localStorage.getItem('path'));
+    }, [])
+    
+    useEffect(() => {
+        handelPath()
+    }, [handelPath])
+    
+    const click = ()=>{
+        connect();
+        if(account&&account.length>0){
+            navigate(path);
         }
     }
+    // const connectWalletHandler = async () => {     
+    //     const { ethereum } = window;
+
+    //     if (!ethereum) {
+    //         window.open('https://metamask.io/download.html');
+    //     }
+
+    //     try {
+    //         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    //         if (accounts.length !== 0){
+    //             const account = accounts[0];
+    //             localStorage.setItem('account',{account});
+    //             console.log("현재 연결된 지갑 주소 : ", account);
+    //             return true;
+    //         } else {
+    //             console.log("현재 연결된 지갑 X");
+    //             return false;
+    //         }
+            
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+
 
     return(
         <div className="login-box" style={styles}>
@@ -30,9 +57,9 @@ const Metamask = ()=>{
             <div className='metamask-title'>MetaMask</div>
             <div className='metamask-content'>
                 <div>서비스를 사용하시려면 <br /> 지갑과 연결이 필요합니다.</div>
-                <div style={{"margin-top":"1.5vh"}}>MetaMask 지갑에 연결하시겠습니까?</div>    
+                <div className='div-meta'>MetaMask 지갑에 연결하시겠습니까?</div>    
             </div>
-            <div className='connect-button' onClick={connectWalletHandler}>Connect</div>
+            <div className='connect-button' onClick={account&&account.length>0? disconnect : click}> {account&&account.length>0? 'Disconnect' : 'connect'}</div>
         </div>
     );
 }

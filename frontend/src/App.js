@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./components/navbar/Sidebar";
 import SidebarUSer from "./components/navbar/SidebarUser";
 import SidebarAdmin from "./components/navbar/SidebarAdmin";
-import isLogin from "./utils/isLogin";
 import { useEffect, useState } from "react";
 import { useLocation,useNavigate } from "react-router-dom";
+import useMetaMask from './hook/MetamaskHook';
 
 import { ethers } from 'ethers';
 import contract from './smartcontract/TileFactory.json'
@@ -15,6 +15,7 @@ const App = ( ) => {
     const { pathname } = useLocation();
 
     const [myWeb3, setMyWeb3] = useState({});
+    const { connect, disconnect, isActive, account, shouldDisable } = useMetaMask();
 
     useEffect(() => {
       if (pathname === '/') {
@@ -45,6 +46,7 @@ const App = ( ) => {
           } else {
               console.log("metamast 연결 X")
           }
+        localStorage.setItem("path",{pathname});
       }
       catch (error) {
           console.log(error);        
@@ -54,10 +56,7 @@ const App = ( ) => {
 
     return(
         <div style={{height:"100%"}}>
-          {isLogin()?(
-            <SidebarUSer/>
-          ):( <Sidebar/>)}
-           
+         {account&&account.length>0 ? (account === "0x5c6ba643C16FdaBCdb9806067d6C911F4ceF080E" ? <SidebarAdmin/>:<SidebarUSer/>):<Sidebar/>}
             {/* <SidebarUSer/> */}
             {/* <SidebarAdmin/> */}
             <Outlet context={myWeb3} />

@@ -21,7 +21,7 @@ const Home = () => {
           ...prevState,
           planetData,
         }));
-        console.log(planetData);
+        // console.log(planetData);
       });
   }, []);
 
@@ -32,7 +32,7 @@ const Home = () => {
         <Carousel>
           {planetList !== undefined &&
             planetList.planetData.map((planet, index) => (
-              <Carousel.Item>
+              <Carousel.Item key={index}>
                 <div className="planet-name">{planet.name}</div>
                 <div
                   onClick={() => {
