@@ -416,6 +416,13 @@ button {
 .metadata {
     margin: 0;
 
+    &__description {
+        font-family: "Pretendard-ExtraLight";
+        font-size: 0.875rem;
+        margin-top: 1rem;
+        color: $point-main;
+    }
+
     div {
         margin-bottom: 0.25rem;
     }

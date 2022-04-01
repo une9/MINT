@@ -1,6 +1,6 @@
 import { useWeb3React } from '@web3-react/core';
 import styles from '../../styles/Metamask.scss';
-import {InjectedConnector} from '@web3-react/injected-connector';
+import { InjectedConnector } from '@web3-react/injected-connector';
 import { Web3Provider } from '@ethersproject/providers';
 import { useEffect, useState, useCallback } from 'react';
 import useMetaMask from '../../hook/MetamaskHook';

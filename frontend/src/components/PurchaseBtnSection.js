@@ -1,5 +1,5 @@
 
-const PurchaseBtnSection = ({cartSize, totalPrice, onClick}) => {
+const PurchaseBtnSection = ({ cartSize, totalPrice, onClick }) => {
     const shortenPrice = (price) => {
         const priceString = price.toString();
         if (priceString.length > 6) {

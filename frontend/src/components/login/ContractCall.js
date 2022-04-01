@@ -9,7 +9,7 @@ import contract from '../../smartcontract/TileFactory.json'
 const ContractCall = ()=>{
 
     const abi = contract.abi;
-    const contractAddress = "0x660E24CF29Bfd04f74777F6596e66e0B178Ba218"
+    const contractAddress = "0xe51250721f911098273062509165185f0e18DF82"
 
     const contractCallSample = async () => { // <컨트랙트 함수 연결 샘플 코드> npm install ether 및 import { ethers } from 'ethers'; 필요
         try {
