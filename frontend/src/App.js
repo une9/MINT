@@ -46,6 +46,7 @@ const App = ( ) => {
           } else {
               console.log("metamast 연결 X")
           }
+        localStorage.setItem("path",{pathname});
       }
       catch (error) {
           console.log(error);        
