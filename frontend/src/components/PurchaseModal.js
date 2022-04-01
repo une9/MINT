@@ -1,23 +1,58 @@
 import PurchaseBtnSection from "./PurchaseBtnSection";
 import styles from "../styles/PurchaseModal.module.scss";
 import { VscChromeClose } from "react-icons/vsc";
+import { useState, useEffect } from "react";
 
-const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
+import { ethers } from 'ethers';
+
+const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
     // console.log("PurchaseModal Created")
+    const [myWalletAddr, setMyWalletAddr] = useState();
+
+    console.log("itemstobuy:", itemsToBuy);
 
     const myWalletName = "ssafy";
-    const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
+    // const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
     const prevWalletAddr = "0x0000000000000000000000000000000000000";
 
+    useEffect(() => {
+        console.log(myWeb3)
+        // console.log(myWeb3.signer.getAddress())
+        const { ethereum } = window;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        signer.getAddress()
+        .then((res) => {
+            setMyWalletAddr(res);
+        })
+    }, []);
+
     const shortenWalletAddr = (addr) => {
+        if (!addr) {
+            return "없음(0x000...00000)";
+        }
         const L = addr.length;
         if (L > 12) {
-            return `${addr.slice(0,9)}...${addr.slice(L-3, L-1)}`
+            return `${addr.slice(0,9)}...${addr.slice(L-6, L-1)}`
         } else return addr
     }
 
-    const buy = () => {
+    const buy = async () => {
         console.log("구매!")
+        // 구매 함수 호출
+        try {
+            for (const item of itemsToBuy) {
+                const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
+                console.log(priceInWei)
+                await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+            }
+        } catch (err) {
+            console.log(err);
+        }
+
+        
+        localStorage.removeItem("mintCart");
+        console.log("구매 끝!");
     }
 
     return (
@@ -51,15 +86,15 @@ const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
                                     itemsToBuy.map((item, idx) => (
                                         <li key={`purchaseItem-${idx}`} className={`${styles.purchaseGrid} ${styles.purchaseGridLi}`}>
                                             <span className={styles.purchaseGridItem}>
-                                                <span className={`${styles.purchaseGridItem__title} ${styles.purchaseGridItem__landId}`}>{item.id}</span>
+                                                <span className={`${styles.purchaseGridItem__title} ${styles.purchaseGridItem__landId}`}>{item.tid}</span>
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                                 <span className={styles.purchaseGridItem__title}>FROM</span>
-                                                {`${item.buyer}(${shortenWalletAddr(prevWalletAddr)})`}
+                                                {`${shortenWalletAddr(item.buyerAddr)}`}
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                             <span className={styles.purchaseGridItem__title}>TO</span>
-                                                {`${myWalletName}(${shortenWalletAddr(myWalletAddr)})`}
+                                                {`${shortenWalletAddr(myWalletAddr)}`}
                                             </span>
                                             <span className={`price ${styles.price} ${styles.purchaseGridItem}`}>
                                                 <img src="../../ethereum.png" alt="eth" className="eth"/>

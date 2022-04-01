@@ -106,6 +106,10 @@ button {
         color: $point-sub;
     }
 
+    .add-class {
+        background-color: transparent;
+    }
+
     h1 {
         font-family: 'Pretendard-Black';
         font-size: 1.75rem;
@@ -224,7 +228,7 @@ button {
             border-radius: 16px;
             display: flex;
             margin-bottom: 0.75rem;
-            padding: 1.5rem 1rem;
+            padding: 1rem 1.5rem 1rem 0.5rem;
             position: relative;
 
             .planetImg {
@@ -255,19 +259,28 @@ button {
 
         .itemInfo {
             margin-left: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
 
             p, h2 {
                 margin: 0;
             }
 
             .planetName {
-                font-size: 0.875rem;
+                font-size: 0.75rem;
                 margin-bottom: 0.125rem;
             }
 
             .landId {
                 font-size: 1rem;
                 margin-bottom: 0.25rem;
+            }
+
+            .itemPrice {
+                position: relative;
+                left: -8px;
             }
 
         }

@@ -7,7 +7,7 @@ import { VscChevronDown } from "react-icons/vsc";
 // card-purchase: 행성 구매페이지 (history: open)
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
-const Land = ({ version, id, area, image, buyer, trade_date, price, token }) => {
+const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) => {
     console.log(version)
 
     return(
@@ -21,7 +21,7 @@ const Land = ({ version, id, area, image, buyer, trade_date, price, token }) => 
                         ? <img className={styles.landImg} src={image} alt="landImg" />
                         : <div className={styles.landImg} />
                     }
-                    <h2>{id}</h2>
+                    <h2>{tid}</h2>
                 </header>
             }
             <div className={styles.landInfoWrapper}>
