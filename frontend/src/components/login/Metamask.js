@@ -14,6 +14,7 @@ const Metamask = ()=>{
     
     const handelPath = useCallback(() => {
         setPath(localStorage.getItem('path'));
+
     }, [])
     
     useEffect(() => {
@@ -21,10 +22,10 @@ const Metamask = ()=>{
     }, [handelPath])
     
     const click = ()=>{
-        connect();
-        if(account&&account.length>0){
+        if(account.length>0){
             navigate(path);
         }
+        console.log(path)
     }
     // const connectWalletHandler = async () => {     
     //     const { ethereum } = window;
@@ -50,7 +51,6 @@ const Metamask = ()=>{
     //     }
     // }
 
-
     return(
         <div className="login-box" style={styles}>
             <img src="/image/logos_metamask-icon.png" alt="" className='matamask-icon'/>
@@ -59,7 +59,7 @@ const Metamask = ()=>{
                 <div>서비스를 사용하시려면 <br /> 지갑과 연결이 필요합니다.</div>
                 <div className='div-meta'>MetaMask 지갑에 연결하시겠습니까?</div>    
             </div>
-            <div className='connect-button' onClick={account&&account.length>0? disconnect : click}> {account&&account.length>0? 'Disconnect' : 'connect'}</div>
+            <div className='connect-button' onMouseDown={account&&account.length>0? disconnect : connect} onClick={click}> {account&&account.length>0? 'Disconnect' : 'connect'}</div>
         </div>
     );
 }
