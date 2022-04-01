@@ -8,6 +8,8 @@ import PlanetMap from "../components/PlanetMap";
 import SideBarInfo from "../components/SideBarInfo";
 import PurchaseModal from "../components/PurchaseModal";
 
+import axios from 'axios';
+
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
     // console.log(planetId)
@@ -23,19 +25,28 @@ const PlanetDetail= ( ) => {
 
     const navigate = useNavigate();
 
+    const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
-        const planetRes = {
-            name: "kepler-1649c",
-            // name: "teegarden",
-            imgSrc: "../../planet_ex.png",
-            diameter: "지구의 약 1.06배",
-            mass: "지구의 약 4배",
-            belongsTo: "?" ,
-            distance: "지구로부터 약 300광년",
-            description: `“지구의 크기와 궤도까지 비슷한 유사 지구” \n 지구의 크기와 궤도까지 비슷한 몇 안 되는 외계행성 중 하나다. 표면 온도 역시 지구와 유사해 생명체가 존재할 가능성이 있는 것으로 추정된다. 공전주기는 지구 시간으로 19.5일로 매우 짧은 편인데, 1년은 무려 617일이나 된다! 하루하루가 너무 길게 느껴지는 사람이라면 케플러-1649c에서 살아보는 것은 어떨까?`,
-        }
-        planetRes.version = "description"
-        setPlanetInfo(planetRes);
+        axios.all([
+            axios.get(`${BASE_URL}/api/planet/${planetId}`),
+            axios.get(`${BASE_URL}/api/all/${planetId}`),
+        ])
+          .then(
+              axios.spread((planetRes, tileRes) => {
+                console.log(planetRes.data);
+                const planetData = planetRes.data;
+                planetData.version = "description";
+                setPlanetInfo(planetData);
+
+                console.log("tiles:", tileRes.data.tiles)
+                // const tileData = tileRes.data.tiles;
+                // setTiles(tileData);
+              })
+          )
+          .catch((err) => {
+            console.log(err);
+          });
 
         const tileRes = [
             {
