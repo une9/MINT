@@ -35,7 +35,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",
@@ -56,7 +56,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",
@@ -77,7 +77,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",
@@ -98,7 +98,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",
@@ -119,7 +119,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",
@@ -140,7 +140,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",
@@ -161,7 +161,7 @@ const PlanetPurchase= () => {
                 planet: {
                     id: "abcd",
                     data: {
-                        name: "kepler-1649c",
+                        name: "Kepler_1649c",
                         imgSrc: "../../planet_ex.png",
                         diameter: "지구의 약 1.06배",
                         mass: "지구의 약 4배",

@@ -9,7 +9,7 @@ import styles from "../styles/PlanetMap.module.scss";
 
 const ConvertToplanetCode = {
     "Kepler_1649c": "KepC",
-    "teegarden": "TG"
+    "Teegarden_b": "TG"
 }
 
 const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles }) => {

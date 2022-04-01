@@ -1,14 +1,5 @@
 import styles from "../styles/Planet.module.scss";
-
 import { useState } from "react";
-// import Lottie from 'react-lottie';
-
-// import Kepler_1649c from '../lottie/Planet_Kepler_1649C.json';
-// import Kepler_22b from '../lottie/Planet_Kepler_22B.json';
-// import Proxima_B from '../lottie/Planet_Proxima-b.json';
-// import Ross_128b from '../lottie/Planet_Ross_128B.json';
-// import Teegarden_b from '../lottie/Planet_Teegarden_B.json';
-
 import PlanetLottie from "./PlanetLottie";
 
 
@@ -21,7 +12,7 @@ const Planet = ({ version, name, imgSrc, diameter, mass, galaxy, distance, conte
     // console.log(version)
     let slogan, detail;
     if (content) {
-        [slogan, detail] = content.split("\n");
+        [slogan, detail] = content.split("<br>");
     } 
     return(
         <article className={`${styles.Planet} ${styles[version]} ${version === "card" ? "Box" : ""}`}>
@@ -40,10 +31,10 @@ const Planet = ({ version, name, imgSrc, diameter, mass, galaxy, distance, conte
                     }
                     
                     <div className="metadata__data">
-                        <dt>지름</dt> <dd>{diameter}</dd>
+                        <dt>지름</dt> <dd>{diameter} earth</dd>
                     </div>
                     <div className="metadata__data">
-                        <dt>질량</dt> <dd>{mass}</dd>
+                        <dt>질량</dt> <dd>{mass} earth</dd>
                     </div>
                     <div className="metadata__data">
                         <dt>소속</dt> <dd>{galaxy}</dd>
@@ -51,6 +42,9 @@ const Planet = ({ version, name, imgSrc, diameter, mass, galaxy, distance, conte
                     {/* <div className="metadata__data">
                         <dt>거리</dt> <dd>{distance}</dd>
                     </div> */}
+                    <div className="metadata__description">
+                        * 단위 earth: 지구의 n배
+                    </div>
                 </dl>
             </div>
             {
