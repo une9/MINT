@@ -4,6 +4,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import { useState, useEffect } from "react";
 
 import { ethers } from 'ethers';
+import axios from 'axios';
 
 const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
     // console.log("PurchaseModal Created")
@@ -13,7 +14,8 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
 
     const myWalletName = "ssafy";
     // const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
-    const prevWalletAddr = "0x0000000000000000000000000000000000000";
+
+    const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
         console.log(myWeb3)
@@ -41,18 +43,45 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
         console.log("구매!")
         // 구매 함수 호출
         try {
-            for (const item of itemsToBuy) {
-                const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
-                console.log(priceInWei)
-                await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
-            }
+            // for (const item of itemsToBuy) {
+            //     const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
+            //     console.log(priceInWei)
+            //     await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                
+            //     const tokenId = await myWeb3.nftContract.getTileId();
+
+            //     axios.put(`${BASE_URL}/api/tile/${item.tid}`, {
+            //         buyerAdr: myWalletAddr,
+            //         tokenId: tokenId,
+            //     })
+            // }
+            // localStorage.removeItem("mintCart");
+
+
+
+            const myTiles = await myWeb3.nftContract.getMyTile();
+            console.log("getMyTile: ", myTiles);
+
+            console.log(myTiles[1].tileId._hex);
+            console.log(Number(myTiles[1].tileId._hex));
+
+            axios.put(`${BASE_URL}/api/tile/${"TG-A-001"}`, {
+                buyerAdr: myWalletAddr,
+                tokenId: Number(myTiles[1].tileId._hex),
+            })
+
+            axios.get(`${BASE_URL}/api/tile/${"TG-A-001"}`)
+            .then((res) => {
+                console.log(res);
+            })
+
+
+
+
+            console.log("구매 끝!");
         } catch (err) {
             console.log(err);
         }
-
-        
-        localStorage.removeItem("mintCart");
-        console.log("구매 끝!");
     }
 
     return (

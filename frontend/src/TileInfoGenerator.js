@@ -31,22 +31,50 @@ const TileInfoGenerator = (planetCode, planetId, blocks, largeTiles) => {
 }
 
 const TileInfo = () => {
-    console.log(
-        `${TileInfoGenerator("KepC", 10, [12, 3, 1, 4, 5], [
-        ["KepC-B-001", 2],
-        ["KepC-C-001", 3],
-        ["KepC-D-001", 2],
-        ["KepC-D-002", 2],
-        ["KepC-E-001", 2],
-    ])}
+    // console.log(
+    //     `${TileInfoGenerator("KepC", 10, [12, 3, 1, 4, 5], [
+    //     ["KepC-B-001", 2],
+    //     ["KepC-C-001", 3],
+    //     ["KepC-D-001", 2],
+    //     ["KepC-D-002", 2],
+    //     ["KepC-E-001", 2],
+    // ])}
     
-    ${TileInfoGenerator("TG", 9, [7, 6, 5, 3, 3, 1], [
-        ["TG-A-001", 2],
-        ["TG-C-001", 2],
-        ["TG-D-003", 2],
-        ["TG-E-001", 2],
-        ["TG-F-001", 3],
-    ])}`)
+    // ${TileInfoGenerator("TG", 9, [7, 6, 5, 3, 3, 1], [
+    //     ["TG-A-001", 2],
+    //     ["TG-C-001", 2],
+    //     ["TG-D-003", 2],
+    //     ["TG-E-001", 2],
+    //     ["TG-F-001", 3],
+    // ])}`)
+
+    // planetCode, planetId, blocks, largeTiles
+    
+    // console.log(
+    //     `${TileInfoGenerator("PrxB", 13, [9, 3, 8, 2, 2, 3, 3], [
+    //     ["PrxB-B-001", 2],
+    //     ["PrxB-E-001", 2],
+    //     ["PrxB-E-002", 2],
+    //     ["PrxB-F-001", 2],
+    //     ["PrxB-G-003", 2],
+    // ])}`)
+
+    // console.log(
+    //     `${TileInfoGenerator("RB", 11, [2, 1, 8, 1, 1, 3, 3, 6], [
+    //     ["RB-B-001", 2],
+    //     ["RB-D-001", 2],
+    //     ["RB-E-001", 3],
+    //     ["RB-F-003", 2],
+    //     ["RB-G-001", 2],
+    // ])}`)
+
+    // console.log(
+    //     `${TileInfoGenerator("KepB", 12, [9, 2, 1, 1, 2, 5, 1, 3, 4], [
+    //     ["KepB-C-001", 2],
+    //     ["KepB-D-001", 2],
+    //     ["KepB-F-005", 2],
+    //     ["KepB-G-001", 3],
+    // ])}`)
 
     return (
         <div>
