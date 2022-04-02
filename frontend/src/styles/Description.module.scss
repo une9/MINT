@@ -1,0 +1,68 @@
+@import "variables";
+
+.Description {
+    padding: 2rem 4rem;
+
+    .mint {
+        font-family: 'Rubik One' !important;
+        color: $point-main;
+
+        &__h2 {
+            font-size: 2.25rem;
+        }
+    }
+
+    header {
+        display: flex;
+        align-items: center;
+
+        .header {
+            &__subWrapper {
+                margin-left: 2rem;
+                padding-left: 2rem;
+                border-left: 1px solid rgb(108, 108, 108);
+            }
+
+            &__sub {
+                margin-bottom: 0;
+            }
+
+            &__meaning {
+                color: rgb(255, 255, 255);
+                font-size: 1.25rem;
+
+                strong {
+                    font-family: "Pretendard-Black";
+                    color: $point-main;
+                }
+            }
+
+            &__slogan {
+                color: $point-light;
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+        }
+    }
+
+    .article {
+        margin-top: 3rem;
+
+        h2 {
+            font-size: 1.75rem;
+            font-family: "Pretendard-Bold";
+        }
+    }
+
+    .cites {
+        cite {
+            display: block;
+            font-style: normal;
+        }
+    }
+    
+    
+}

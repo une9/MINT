@@ -9,7 +9,7 @@ import axios from "axios";
 const MyPage= ( ) => {
     const [dibbedLands, setDibbedLands] = useState([]);
     const [boughtTiles, setBoughtTiles] = useState([]);
-    // const [boughtPlanets, SetBoughtPlanets] = useState([]);
+    const [boughtPlanets, SetBoughtPlanets] = useState([]);
     const username = "username";
 
     // web3 관련 객체 가져오기
@@ -21,7 +21,7 @@ const MyPage= ( ) => {
 
         axios.get(`${BASE_URL}/api/planets`)
         .then(planets => {
-            const planetDic = 
+            // const planetDic = 
 
             myWeb3.nftContract.getMyTile()
             .then((res) => {
