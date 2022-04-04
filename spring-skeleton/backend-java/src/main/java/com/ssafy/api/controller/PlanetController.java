@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 @Api(value = "행성 API", tags = {"Planet"})
+@CrossOrigin("*")
 @RestController
 public class PlanetController {
 	

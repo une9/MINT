@@ -33,7 +33,6 @@ public class PlanetSelectRes {
 		TileRes tr = new TileRes();
 		
 		tr.setArea(tile.getArea());
-		tr.setBuyerId(tile.getBuyerId());
 		tr.setBuyerAdr(tile.getBuyerAdr());
 		tr.setImage(tile.getImage());
 		tr.setPlanet(tile.getPlanet().getPid());

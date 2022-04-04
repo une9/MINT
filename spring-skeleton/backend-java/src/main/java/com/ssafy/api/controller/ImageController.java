@@ -32,6 +32,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Api(value = "ImageAPI")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/image")
 public class ImageController {

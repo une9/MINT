@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import com.ssafy.db.entity.Tile;
 import com.ssafy.db.repository.PlanetRepository;
 import com.ssafy.db.repository.TileRepository;
 
-@Service("ConferenceService")
+@Service("TileService")
 public class TileServiceImpl implements TileService {
 	
 	@Autowired
@@ -27,7 +28,7 @@ public class TileServiceImpl implements TileService {
 
 	@Override
 	public Tile getTile(String tid) { // tid로 타일 조회
-		return tileRepository.getOne(tid);
+		return tileRepository.findByTid(tid).get();
 	}
 
 	@Override
@@ -35,19 +36,26 @@ public class TileServiceImpl implements TileService {
 		try {
 			Tile tile = getTile(tileInfo.getTid());
 			
-			Planet planet = planetRepository.getOne(tileInfo.getPlanet());
+			Planet planet = planetRepository.findByPid(tileInfo.getPlanet()).get();
 			
 			tile.setArea(tileInfo.getArea());
-			tile.setBuyerId(tileInfo.getBuyerId());
 			tile.setBuyerAdr(tileInfo.getBuyerAdr());
 			tile.setPlanet(planet);
 			tile.setPrice(tileInfo.getPrice());
 			tile.setTokenId(tileInfo.getTokenId());
-			tile.setTradeDate(tileInfo.getTradeDate());
+			
+			LocalDateTime localDateTime = new java.sql.Timestamp(tileInfo.getTradeDate().getTime())
+					.toLocalDateTime();
+			
+			tile.setTradeDate(localDateTime);
+			
 			tileRepository.save(tile);
-			return true;
+		
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
+		
+		return true;
 	}
 }
