@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "../styles/PlanetDetail.module.scss";
 import { BsCart3 } from "react-icons/bs";
 
+// outlet context
+import { useOutletContext } from "react-router-dom";
+
 import Planet from "../components/Planet";
 import PlanetMap from "../components/PlanetMap";
 import SideBarInfo from "../components/SideBarInfo";
@@ -18,16 +21,26 @@ const PlanetDetail= ( ) => {
     // const [selectedTile, setSelectedTile] = useState({});
     const [selectedTileIdx, setSelectedTileIdx] = useState(0);
     const [selectedTileId, setSelectedTileId] = useState("");
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItemNum, setCartItemNum] = useState(0);
 
     const [modalShow, setModalShow] = useState(false);
     const onModalHide = () => setModalShow(false);
 
     const navigate = useNavigate();
 
+    // web3 관련 객체 가져오기
+    const myWeb3 = useOutletContext();
+
     const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
+        const prevCart = localStorage.getItem("mintCart");
+        if (prevCart) {
+            const cartLen = JSON.parse(prevCart).length;
+            setCartItemNum(cartLen);
+        }
+
+        // axios 백엔드에서 정보 가져오기
         axios.all([
             axios.get(`${BASE_URL}/api/planet/${planetId}`),
             axios.get(`${BASE_URL}/api/all/${planetId}`),
@@ -40,74 +53,24 @@ const PlanetDetail= ( ) => {
                 setPlanetInfo(planetData);
 
                 console.log("tiles:", tileRes.data.tiles)
-                // const tileData = tileRes.data.tiles;
-                // setTiles(tileData);
+                const tileData = tileRes.data.tiles;
+                setTiles(tileData);
               })
           )
           .catch((err) => {
             console.log(err);
           });
-
-        const tileRes = [
-            {
-                id: "KepC-A-001",
-                area: 1,
-                image: null,
-                buyer: null,
-                trade_date: null,
-                price: 0.01,
-                token: null,
-            },
-            {
-                id: "KepC-A-002",
-                area: 1,
-                image: null,
-                buyer: null,
-                trade_date: null,
-                price: 0.01,
-                token: null,
-            },
-            {
-                id: "KepC-A-003",
-                area: 1,
-                image: null,
-                buyer: null,
-                trade_date: null,
-                price: 0.01,
-                token: null,
-            },
-            {
-                id: "KepC-A-004",
-                area: 1,
-                image: null,
-                buyer: null,
-                trade_date: null,
-                price: 0.01,
-                token: null,
-            },
-            {
-                id: "KepC-B-001",
-                area: 2,
-                image: null,
-                buyer: null,
-                trade_date: null,
-                price: 0.04,
-                token: null,
-            },
-        ]
-        setTiles(tileRes);
     }, []);
-    // console.log(planetInfo)
 
     useEffect(() => {
         if (tiles.length > 0) {
-            setSelectedTileId(tiles[0].id);
+            setSelectedTileId(tiles[0].tid);
         }
     }, [tiles]);
 
     useEffect(() => {
         for (let i = 0; i < tiles.length; i++) {
-            if (tiles[i].id === selectedTileId) {
+            if (tiles[i].tid === selectedTileId) {
                 setSelectedTileIdx(i);
                 break
             }
@@ -133,10 +96,12 @@ const PlanetDetail= ( ) => {
                             setSelectedTileId={setSelectedTileId} />
                     }
                 </div>
+
+                {/* 장바구니 버튼 */}
                 <button className={styles.cartButton} 
                     onClick={() => { navigate("/planet/purchase"); }}>
                     <BsCart3 />
-                    <div className={styles.cartBadge}>{cartItems.length}</div>
+                    <div className={styles.cartBadge}>{cartItemNum}</div>
                 </button>
             </main>
             {
@@ -146,17 +111,39 @@ const PlanetDetail= ( ) => {
                     show={modalShow}
                     onHide={onModalHide} 
                     itemsToBuy={[{
+                        ...tiles[selectedTileIdx],
                         planet: {
                             id: planetId,
                             data: planetInfo
                         },
-                        ...tiles[selectedTileId]
                     }]}
+                    myWeb3={myWeb3}
+                    isBuyDirect={true}
                 />
             }
             <SideBarInfo 
-            {...tiles[selectedTileIdx]}
-            onModalShow={()=> setModalShow(true)} />
+                {...tiles[selectedTileIdx]}
+                onAddCart={() => {
+                    let cart = JSON.parse(localStorage.getItem("mintCart"));
+                    if (!cart) {
+                        cart = []
+                    }
+                    cart.push(
+                        {
+                            ...tiles[selectedTileIdx],
+                            planet: {
+                                id: planetId,
+                                data: planetInfo
+                            },
+                        }
+                    )
+                    localStorage.setItem("mintCart", JSON.stringify(cart));
+                    console.log(cart);
+                    setCartItemNum(prev => prev + 1);
+                }}
+                onModalShow={()=> setModalShow(true)}
+            />
+            
         </div>
     );
 }
