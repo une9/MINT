@@ -2,30 +2,61 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/MyPage.module.scss";
 
+// outlet context
+import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+
 const MyPage= ( ) => {
     const [dibbedLands, setDibbedLands] = useState([]);
+    const [boughtTiles, setBoughtTiles] = useState([]);
     const [boughtPlanets, SetBoughtPlanets] = useState([]);
     const username = "username";
 
+    // web3 관련 객체 가져오기
+    const myWeb3 = useOutletContext();
+
+    const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
-        const boughtPlanetsRes = [
-            {
-                planetId: 1,
-                planetName: "Teegarden_b",
-                imgSrc: "../../planet_ex.png"
-            },
-            {
-                planetId: 2,
-                planetName: "Ross_128b",
-                imgSrc: "../../planet_ex.png"
-            },
-            {
-                planetId: 3,
-                planetName: "Kepler_1649c",
-                imgSrc: "../../planet_ex.png"
-            },
-        ]
-        SetBoughtPlanets(boughtPlanetsRes);
+
+        // axios.get(`${BASE_URL}/api/planets`)
+        // .then(planets => {
+        //     // const planetDic = 
+
+        //     myWeb3.nftContract.getMyTile()
+        //     .then((res) => {
+        //         console.log(res);
+        //         const tiles = {};
+        //         const planets = []
+        //         for (const tile of res) {
+        //             if (!(tile.planetName in tiles)) {
+        //                 tiles[tile.planetName] = [];
+        //             }
+        //             tiles[tile.planetName].push(tile);
+        //         }
+        //         setBoughtTiles(tiles);
+        //         console.log(boughtTiles)
+        //     })
+        // })
+
+        // const boughtPlanetsRes = [
+        //     {
+        //         planetId: 1,
+        //         planetName: "Teegarden_b",
+        //         imgSrc: "../../planet_ex.png"
+        //     },
+        //     {
+        //         planetId: 2,
+        //         planetName: "Ross_128b",
+        //         imgSrc: "../../planet_ex.png"
+        //     },
+        //     {
+        //         planetId: 3,
+        //         planetName: "Kepler_1649c",
+        //         imgSrc: "../../planet_ex.png"
+        //     },
+        // ]
+        // SetBoughtPlanets(boughtPlanetsRes);
 
         const dibbedLandsRes = [
             {

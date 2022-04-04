@@ -9,7 +9,10 @@ import styles from "../styles/PlanetMap.module.scss";
 
 const ConvertToplanetCode = {
     "Kepler_1649c": "KepC",
-    "Teegarden_b": "TG"
+    "Teegarden_b": "TG",
+    "Proxima_B": "PrxB",
+    "Kepler_22b": "KepB",
+    "Ross_128b": "RB"
 }
 
 const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles }) => {
@@ -63,6 +66,21 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                     planetCode === "TG"
                     &&
                     blockGenerator([7, 6, 5, 3, 3, 1], planetCode)
+                }
+                {
+                    planetCode === "RB"
+                    &&
+                    blockGenerator([2, 1, 8, 1, 1, 3, 3, 6], planetCode)
+                }
+                {
+                    planetCode === "KepB"
+                    &&
+                    blockGenerator([9, 2, 1, 1, 2, 5, 1, 3, 4], planetCode)
+                }
+                {
+                    planetCode === "PrxB"
+                    &&
+                    blockGenerator([9, 3, 8, 2, 2, 3, 3], planetCode)
                 }
             </ul>
         </article>

@@ -1,5 +1,7 @@
 import PurchaseBtnSection from "./PurchaseBtnSection";
 import { VscChromeClose } from "react-icons/vsc";
+import PlanetLottie from "../components/PlanetLottie";
+import { useEffect } from "react";
 
 const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, setCartItems }) => {
     console.log(cartItems)
@@ -9,7 +11,15 @@ const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, set
         if (targetIdx === cartItems.length - 1) {
             setSelectedIdx(targetIdx-1);
         }
-        setCartItems(prev => prev.filter((item, i) => i !== targetIdx))
+        setCartItems(prev => {
+            const newCart = prev.filter((item, i) => i !== targetIdx);
+            if (newCart.length > 0) {
+                localStorage.setItem("mintCart", JSON.stringify(newCart));
+            } else {
+                localStorage.removeItem("mintCart");
+            }
+            return newCart
+        })
     }
 
     return(
@@ -24,10 +34,14 @@ const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, set
                             className={`cartItem ${idx === selectedIdx ? "cartItem--selected" : ""}`}
                             onClick={() => setSelectedIdx(idx)}>
                             <button className="deleteBtn" onClick={(event) => onDelete(event, idx)}><VscChromeClose/></button>
-                            <img className="planetImg" src={item.planet.data.imgSrc} alt={`planet-${item.planet.data.name}`} />
+                            <PlanetLottie 
+                                planetName={item.planet.data.name}
+                                width={90}
+                                height={90}
+                            />
                             <div className="itemInfo">
                                 <p className="planetName">{item.planet.data.name}</p>
-                                <h2 className="landId">{item.id}</h2>
+                                <h2 className="landId">{item.tid}</h2>
                                 <div className="itemPrice">
                                     <img src="../../ethereum.png" alt="ethereum" className="eth"/>
                                     <span className="priceText">{item.price} ETH</span>

@@ -1,23 +1,113 @@
 import PurchaseBtnSection from "./PurchaseBtnSection";
 import styles from "../styles/PurchaseModal.module.scss";
 import { VscChromeClose } from "react-icons/vsc";
+import { useState, useEffect } from "react";
 
-const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
+import { ethers } from 'ethers';
+import axios from 'axios';
+
+const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
     // console.log("PurchaseModal Created")
+    console.log(isBuyDirect);
+    const [myWalletAddr, setMyWalletAddr] = useState();
+
+    console.log("itemstobuy:", itemsToBuy);
 
     const myWalletName = "ssafy";
-    const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
-    const prevWalletAddr = "0x0000000000000000000000000000000000000";
+    // const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
+
+    const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
+    useEffect(() => {
+        console.log(myWeb3)
+        // console.log(myWeb3.signer.getAddress())
+        const { ethereum } = window;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        signer.getAddress()
+        .then((res) => {
+            setMyWalletAddr(res);
+        })
+    }, []);
 
     const shortenWalletAddr = (addr) => {
+        if (!addr) {
+            return "없음(0x000...00000)";
+        }
         const L = addr.length;
         if (L > 12) {
-            return `${addr.slice(0,9)}...${addr.slice(L-3, L-1)}`
+            return `${addr.slice(0,9)}...${addr.slice(L-6, L-1)}`
         } else return addr
     }
 
-    const buy = () => {
+    const buy = async () => {
         console.log("구매!")
+        // 구매 함수 호출
+        try {
+            for (const item of itemsToBuy) {
+                const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
+                console.log(priceInWei)
+                await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                
+                const tokenId = await myWeb3.nftContract.getTileId();
+
+                axios.put(`${BASE_URL}/api/tile/`, {
+                    buyerAdr: myWalletAddr,
+                    buyerId: null,
+                    tokenId: tokenId._hex,
+                    area: item.area,
+                    planet: Number(item.planet.id),
+                    price: item.price,
+                    tid: item.tid,
+                    tradeDate: new Date()
+                })
+                .then(() => {
+                    axios.get(`${BASE_URL}/api/tile/${item.tid}`)
+                    .then((res) => {
+                        console.log(res);
+                    })
+                })
+                // console.log(item)
+            }
+
+            if (!isBuyDirect) {
+                localStorage.removeItem("mintCart");
+            }
+
+
+
+            const myTiles = await myWeb3.nftContract.getMyTile();
+            console.log("getMyTile: ", myTiles);
+
+            // console.log(myTiles[1].tileId._hex);
+            // console.log(typeof myTiles[1].tileId._hex);
+            // console.log(Number(myTiles[1].tileId._hex));
+
+
+            // axios.put(`${BASE_URL}/api/tile/`, {
+            //     buyerAdr: myWalletAddr,
+            //     buyerId: null,
+            //     tokenId: "0x09",
+            //     area: 1,
+            //     planet: 9,
+            //     price: 0.01,
+            //     tid: "TG-B-001",
+            //     tradeDate: new Date()
+            // })
+            // .then(() => {
+            //     axios.get(`${BASE_URL}/api/tile/${"TG-B-001"}`)
+            //     .then((res) => {
+            //         console.log(res);
+            //     })
+            // })
+
+
+
+
+            console.log("구매 끝!");
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -51,15 +141,15 @@ const PurchaseModal = ({ show, onHide, itemsToBuy }) => {
                                     itemsToBuy.map((item, idx) => (
                                         <li key={`purchaseItem-${idx}`} className={`${styles.purchaseGrid} ${styles.purchaseGridLi}`}>
                                             <span className={styles.purchaseGridItem}>
-                                                <span className={`${styles.purchaseGridItem__title} ${styles.purchaseGridItem__landId}`}>{item.id}</span>
+                                                <span className={`${styles.purchaseGridItem__title} ${styles.purchaseGridItem__landId}`}>{item.tid}</span>
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                                 <span className={styles.purchaseGridItem__title}>FROM</span>
-                                                {`${item.buyer}(${shortenWalletAddr(prevWalletAddr)})`}
+                                                {`${shortenWalletAddr(item.buyerAdr)}`}
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                             <span className={styles.purchaseGridItem__title}>TO</span>
-                                                {`${myWalletName}(${shortenWalletAddr(myWalletAddr)})`}
+                                                {`${shortenWalletAddr(myWalletAddr)}`}
                                             </span>
                                             <span className={`price ${styles.price} ${styles.purchaseGridItem}`}>
                                                 <img src="../../ethereum.png" alt="eth" className="eth"/>
