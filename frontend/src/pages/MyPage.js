@@ -19,25 +19,25 @@ const MyPage= ( ) => {
 
     useEffect(() => {
 
-        axios.get(`${BASE_URL}/api/planets`)
-        .then(planets => {
-            // const planetDic = 
+        // axios.get(`${BASE_URL}/api/planets`)
+        // .then(planets => {
+        //     // const planetDic = 
 
-            myWeb3.nftContract.getMyTile()
-            .then((res) => {
-                console.log(res);
-                const tiles = {};
-                const planets = []
-                for (const tile of res) {
-                    if (!(tile.planetName in tiles)) {
-                        tiles[tile.planetName] = [];
-                    }
-                    tiles[tile.planetName].push(tile);
-                }
-                setBoughtTiles(tiles);
-                console.log(boughtTiles)
-            })
-        })
+        //     myWeb3.nftContract.getMyTile()
+        //     .then((res) => {
+        //         console.log(res);
+        //         const tiles = {};
+        //         const planets = []
+        //         for (const tile of res) {
+        //             if (!(tile.planetName in tiles)) {
+        //                 tiles[tile.planetName] = [];
+        //             }
+        //             tiles[tile.planetName].push(tile);
+        //         }
+        //         setBoughtTiles(tiles);
+        //         console.log(boughtTiles)
+        //     })
+        // })
 
         // const boughtPlanetsRes = [
         //     {

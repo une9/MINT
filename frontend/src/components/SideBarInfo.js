@@ -1,6 +1,6 @@
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
-const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, onModalShow, onAddCart}) => {
+const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, onModalShow, onAddCart }) => {
     const onToggleDibs = () => {
 
     }

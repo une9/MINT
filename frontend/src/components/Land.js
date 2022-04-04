@@ -2,6 +2,9 @@ import styles from "../styles/Land.module.scss";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
 
 import { VscChevronDown } from "react-icons/vsc";
+import { useEffect } from "react";
+
+import { ethers } from 'ethers';
 
 // version
 // card-purchase: 행성 구매페이지 (history: open)
@@ -9,6 +12,30 @@ import { VscChevronDown } from "react-icons/vsc";
 
 const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) => {
     console.log(version)
+
+    useEffect(() => {
+        const { ethereum } = window;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        console.log(provider)
+
+
+        // transaction history 
+        // https://docs.ethers.io/v5/api/providers/provider/#Provider-getTransactionReceipt
+
+        // provider.getLogs()
+        // .then((res) => {
+        //     console.log(res)
+        // })
+
+    }, []);
+
+    // useEffect(() => {
+    //     if (provider) {
+
+    //         console.log(provider.getLogs())
+    //     }
+    // }, [provider])
 
     return(
         <article className={`${styles.Land} ${styles[version]} ${version === "card-purchase" ? "Box" : ""}`}>

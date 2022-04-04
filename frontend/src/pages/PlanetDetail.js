@@ -118,6 +118,7 @@ const PlanetDetail= ( ) => {
                         },
                     }]}
                     myWeb3={myWeb3}
+                    isBuyDirect={true}
                 />
             }
             <SideBarInfo 

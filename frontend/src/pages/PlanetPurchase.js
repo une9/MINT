@@ -134,13 +134,6 @@ const PlanetPurchase= () => {
                         </div>
                         <div>
                             <Land {...{...cartItems[selectedIdx], ...{version: "card-purchase"}}} />
-
-                            {/* test용 */}
-                            <div>
-                                <button onClick={contractCall}>contractCall</button>
-                            </div>
-                            {/* test용 */}
-
                         </div>
                     </div>
                     :
@@ -159,6 +152,7 @@ const PlanetPurchase= () => {
                 onHide={onModalHide} 
                 itemsToBuy={cartItems}
                 myWeb3={myWeb3}
+                isBuyDirect={false}
             />
             <SideBarCart  
                 cartItems={cartItems}
@@ -166,6 +160,7 @@ const PlanetPurchase= () => {
                 setSelectedIdx={setSelectedIdx}
                 setModalShow={setModalShow}
                 setCartItems={setCartItems}
+                onBuyDirect={false}
             />
         </div>
     );

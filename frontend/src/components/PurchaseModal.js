@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 import { ethers } from 'ethers';
 import axios from 'axios';
 
-const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
+const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
     // console.log("PurchaseModal Created")
+    console.log(isBuyDirect);
     const [myWalletAddr, setMyWalletAddr] = useState();
 
     console.log("itemstobuy:", itemsToBuy);
@@ -43,37 +44,62 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
         console.log("구매!")
         // 구매 함수 호출
         try {
-            // for (const item of itemsToBuy) {
-            //     const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
-            //     console.log(priceInWei)
-            //     await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+            for (const item of itemsToBuy) {
+                const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
+                console.log(priceInWei)
+                await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
                 
-            //     const tokenId = await myWeb3.nftContract.getTileId();
+                const tokenId = await myWeb3.nftContract.getTileId();
 
-            //     axios.put(`${BASE_URL}/api/tile/${item.tid}`, {
-            //         buyerAdr: myWalletAddr,
-            //         tokenId: tokenId,
-            //     })
-            // }
-            // localStorage.removeItem("mintCart");
+                axios.put(`${BASE_URL}/api/tile/`, {
+                    buyerAdr: myWalletAddr,
+                    buyerId: null,
+                    tokenId: tokenId._hex,
+                    area: item.area,
+                    planet: Number(item.planet.id),
+                    price: item.price,
+                    tid: item.tid,
+                    tradeDate: new Date()
+                })
+                .then(() => {
+                    axios.get(`${BASE_URL}/api/tile/${item.tid}`)
+                    .then((res) => {
+                        console.log(res);
+                    })
+                })
+                // console.log(item)
+            }
+
+            if (!isBuyDirect) {
+                localStorage.removeItem("mintCart");
+            }
 
 
 
             const myTiles = await myWeb3.nftContract.getMyTile();
             console.log("getMyTile: ", myTiles);
 
-            console.log(myTiles[1].tileId._hex);
-            console.log(Number(myTiles[1].tileId._hex));
+            // console.log(myTiles[1].tileId._hex);
+            // console.log(typeof myTiles[1].tileId._hex);
+            // console.log(Number(myTiles[1].tileId._hex));
 
-            axios.put(`${BASE_URL}/api/tile/${"TG-A-001"}`, {
-                buyerAdr: myWalletAddr,
-                tokenId: Number(myTiles[1].tileId._hex),
-            })
 
-            axios.get(`${BASE_URL}/api/tile/${"TG-A-001"}`)
-            .then((res) => {
-                console.log(res);
-            })
+            // axios.put(`${BASE_URL}/api/tile/`, {
+            //     buyerAdr: myWalletAddr,
+            //     buyerId: null,
+            //     tokenId: "0x09",
+            //     area: 1,
+            //     planet: 9,
+            //     price: 0.01,
+            //     tid: "TG-B-001",
+            //     tradeDate: new Date()
+            // })
+            // .then(() => {
+            //     axios.get(`${BASE_URL}/api/tile/${"TG-B-001"}`)
+            //     .then((res) => {
+            //         console.log(res);
+            //     })
+            // })
 
 
 
@@ -119,7 +145,7 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3 }) => {
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                                 <span className={styles.purchaseGridItem__title}>FROM</span>
-                                                {`${shortenWalletAddr(item.buyerAddr)}`}
+                                                {`${shortenWalletAddr(item.buyerAdr)}`}
                                             </span>
                                             <span className={styles.purchaseGridItem}>
                                             <span className={styles.purchaseGridItem__title}>TO</span>
