@@ -78,7 +78,7 @@ public class TileController {
 		if(tileService.tileModify(tileInfo)) {
 			return ResponseEntity.status(200).body(BaseResponseBody.of(201, "Success"));
 		}else {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Fail"));
+			return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Fail"));
 		}
 	}
 

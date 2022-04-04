@@ -17,9 +17,8 @@ import lombok.Setter;
 public class HistoryRes {
 	
 	int id;
-	String buyerId;
     String buyerAdr;
-    int price;
+    double price;
     String name;
     LocalDateTime tradeDate;
 }

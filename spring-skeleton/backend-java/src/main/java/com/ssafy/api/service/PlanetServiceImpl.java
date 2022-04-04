@@ -14,7 +14,7 @@ import com.ssafy.db.repository.TileRepository;
 /**
  *	행성 관련 API ServeiceImpl
  */
-@Service("userService")
+@Service("PlanetService")
 public class PlanetServiceImpl implements PlanetService {
 	
 	@Autowired
@@ -32,7 +32,7 @@ public class PlanetServiceImpl implements PlanetService {
 	
 	@Override
 	public Planet getPlanet(Long pid) {
-		Optional<Planet> planet = planetRepository.findById(pid);
+		Optional<Planet> planet = planetRepository.findByPid(pid);
 		return planet.get();
 	}
 	
@@ -52,7 +52,7 @@ public class PlanetServiceImpl implements PlanetService {
 		int sold = 0;
 		
 		for(Tile t : tile) {
-			if(t.getBuyerId() != null) {
+			if(t.getTokenId() != null) {
 				sold++;
 			}
 		}

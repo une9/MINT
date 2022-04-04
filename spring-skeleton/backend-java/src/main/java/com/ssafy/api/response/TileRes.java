@@ -38,7 +38,7 @@ public class TileRes {
 	LocalDateTime tradeDate;
 	
 	@ApiModelProperty(name="가격", example="50")
-	int price;
+	double price;
 	
 	@ApiModelProperty(name="token 아이디", example="0xB697444e418aeA6A4E7f23611f61a43Ab4761b5C")
 	String tokenId;
@@ -49,7 +49,6 @@ public class TileRes {
 		TileRes res = new TileRes();
 		res.setTid(tile.getTid());
 		res.setArea(tile.getArea());
-		res.setBuyerId(tile.getBuyerId());
 		res.setBuyerAdr(tile.getBuyerAdr());
 		res.setImage(tile.getImage());
 		res.setPlanet(tile.getPlanet().getPid());
@@ -67,7 +66,6 @@ public class TileRes {
 			TileRes res = new TileRes();
 			res.setTid(t.getTid());
 			res.setArea(t.getArea());
-			res.setBuyerId(t.getBuyerId());
 			res.setBuyerAdr(t.getBuyerAdr());
 			res.setImage(t.getImage());
 			res.setPlanet(t.getPlanet().getPid());

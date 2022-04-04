@@ -13,8 +13,7 @@ import com.ssafy.db.entity.Planet;
  */
 @Repository
 public interface PlanetRepository extends JpaRepository<Planet, Long> {
-    // 아래와 같이, Query Method 인터페이스(반환값, 메소드명, 인자) 정의를 하면 자동으로 Query Method 구현됨.
-	//pid로 Planet entity 가져오기
     Optional<Planet> findByPid(Long pid);
     List<Planet> findAll();
+	Optional<Planet> findByName(String name);
 }

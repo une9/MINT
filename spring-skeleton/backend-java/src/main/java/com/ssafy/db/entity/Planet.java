@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Planet {
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
     @Column(name = "planet_id")
     Long pid;
 	

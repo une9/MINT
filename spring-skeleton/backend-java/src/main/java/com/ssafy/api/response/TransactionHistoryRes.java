@@ -38,7 +38,6 @@ public class TransactionHistoryRes {
 		HistoryRes hr = new HistoryRes();
 		
 		hr.setId(n);
-		hr.setBuyerId(t.getBuyerId());
 		hr.setBuyerAdr(t.getBuyerAdr());
 		hr.setPrice(t.getPrice());
 		hr.setName(t.getPlanet().getName());

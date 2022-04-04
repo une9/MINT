@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Tile {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
     @Column(name = "tile_id")
     String tid;
 	
@@ -33,18 +35,16 @@ public class Tile {
 	
     String image;
 
-    int price;
+    double price;
     
     @Column(name = "trade_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     LocalDateTime tradeDate;
     
     @Column(name = "token_id")
     String tokenId;
     
     int area;
-    
-    @Column(name = "buyer_id")
-    String buyerId;
     
     @Column(name = "buyer_adr")
     String buyerAdr;
