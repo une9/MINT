@@ -1,4 +1,8 @@
 import styles from '../styles/Transaction.scss';
+import { BsFillCaretDownFill } from 'react-icons/bs';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { forwardRef, useState } from 'react';
 const postData = 
     {
         "historys": [
@@ -124,8 +128,30 @@ const postData =
         ]
     }
 const AdminPlanetTransaction= ( ) => {
+    const [startDate, setStartDate] = useState(new Date());
+    const CustomInput = forwardRef(({ value, onClick }, ref) => (
+        <button className="custom-input" onClick={onClick} ref={ref}>
+            Date. {value}
+        </button>
+    ));
     return(
        <div className="transaction" style={styles}>
+           <div className='transaction-filter'>
+                <span className='transaction-filter-name'>
+                    행성이름 &nbsp;  
+                    <BsFillCaretDownFill size="1.5em"/>
+                </span>
+                <span className='transaction-filter-date'>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        customInput={<CustomInput />}
+                        dateFormat="yyyy-MM-dd"
+
+
+                        />
+                </span>
+           </div>
            <div className='transaction-board'>
                <table>
                    <thead>

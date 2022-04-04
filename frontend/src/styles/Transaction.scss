@@ -1,10 +1,32 @@
 @import "variables";
+
+button.custom-input{
+    width: 20vh !important;
+    margin-left: 10px;
+}
 .transaction{
-    display: flex;
     justify-content: center;
-    margin-top: 15vh;
-    width: 70%;
-    margin-left: 30vh;
+    margin-top: 10vh;
+    width: 75%;
+    margin-left: 25vh;
+    .transaction-filter{
+        display: flex;
+        .transaction-filter-name,button.custom-input{
+            display: flex;
+            width: 13vh;
+            height: 4.5vh;
+            border: 1px solid $point-sub;
+            box-sizing: border-box;
+            border-radius: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.7rem;
+            color: $point-main;
+            background-color: $bg-dark;
+            cursor: pointer;
+        }
+    }
+    
     .transaction-board{
         border: 2px solid $point-sub;
         box-sizing: border-box;
@@ -126,4 +148,12 @@ thead, tbody tr {
 
     table-layout:fixed;/* even columns width , fix width of table too*/
 
+}
+.react-datepicker{
+    background-color: $bg-dark !important;
+    .react-datepicker__day.react-datepicker__day--003.react-datepicker__day--selected {
+        border-radius: 36.3rem !important;
+        background-color: $point-main !important;
+        color: $font-light !important;
+    }
 }
