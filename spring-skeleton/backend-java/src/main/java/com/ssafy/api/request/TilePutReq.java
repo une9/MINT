@@ -1,8 +1,6 @@
 package com.ssafy.api.request;
 
-import java.time.LocalDateTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,8 +25,7 @@ public class TilePutReq {
 	String buyerAdr;
 	
 	@ApiModelProperty(name="거래 일자", example="20150203")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	LocalDateTime tradeDate;
+	Date tradeDate;
 	
 	@ApiModelProperty(name="가격", example="50")
 	double price;

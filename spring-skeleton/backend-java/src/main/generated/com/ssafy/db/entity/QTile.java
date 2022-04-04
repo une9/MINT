@@ -26,13 +26,11 @@ public class QTile extends EntityPathBase<Tile> {
 
     public final StringPath buyerAdr = createString("buyerAdr");
 
-    public final StringPath buyerId = createString("buyerId");
-
     public final StringPath image = createString("image");
 
     public final QPlanet planet;
 
-    public final NumberPath<Integer> price = createNumber("price", Integer.class);
+    public final NumberPath<Double> price = createNumber("price", Double.class);
 
     public final StringPath tid = createString("tid");
 

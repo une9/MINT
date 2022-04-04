@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,11 @@ public class TileServiceImpl implements TileService {
 			tile.setPlanet(planet);
 			tile.setPrice(tileInfo.getPrice());
 			tile.setTokenId(tileInfo.getTokenId());
-			tile.setTradeDate(tileInfo.getTradeDate());
+			
+			LocalDateTime localDateTime = new java.sql.Timestamp(tileInfo.getTradeDate().getTime())
+					.toLocalDateTime();
+			
+			tile.setTradeDate(localDateTime);
 			
 			tileRepository.save(tile);
 		
