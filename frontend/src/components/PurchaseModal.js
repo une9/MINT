@@ -2,6 +2,7 @@ import PurchaseBtnSection from "./PurchaseBtnSection";
 import styles from "../styles/PurchaseModal.module.scss";
 import { VscChromeClose } from "react-icons/vsc";
 import { useState, useEffect } from "react";
+import shortenWalletAddr from "./utils/shortenWalletAddr";
 
 import { ethers } from 'ethers';
 import axios from 'axios';
@@ -29,16 +30,6 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
             setMyWalletAddr(res);
         })
     }, []);
-
-    const shortenWalletAddr = (addr) => {
-        if (!addr) {
-            return "없음(0x000...00000)";
-        }
-        const L = addr.length;
-        if (L > 12) {
-            return `${addr.slice(0,9)}...${addr.slice(L-6, L-1)}`
-        } else return addr
-    }
 
     const buy = async () => {
         console.log("구매!")

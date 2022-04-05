@@ -197,6 +197,7 @@ button {
         width: 16rem;
         bottom: 1rem;
         border-radius: 16px;
+        
 
         p {
             background-color: transparent;
@@ -207,6 +208,7 @@ button {
         .notice__buyer {
             margin-bottom: 2rem;
             font-family: "Pretendard-Bold";
+            word-wrap: break-word;
         }
     }
 

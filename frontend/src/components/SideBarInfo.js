@@ -1,4 +1,5 @@
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+import shortenWalletAddr from "./utils/shortenWalletAddr";
 
 const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, onModalShow, onAddCart, myWalletAddr }) => {
 
@@ -44,11 +45,16 @@ const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, on
                 <section className="notice">
                     <p className="notice__buyer">
                         {
+
+
+
+
+
                             myWalletAddr === buyerAdr
                             ?
                             "이미 소유하고 있는 토지입니다."
                             :
-                            `${buyerAdr}님이 소유하고 있는 토지입니다.`
+                            `${shortenWalletAddr(buyerAdr)}님이 소유하고 있는 토지입니다.`
                         }
                     </p>
                     <p>
