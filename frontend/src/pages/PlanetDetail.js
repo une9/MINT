@@ -31,9 +31,9 @@ const PlanetDetail= ( ) => {
 
     const navigate = useNavigate();
 
-    // // web3 관련 객체 가져오기
-    // const myWeb3 = useOutletContext();
-    // console.log(myWeb3.signer)
+    // web3 관련 객체 가져오기
+    const myWeb3 = useOutletContext();
+    console.log(myWeb3.signer)
 
     const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -132,6 +132,7 @@ const PlanetDetail= ( ) => {
                         },
                     }]}
                     isBuyDirect={true}
+                    myWeb3={myWeb3}
                 />
             }
             <SideBarInfo 
