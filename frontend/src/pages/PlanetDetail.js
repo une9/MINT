@@ -12,6 +12,7 @@ import SideBarInfo from "../components/SideBarInfo";
 import PurchaseModal from "../components/PurchaseModal";
 
 import axios from 'axios';
+import { ethers } from 'ethers';
 
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
@@ -26,10 +27,13 @@ const PlanetDetail= ( ) => {
     const [modalShow, setModalShow] = useState(false);
     const onModalHide = () => setModalShow(false);
 
+    const [myWalletAddr, setMyWalletAddr] = useState("");
+
     const navigate = useNavigate();
 
-    // web3 관련 객체 가져오기
-    const myWeb3 = useOutletContext();
+    // // web3 관련 객체 가져오기
+    // const myWeb3 = useOutletContext();
+    // console.log(myWeb3.signer)
 
     const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -60,6 +64,16 @@ const PlanetDetail= ( ) => {
           .catch((err) => {
             console.log(err);
           });
+
+        // 내 지갑 주소 가져오기
+        const { ethereum } = window;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        signer.getAddress()
+        .then((res) => {
+            setMyWalletAddr(res);
+        })
+
     }, []);
 
     useEffect(() => {
@@ -117,7 +131,6 @@ const PlanetDetail= ( ) => {
                             data: planetInfo
                         },
                     }]}
-                    myWeb3={myWeb3}
                     isBuyDirect={true}
                 />
             }
@@ -142,6 +155,7 @@ const PlanetDetail= ( ) => {
                     setCartItemNum(prev => prev + 1);
                 }}
                 onModalShow={()=> setModalShow(true)}
+                myWalletAddr={myWalletAddr}
             />
             
         </div>

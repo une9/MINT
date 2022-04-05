@@ -47,9 +47,10 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
             for (const item of itemsToBuy) {
                 const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
                 console.log(priceInWei)
+                console.log(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei)
                 await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
                 
-                const tokenId = await myWeb3.nftContract.getTileId();
+                const tokenId = await myWeb3.nftContract.currentTileId();
 
                 axios.put(`${BASE_URL}/api/tile/`, {
                     buyerAdr: myWalletAddr,
@@ -67,7 +68,7 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
                         console.log(res);
                     })
                 })
-                // console.log(item)
+                console.log(item)
             }
 
             if (!isBuyDirect) {
