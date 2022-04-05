@@ -1,6 +1,7 @@
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 
-const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, onModalShow, onAddCart }) => {
+const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, onModalShow, onAddCart, myWalletAddr }) => {
+
     const onToggleDibs = () => {
 
     }
@@ -37,14 +38,33 @@ const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, on
                     </dl>
                 </div>
             </section>
-            <section className="btns">
-                <button onClick={onAddCart}>
-                    장바구니에 넣기
-                </button>
-                <button onClick={onModalShow}>
-                    바로 구매하기
-                </button>
-            </section>
+            {
+                buyerAdr && tokenId
+                ?
+                <section className="notice">
+                    <p className="notice__buyer">
+                        {
+                            myWalletAddr === buyerAdr
+                            ?
+                            "이미 소유하고 있는 토지입니다."
+                            :
+                            `${buyerAdr}님이 소유하고 있는 토지입니다.`
+                        }
+                    </p>
+                    <p>
+                        {"개인간 거래 및 판매 기능은 추후 오픈 예정입니다 :)"}
+                    </p>
+                </section>
+                :
+                <section className="btns">
+                    <button onClick={onAddCart}>
+                        장바구니에 넣기
+                    </button>
+                    <button onClick={onModalShow}>
+                        바로 구매하기
+                    </button>
+                </section>
+            }
         </aside>
     );
 }
