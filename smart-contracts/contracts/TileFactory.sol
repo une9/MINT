@@ -23,6 +23,7 @@ contract TileFactory is TileNFT {
     }
 
     mapping(uint256 => Tile) tileInfo;
+    mapping(uint256 => uint256) tempPrice;
 
     event nftPurchase(
         uint256 indexed tileId,
@@ -81,6 +82,78 @@ contract TileFactory is TileNFT {
         emit nftPurchase(tileIds, msg.sender, block.timestamp);
     }
 
+    function sell(uint256 _price, uint256 _tileId) public {
+        require(
+            msg.sender != address(0),
+            "The caller must not have an address of 0."
+        );
+        require(_exists(_tileId), "This token does not exist.");
+
+        require(
+            owner != address(0),
+            "CurrentOwner must not have an address of 0."
+        );
+        require(
+            tileInfo[_tileId].assurance,
+            "This is an already registered token."
+        );
+
+        setApprovalForAll(address(this), true);
+
+        tempPrice[_tileId] = _price;
+        tileInfo[_tileId].assurance = false;
+    }
+
+    function buy(uint256 _tileId) public payable {
+        require(
+            msg.sender != address(0),
+            "The caller must not have an address of 0."
+        );
+        require(_exists(_tileId), "This token does not exist.");
+
+        require(
+            owner != address(0),
+            "CurrentOwner must not have an address of 0."
+        );
+        require(
+            msg.value >= tempPrice[_tileId],
+            "price sent in to buy should be equal to or more than the token's price"
+        );
+        require(tileInfo[_tileId].tileOwner != msg.sender, "can't call seller");
+        require(!tileInfo[_tileId].assurance, "Not registered for sale.");
+
+        tileInfo[_tileId].tileOwner.transfer(msg.value);
+
+        IERC721(address(this)).transferFrom(
+            tileInfo[_tileId].tileOwner,
+            msg.sender,
+            _tileId
+        );
+
+        tileInfo[_tileId].tileOwner = payable(msg.sender);
+        tileInfo[_tileId].price = tempPrice[_tileId];
+        tileInfo[_tileId].assurance = true;
+    }
+
+    function cancel(uint256 _tileId) public {
+        require(
+            msg.sender != address(0),
+            "The caller must not have an address of 0."
+        );
+        require(_exists(_tileId), "This token does not exist.");
+
+        require(
+            owner != address(0),
+            "CurrentOwner must not have an address of 0."
+        );
+
+        require(tileInfo[_tileId].tileOwner == msg.sender, "not tileOwner");
+
+        setApprovalForAll(address(this), false);
+
+        tileInfo[_tileId].assurance = true;
+    }
+
     function getAllTile() public view returns (Tile[] memory) {
         uint256 idx = 0;
 
@@ -115,6 +188,21 @@ contract TileFactory is TileNFT {
     }
 
     function getTileId(uint256 _tileId) public view returns (Tile memory) {
-        return tileInfo[_tileId];
+        if(tileInfo[_tileId].assurance) {
+            return tileInfo[_tileId];
+        }else {
+            Tile memory result = Tile(
+                tileInfo[_tileId].tileId,
+                tileInfo[_tileId].tileOwner,
+                tileInfo[_tileId].galaxyName,
+                tileInfo[_tileId].planetName,
+                tileInfo[_tileId].tileName,
+                tempPrice[_tileId],
+                tileInfo[_tileId].issuer,
+                tileInfo[_tileId].assurance
+            );
+
+            return result;
+        }
     }
 }
