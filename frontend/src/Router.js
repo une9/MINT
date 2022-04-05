@@ -25,7 +25,7 @@ const AppRouter= ( ) => {
                     <Route path="planet/purchase" element={<PlanetPurchase />} /> 
                     <Route path="transaction" element={<AdminPlanetTransaction />} /> 
                     <Route path="cadastre" element={<AdminPlanetCadastre />} /> 
-                    <Route path="cadastre/detail" element={<AdminPlanetCadastreDetail />} /> 
+                    <Route path="cadastre/:planetId" element={<AdminPlanetCadastreDetail />} /> 
                 </Route>
             </Routes>
         </BrowserRouter>

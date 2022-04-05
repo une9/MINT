@@ -1,9 +1,10 @@
+import { useParams } from "react-router-dom";
 import PlanetMap from "../components/PlanetMap";
 
 const AdminPlanetCadastreDetail= ( ) => {
     // 임시 데이터
     // 수정해서 쓰세요 :)
-    const planetName = "kepler-1649c"
+    const planetName = "Kepler-1649c"
     const tiles = [
         {
             id: "KepC-A-001",
@@ -60,6 +61,8 @@ const AdminPlanetCadastreDetail= ( ) => {
         "KepC-E-002",
         "KepC-E-003",
     ]
+    const { planetId } = useParams();
+    
 
     return(
        <div>
