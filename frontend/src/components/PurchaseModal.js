@@ -9,19 +9,14 @@ import axios from 'axios';
 
 const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
     // console.log("PurchaseModal Created")
-    console.log(isBuyDirect);
     const [myWalletAddr, setMyWalletAddr] = useState();
 
-    console.log("itemstobuy:", itemsToBuy);
-
-    const myWalletName = "ssafy";
+    // const myWalletName = "ssafy";
     // const myWalletAddr = "0xA72ec60E7AA4FB1928D3f2A375Da13dFaaAAd2f";
 
     const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
-        console.log(myWeb3)
-        // console.log(myWeb3.signer.getAddress())
         const { ethereum } = window;
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
