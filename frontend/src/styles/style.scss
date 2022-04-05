@@ -187,20 +187,27 @@ button {
         }
     }
 
-    .btns {
+    .btns, .notice {
         position: absolute;
         bottom: 0;
+    }
 
-        // button {
-        //     width: 14rem;
-        //     height: 3rem;
-        //     margin: 0.5rem 0;
+    .notice {
+        background-color: $bg-grey;
+        width: 16rem;
+        bottom: 1rem;
+        border-radius: 16px;
 
-        //     border-radius: 1.5rem;
-        //     background-color: $point-main;
-        //     border: none;
-        // }
+        p {
+            background-color: transparent;
+            color: $point-light;
+            margin: 0;
+        }
 
+        .notice__buyer {
+            margin-bottom: 2rem;
+            font-family: "Pretendard-Bold";
+        }
     }
 
     div.image, img.image {
