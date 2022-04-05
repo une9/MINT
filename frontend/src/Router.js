@@ -20,7 +20,7 @@ const AppRouter= ( ) => {
                     <Route path="description" element={<Description />}/>
                     <Route path="login" element={<Login />}/>
                     <Route path="mypage" element={<MyPage />}/>
-                    <Route path="mypage/:planetId" element={<MyPlanet />}/>
+                    <Route path="mypage/:planetName" element={<MyPlanet />}/>
                     <Route path="planet/:planetId" element={<PlanetDetail />} /> 
                     <Route path="planet/purchase" element={<PlanetPurchase />} /> 
                     <Route path="transaction" element={<AdminPlanetTransaction />} /> 

@@ -15,11 +15,11 @@ export const MetaMaskProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true)
 
     // Init Loading
-    useEffect(() => {
-        connect().then(val => {
-            setIsLoading(false)
-        })
-    }, [])
+    // useEffect(() => {
+    //     connect().then(val => {
+    //         setIsLoading(false)
+    //     })
+    // }, [])
 
     // Check when App is Connected or Disconnected to MetaMask
     const handleIsActive = useCallback(() => {
@@ -58,12 +58,11 @@ export const MetaMaskProvider = ({ children }) => {
         () => ({
             isActive,
             account,
-            isLoading,
             connect,
             disconnect,
             shouldDisable
         }),
-        [isActive, isLoading, shouldDisable, account]
+        [isActive, shouldDisable, account]
     )
 
     return <MetaMaskContext.Provider value={values}>{children}</MetaMaskContext.Provider>

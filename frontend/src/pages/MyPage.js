@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/MyPage.module.scss";
+import { ethers } from "ethers";
+import contract from '../smartcontract/TileFactory.json'
 
 // outlet context
 import { useOutletContext } from "react-router-dom";
@@ -11,6 +13,46 @@ const MyPage= ( ) => {
     const [boughtTiles, setBoughtTiles] = useState([]);
     const [boughtPlanets, SetBoughtPlanets] = useState([]);
     const username = "username";
+    const abi = contract.abi;
+    const contractAddress = "0x37B92D4960c8CE8fDaBDf3d5bB1FE4438e25cB4E"
+
+    const contractCall = useCallback(async () => {
+        try {
+            const { ethereum } = window;
+            
+
+            if ( ethereum ){
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+                const nftContract = new ethers.Contract(contractAddress, abi, signer);
+
+                console.log("컨트랙트 연결!");
+                const nftTxn = await nftContract.connect(signer).getMyTile();
+
+                console.log(nftTxn.length);
+                console.log(nftTxn);
+
+                const boughtPlanetsRes = new Set();
+
+                await nftTxn.map((item, idx) => (
+                    boughtPlanetsRes.add(item.planetName)
+                ))
+
+                console.log(boughtPlanetsRes);
+
+                const boughtPlanetArr = Array.from(boughtPlanetsRes);
+
+                console.log(boughtPlanetArr);
+                SetBoughtPlanets(boughtPlanetArr);
+
+            } else {
+                console.log("metamast 연결 X")
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
+    },[])
 
     // web3 관련 객체 가져오기
     const myWeb3 = useOutletContext();
@@ -58,7 +100,9 @@ const MyPage= ( ) => {
         // ]
         // SetBoughtPlanets(boughtPlanetsRes);
 
-        const dibbedLandsRes = [
+        contractCall();
+
+        /*const dibbedLandsRes = [
             {
                 planetId: 1,
                 planetName: "Teegarden_b",
@@ -90,9 +134,9 @@ const MyPage= ( ) => {
                 landId: "A-005",
             },
         ]
-        setDibbedLands(dibbedLandsRes);
+        setDibbedLands(dibbedLandsRes);*/
 
-    }, []);
+    }, [contractCall]);
 
     const navigate = useNavigate();
 
@@ -108,10 +152,10 @@ const MyPage= ( ) => {
                     <div className={`${styles.ProfileBox} Box`}>
                             <ul className={styles.ProfileBox__inner}>
                                 {
-                                    boughtPlanets.map((item, idx) => (
-                                        <li className={styles.ProfileBox__item} onClick={() => navigate(`/mypage/${item.planetId}`)} key={idx}>
-                                            <img src={item.imgSrc} alt={`bought-planet-${idx}`} className={styles.planetImg} />
-                                            <p className={styles.planetName}>{item.planetName}</p>
+                                    boughtPlanets.map((planetName, idx) => (
+                                        <li className={styles.ProfileBox__item} onClick={() => navigate(`/mypage/${planetName}`)} key={idx}>
+                                            <img src="../../planet_ex.png" alt={`bought-planet-${idx}`} className={styles.planetImg} />
+                                            <p className={styles.planetName}>{planetName}</p>
                                         </li>
                                     ))
                                 }
