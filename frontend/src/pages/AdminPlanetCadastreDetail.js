@@ -11,7 +11,7 @@ const AdminPlanetCadastreDetail= ( ) => {
 
     // 임시 데이터
     // 수정해서 쓰세요 :)
-    const planetName = "Kepler-1649c"
+    const planetName = "Kepler_1649c"
     const tiles = [
         {
             id: "KepC-A-001",
@@ -73,7 +73,6 @@ const AdminPlanetCadastreDetail= ( ) => {
     const [myDistance, setMyDistance] = useState("");
     const percentage = (( 5 / 20) * 100).toFixed(0);
     useEffect(() => {
-        
         axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/planet/' + planetId, {})
       .then((res) => {
