@@ -16,7 +16,7 @@ import contract from '../smartcontract/TileFactory.json'
 // const Land = ({ version, tid, area, image, buyer, trade_date, price, tokenId }) => {
 const Land = (props) => {
     console.log(props)
-    const { version, tid, area, image, buyer, trade_date, price } = props;
+    const { version, tid, area, image, buyerAdr, tradeDate, price } = props;
     const tokenId = "0x00";
     // console.log(version)
     console.log("tokenId:", Number(tokenId))
@@ -94,6 +94,10 @@ const Land = (props) => {
 
     }, [tokenId])
 
+    const imageChange = () => {
+
+    }
+
     return(
         <article className={`${styles.Land} ${styles[version]} ${version === "card-purchase" ? "Box" : ""}`}>
             {
@@ -118,7 +122,7 @@ const Land = (props) => {
                             ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={image} alt="landImg" />
                             : <div className={`${styles.landImg} ${styles.landImgBig}`} />
                         }
-                        <button className={styles.landImgUploadBtn}>사진 등록</button>
+                        <button className={styles.landImgUploadBtn} onClick={imageChange}>사진 등록</button>
                     </div>
                 }
                 <dl className={`metadata ${styles.metadata}`}>
@@ -136,11 +140,11 @@ const Land = (props) => {
                         version !== "card-purchase" 
                         &&
                         <div className={styles.tradeDate}>
-                            <dt>취득일</dt> <dd>{trade_date}</dd>
+                            <dt>취득일</dt> <dd>{tradeDate}</dd>
                         </div>
                     }
                     <div>
-                        <dt>소유자</dt> <dd>{buyer}{`(${tokenId ? tokenId : " 없음 "})`}</dd>
+                        <dt>소유자</dt> <dd>{buyerAdr}{`(${tokenId ? tokenId : " 없음 "})`}</dd>
                     </div>
                     <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
                         <summary>

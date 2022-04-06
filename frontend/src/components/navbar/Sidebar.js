@@ -11,27 +11,36 @@ import { FaHome } from 'react-icons/fa';
 import { MdOutlineDescription } from 'react-icons/md';
 import { VscDebugDisconnect } from 'react-icons/vsc';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+
 
 const Sidebar = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [expand,setExpand] = useState(false);
 
-
+  const toggle = ()=>{
+    setExpand(!expand)
+  }
   return (
     <SideNav
       className="sidebar"
+      expanded={expand}
       onSelect={(selected) => {
         const to = '/' + selected;
         if (pathname !== to) {
           navigate(to);
+          setExpand(false);
+
           localStorage.setItem('path',pathname);
         }
         else{
           localStorage.setItem('path','/' + selected);
         }
       }}
+
     >
-      <Toggle />
+      <Toggle onClick={toggle}/>
       <Nav defaultSelected={pathname.substring(1)}>
         <NavItem eventKey="home">
           <NavIcon className="sidebar-icon">

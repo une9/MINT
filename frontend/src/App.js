@@ -20,7 +20,7 @@ const App = ( ) => {
     useEffect(() => {
       if (pathname === '/') {
         navigate('/home');
-        localStorage.setItem("path",{pathname});
+        localStorage.setItem("path",'/home');
       }
 
       const abi = contract.abi;

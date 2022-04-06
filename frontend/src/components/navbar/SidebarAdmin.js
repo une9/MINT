@@ -14,10 +14,16 @@ import { AiOutlineTransaction } from 'react-icons/ai';
 import { BiPlanet } from 'react-icons/bi';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useMetaMask from '../../hook/MetamaskHook';
+import { useState } from 'react';
 
 const SidebarAdmin = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const [expand,setExpand] = useState(false);
+
+  const toggle = ()=>{
+    setExpand(!expand)
+  }
   
   const { connect, disconnect, isActive, account, shouldDisable } = useMetaMask();
   const onClickLogout = () => {
@@ -28,6 +34,7 @@ const SidebarAdmin = () => {
   return (
     <SideNav
       className="sidebar"
+      expanded={expand}
       onSelect={(selected) => {
         if (selected === 'logout') {
           
@@ -35,6 +42,7 @@ const SidebarAdmin = () => {
           const to = '/' + selected;
           if (pathname !== to) {
             navigate(to);
+            setExpand(false);
             localStorage.setItem('path',pathname);
           }
           else{
@@ -43,7 +51,7 @@ const SidebarAdmin = () => {
         }
       }}
     >
-      <Toggle />
+      <Toggle onClick={toggle}/>
       <Nav defaultSelected={pathname.substring(1)}>
         <NavItem eventKey="home">
           <NavIcon className="sidebar-icon">
