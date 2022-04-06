@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PlanetMap from "../components/PlanetMap";
 import PlanetLottie from '../components/PlanetLottie';
+import CircularProgressBar from "../components/CircularProgressbar";
 import '../styles/CadastreDetail.scss';
 
 
@@ -70,6 +71,7 @@ const AdminPlanetCadastreDetail= ( ) => {
     const { planetId } = useParams();
     const [myPlanet, setMyPlanet] = useState([]);
     const [myDistance, setMyDistance] = useState("");
+    const percentage = (( 5 / 20) * 100).toFixed(0);
     useEffect(() => {
         
         axios
@@ -111,8 +113,11 @@ const AdminPlanetCadastreDetail= ( ) => {
                     <div className="CadastreDetail-distance">{myDistance}</div>
                     <div className="CadastreDetail-au">*1AU = 약 1억 5천만 km(태양과 지구 간의 거리)</div>
                 </div>
-                <div class='v-line'></div>
-                <div>땅구매 비율</div>
+                <div className='v-line'></div>
+                <div className="CadastreDetail-percent">
+                    <div className="CadastreDetail-landdiv">땅구매 비율</div>
+                    <div className="CadastreDetail-circular"><CircularProgressBar percentage={percentage}/></div>
+                </div>
                 
            </div>
            <PlanetMap

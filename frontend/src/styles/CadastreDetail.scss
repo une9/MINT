@@ -70,6 +70,20 @@
             border: 1px solid #69C7A2;
             height : 17vh;
           }
+        .CadastreDetail-percent{
+            width: 100%;
+            margin-top: 2vh;
+            .CadastreDetail-landdiv{
+                text-align: center;
+            }
+            .CadastreDetail-circular{
+                width: 13vh;
+                height: 13vh;                
+                margin-left: 9vh;
+                margin-right: 10vh;
+                margin-top: 0.5vh;
+            }
+        }
     }
     
 }
