@@ -47,14 +47,17 @@ const Land = (props) => {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         // const abi = contract.abi;
-        const abi = [ "event nftPurchase(uint256 tileIds, address msg.sender, uint256 block.timestamp)" ];;
+        const abi = [ "event nftPurchase(uint256 indexed tileIds, address indexed buyer, uint256 indexed purchaseTime)" ];;
         const iface = new ethers.utils.Interface(abi);
         console.log(provider)
 
         const filter = {
             // transactionHash: tokenId
             logIndex: Number(tokenId),
-            blockHash: "0xfc048eb2dc87911042c0d99fbfc8d3f9973428e4c36559c718ded4fcd3b8e881"
+            blockHash: "0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F",
+            // topics: [
+            //     iface
+            // ]
             // transactionIndex: Number(tokenId)
         }
         provider.getLogs(filter)
@@ -69,6 +72,25 @@ const Land = (props) => {
             });
             console.log("parsedLogs", parsedLogs)
         })
+
+
+        // contract.on("nftPurchase", (tileIds, buyer, purchaseTime) => {
+        //     console.log({
+        //         tileIds: tileIds,
+        //         buyer: buyer,
+        //         purchaseTime: purchaseTime,
+        //     });
+        // });
+
+
+        // provider.getTransactionReceipt("0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F")
+        // .then((receipt) => {
+        //     console.log(receipt)
+        //     let abi = [ "event nftPurchase(uint256 indexed tileIds, address indexed buyer, uint256 indexed purchaseTime)" ];
+        //     let iface = new ethers.utils.Interface(abi);
+        //     // let log = iface.parseLog(receipt.logs[1]);
+        //     // console.log(log)
+        // })
 
     }, [tokenId])
 
