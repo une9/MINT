@@ -32,6 +32,7 @@ const SidebarAdmin = () => {
     navigate('/home');
   };
   return (
+    <div className="sidebar-skeleton">
     <SideNav
       className="sidebar"
       expanded={expand}
@@ -87,6 +88,7 @@ const SidebarAdmin = () => {
         </NavItem>
       </Nav>
     </SideNav>
+    </div>
   );
 };
 export default SidebarAdmin;

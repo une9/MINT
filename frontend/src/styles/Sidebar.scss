@@ -2,6 +2,14 @@
 body{
     font-family: 'Pretendard-Regular', sans-serif;
 }
+.sidebar-skeleton{
+    position: fixed;
+    left: 0;
+    height: 100vh;
+    bottom: 0;
+    width: 272px;
+    // z-index: -10000;
+}
 .sidebar{
     font-family: 'Pretendard-Regular', sans-serif;
     background: $point-main !important; 

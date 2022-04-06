@@ -33,6 +33,8 @@ const SidebarUSer = () => {
   };
 
   return (
+    
+    <div className="sidebar-skeleton">
     <SideNav
       className="sidebar"
       expanded={expand}
@@ -82,6 +84,7 @@ const SidebarUSer = () => {
         </NavItem>
       </Nav>
     </SideNav>
+    </div>
   );
 };
 export default SidebarUSer;
