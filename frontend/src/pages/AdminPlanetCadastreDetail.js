@@ -11,7 +11,7 @@ const AdminPlanetCadastreDetail= ( ) => {
 
     // 임시 데이터
     // 수정해서 쓰세요 :)
-    const planetName = "Kepler-1649c"
+    const planetName = "Kepler_1649c"
     const tiles = [
         {
             id: "KepC-A-001",
