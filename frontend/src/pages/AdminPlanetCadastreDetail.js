@@ -66,6 +66,7 @@ const AdminPlanetCadastreDetail= ( ) => {
 
     return(
        <div>
+           <div><b>싸피싸피행성</b> 토지현황</div>
            <PlanetMap
                 version={"admin"}
                 planetName={planetName}

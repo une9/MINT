@@ -25,7 +25,7 @@ const MyPlanet = () => {
   ]);
 
   const abi = contract.abi;
-  const contractAddress = '0x37B92D4960c8CE8fDaBDf3d5bB1FE4438e25cB4E';
+  const contractAddress = '0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F';
   const planetCall = useCallback(async () => {
     const pid = mappingPid.get(planetName);
     await axios

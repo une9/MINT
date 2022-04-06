@@ -13,7 +13,7 @@ button.custom-input{
         display: flex;
         .transaction-filter-name,button.custom-input{
             display: flex;
-            width: 13vh;
+            width: 15vh;
             height: 4.5vh;
             border: 1px solid $point-sub;
             box-sizing: border-box;
@@ -156,6 +156,7 @@ thead, tbody tr {
     background-color: #434645 !important;
     font-family: 'Pretendard' !important;
     border: 2px solid $point-main !important;
+    padding: 10px;
     
     .react-datepicker__day{
         color: $font-light;
@@ -187,11 +188,12 @@ thead, tbody tr {
         color: $font-light !important;
     }
     .react-datepicker__header {
+        margin-top: 3px;
         text-align: center;
         background-color: #434645 !important;
         border-bottom: 0px solid #aeaeae !important;
         border-top-left-radius: 0.3rem;
-        padding: 8px 0;
+        // padding: 8px 0;
         position: relative;
 
     }
@@ -205,6 +207,7 @@ thead, tbody tr {
         position: absolute;
         top: 13px;
         width: 9px;
+        margin-top: 10px;
     }
     .react-datepicker__current-month{
         color: $font-light;
