@@ -10,7 +10,7 @@ import { ethers } from 'ethers';
 // card-purchase: 행성 구매페이지 (history: open)
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
-const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) => {
+const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) => {
     console.log(version)
 
     useEffect(() => {
@@ -30,6 +30,9 @@ const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) =>
 
     }, []);
 
+    const imageChange = ()=>{
+        
+    }
     // useEffect(() => {
     //     if (provider) {
 
@@ -61,7 +64,7 @@ const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) =>
                             ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={image} alt="landImg" />
                             : <div className={`${styles.landImg} ${styles.landImgBig}`} />
                         }
-                        <button className={styles.landImgUploadBtn}>사진 등록</button>
+                        <button className={styles.landImgUploadBtn} onClick={imageChange}>사진 등록</button>
                     </div>
                 }
                 <dl className={`metadata ${styles.metadata}`}>
@@ -79,11 +82,11 @@ const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) =>
                         version !== "card-purchase" 
                         &&
                         <div className={styles.tradeDate}>
-                            <dt>취득일</dt> <dd>{trade_date}</dd>
+                            <dt>취득일</dt> <dd>{tradeDate}</dd>
                         </div>
                     }
                     <div>
-                        <dt>소유자</dt> <dd>{buyer}{`(${token ? token : " 없음 "})`}</dd>
+                        <dt>소유자</dt> <dd>{buyerAdr}{`(${token ? token : " 없음 "})`}</dd>
                     </div>
                     <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
                         <summary>
