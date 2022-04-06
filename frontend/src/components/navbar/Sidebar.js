@@ -23,6 +23,7 @@ const Sidebar = () => {
     setExpand(!expand)
   }
   return (
+    <div className="sidebar-skeleton">
     <SideNav
       className="sidebar"
       expanded={expand}
@@ -64,6 +65,7 @@ const Sidebar = () => {
         </NavItem>
       </Nav>
     </SideNav>
+    </div>
   );
 };
 export default Sidebar;

@@ -73,7 +73,6 @@ const AdminPlanetCadastreDetail= ( ) => {
     const [myDistance, setMyDistance] = useState("");
     const percentage = (( 5 / 20) * 100).toFixed(0);
     useEffect(() => {
-        
         axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/planet/' + planetId, {})
       .then((res) => {
