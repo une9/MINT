@@ -24,7 +24,7 @@ const App = ( ) => {
       }
 
       const abi = contract.abi;
-      const contractAddress = "0xe51250721f911098273062509165185f0e18DF82";
+      const contractAddress = "0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F";
 
       try {
           const { ethereum } = window;
