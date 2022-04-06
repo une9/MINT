@@ -41,6 +41,7 @@ const PlanetPurchase= () => {
         if (cartItems.length > 0) {
             setSelectedId(cartItems[0].id);
         }
+        console.log(cartItems)
     }, [cartItems]);
 
     useEffect(() => {

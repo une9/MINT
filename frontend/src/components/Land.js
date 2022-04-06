@@ -1,41 +1,76 @@
 import styles from "../styles/Land.module.scss";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
 
+import shortenWalletAddr from "./utils/shortenWalletAddr";
+
 import { VscChevronDown } from "react-icons/vsc";
 import { useEffect } from "react";
 
 import { ethers } from 'ethers';
+import contract from '../smartcontract/TileFactory.json'
 
 // version
 // card-purchase: 행성 구매페이지 (history: open)
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
-const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) => {
-    console.log(version)
+// const Land = ({ version, tid, area, image, buyer, trade_date, price, tokenId }) => {
+const Land = (props) => {
+    console.log(props)
+    const { version, tid, area, image, buyer, trade_date, price } = props;
+    const tokenId = "0x00";
+    // console.log(version)
+    console.log("tokenId:", Number(tokenId))
+
+    useEffect(() => {
+        // const { ethereum } = window;
+        // const provider = new ethers.providers.Web3Provider(ethereum);
+        // const signer = provider.getSigner();
+        // // const abi = contract.abi;
+        // const abi = [ "event nftPurchase(tileIds, msg.sender, block.timestamp)" ];;
+        // const iface = new ethers.utils.Interface(abi);
+        // console.log(provider)
+
+        // const filter = {
+        //     transactionHash: tokenId
+        // }
+        // provider.getLogs({})
+        // .then((res) => {
+        //     console.log(res)
+        //     const parsedLogs = res.map((log) => iface.parseLog(log));
+        //     console.log("parsedLogs", parsedLogs)
+        // })
+
+    }, []);
 
     useEffect(() => {
         const { ethereum } = window;
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
+        // const abi = contract.abi;
+        const abi = [ "event nftPurchase(uint256 tileIds, address msg.sender, uint256 block.timestamp)" ];;
+        const iface = new ethers.utils.Interface(abi);
         console.log(provider)
 
+        const filter = {
+            // transactionHash: tokenId
+            logIndex: Number(tokenId),
+            blockHash: "0xfc048eb2dc87911042c0d99fbfc8d3f9973428e4c36559c718ded4fcd3b8e881"
+            // transactionIndex: Number(tokenId)
+        }
+        provider.getLogs(filter)
+        .then((res) => {
+            console.log(res)
+            const parsedLogs = res.map((log) => {
+                try {
+                    return iface.parseLog(log);
+                } catch (err) {
+                    return null;
+                }
+            });
+            console.log("parsedLogs", parsedLogs)
+        })
 
-        // transaction history 
-        // https://docs.ethers.io/v5/api/providers/provider/#Provider-getTransactionReceipt
-
-        // provider.getLogs()
-        // .then((res) => {
-        //     console.log(res)
-        // })
-
-    }, []);
-
-    // useEffect(() => {
-    //     if (provider) {
-
-    //         console.log(provider.getLogs())
-    //     }
-    // }, [provider])
+    }, [tokenId])
 
     return(
         <article className={`${styles.Land} ${styles[version]} ${version === "card-purchase" ? "Box" : ""}`}>
@@ -66,7 +101,7 @@ const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) =>
                 }
                 <dl className={`metadata ${styles.metadata}`}>
                     <div>
-                        <dt>크기</dt> <dd>{area}km<sup>2</sup></dd>
+                        <dt>크기</dt> <dd>{area * 1000}km<sup>2</sup></dd>
                     </div>
                     <div className="price">
                         <dt>현재가</dt> 
@@ -83,7 +118,7 @@ const Land = ({ version, tid, area, image, buyer, trade_date, price, token }) =>
                         </div>
                     }
                     <div>
-                        <dt>소유자</dt> <dd>{buyer}{`(${token ? token : " 없음 "})`}</dd>
+                        <dt>소유자</dt> <dd>{buyer}{`(${tokenId ? tokenId : " 없음 "})`}</dd>
                     </div>
                     <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
                         <summary>
