@@ -133,6 +133,8 @@ contract TileFactory is TileNFT {
         tileInfo[_tileId].tileOwner = payable(msg.sender);
         tileInfo[_tileId].price = tempPrice[_tileId];
         tileInfo[_tileId].assurance = true;
+
+        emit nftPurchase(_tileId, msg.sender, block.timestamp);
     }
 
     function cancel(uint256 _tileId) public {
