@@ -198,6 +198,33 @@ button {
     .btns, .notice {
         position: absolute;
         bottom: 0;
+        width: 16rem;
+    }
+
+    .btns {
+        p {
+            color: $bg-dark;
+            font-family: "Pretendard-Bold";
+        }
+
+        &__title {
+            color: $point-main;
+            font-family: "Pretendard-Black";
+            margin-bottom: 0.5rem;
+        }
+
+        &__priceInput {
+            border: 1px solid $point-main;
+            border-radius: 5px;
+            height: 2rem;
+            width: 14rem;
+            margin-bottom: 1rem;
+        }
+
+        .btns__alert, .btns__alert div {
+            color: $point-alert;
+            text-align: center;
+        }
     }
 
     .notice {

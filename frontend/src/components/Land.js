@@ -44,10 +44,11 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
         const transferEvent = await contract.queryFilter('nftPurchase');
 
         console.log(transferEvent);
-        console.log(transferEvent[0].args);
-        console.log(Number(transferEvent[0].args.tileId));
-        console.log(transferEvent[0].args.buyer);
-        console.log(Number(transferEvent[0].args.purchaseTime));
+        console.log(transferEvent.map(event => event.args));
+        // console.log(transferEvent[0].args);
+        // console.log(Number(transferEvent[0].args.tileId));
+        // console.log(transferEvent[0].args.buyer);
+        // console.log(Number(transferEvent[0].args.purchaseTime));
 
         const parsedTransferEvents = {};
         for (const event of transferEvent) {
@@ -56,19 +57,20 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
 
             const price = new Big(Number(data.price._hex));
             const priceInEther = price.div(new Big(10).pow(18)).toFixed(2)
-            console.log(priceInEther)
+            // console.log(priceInEther)
 
             // block.timestamp가 unix 시간 단위로 되어 있으므로 변환해줌  ->  2022.04.07
             const timeInNum = Number(data.purchaseTime._hex);
             const time = new Date(timeInNum * 1000);
             const timeFormatted = `${time.getFullYear()}.${String(time.getMonth() + 1).padStart(2, '0')}.${String(time.getDate()).padStart(2, '0')}`
-            console.log(timeInNum)
-            console.log(time)
+            // console.log(timeInNum)
+            // console.log(time)
 
             const tmp = {
                 tileTokenId: tileTokenId,
                 tileBuyerAdr: data.buyer,
                 tilePurchaseTime: timeFormatted,
+                tilePurchaseUnixTime: time,
                 tilePrice: priceInEther
             }
             if (!(tileTokenId in parsedTransferEvents)) {
@@ -78,12 +80,13 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
         }
         for (const key in parsedTransferEvents) {
             const tmp = parsedTransferEvents[key];
-            tmp.sort((a, b) => a.tilePurchaseTime > b.tilePurchaseTime);
+            tmp.sort((a, b) => b.tilePurchaseUnixTime - a.tilePurchaseUnixTime);
         }
 
         setPurchaseLog(parsedTransferEvents)
     }, []);
 
+    // debugging!
     useEffect(() => {
         console.log("purchaseLog: ", purchaseLog)
     }, [purchaseLog])
@@ -107,8 +110,6 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
             });
         }
     }
-    // useEffect(() => {
-    //     if (provider) {
 
     useEffect(() => {
         HistoryLog();
@@ -187,9 +188,6 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
                             }
                         </summary>
                         <ul className={styles.historyItems}>
-                            {/* <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} /> */}
                             {   
                                 tokenId && tokenId in purchaseLog
                                 ?
