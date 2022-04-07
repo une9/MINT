@@ -12,8 +12,7 @@
 
 | Flied      | Type         | Null | Key  | Default | Extra          |
 | -----      | ----         | ---- | ---- | ------  | ------         |
-| tile_id    | String       | NO   | PRI  | NULL    | auto_increment 
-|
+| tile_id    | String       | NO   | PRI  | NULL    | auto_increment |
 | area       | Int          | YES  |      | NULL    |                |
 | image      | String       | YES  |      | NULL    |                |
 | planet_id  | Long         | YES  | FK   | NULL    |                |
