@@ -168,15 +168,6 @@ const PlanetDetail= ( ) => {
                     if (!cart) {
                         cart = {}
                     }
-                    // cart.push(
-                    //     {
-                    //         ...tiles[selectedTileIdx],
-                    //         planet: {
-                    //             id: planetId,
-                    //             data: planetInfo
-                    //         },
-                    //     }
-                    // )
                     cart[tiles[selectedTileIdx].tid] = {
                                     id: planetId,
                                     data: planetInfo

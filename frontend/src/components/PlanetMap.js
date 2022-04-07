@@ -35,11 +35,17 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                             ${version === "admin" && soldTiles.includes(tileId) ? styles['planetMapGridItem--sold'] : ""}`}
                         onClick={() => onClickTile(tileId)}
                     >
-                        <div className={styles.tileImg}
-                            style={{ 
-                                backgroundImage : `url(http://j6a106.p.ssafy.io/api/image/display?filename=${tileImgs[tileId]})`
-                            }}>
-                        </div>
+                        {
+                            tileImgs[tileId] !== null && tileImgs[tileId] !== undefined
+                            ?
+                            <div className={styles.tileImg}
+                                style={{ 
+                                    backgroundImage : `url(http://j6a106.p.ssafy.io/api/image/display?filename=${tileImgs[tileId]})`
+                                }}>
+                            </div>
+                            :
+                            <div className={styles.tileImg}></div>
+                        }
                     </li>
                 )
             })

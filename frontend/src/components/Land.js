@@ -121,7 +121,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
                 &&
                 <header>
                     {
-                        image
+                        image !== null && image !== undefined
                         ? <img className={styles.landImg} src={imageURL} alt="landImg" />
                         : <div className={styles.landImg} />
                     }
@@ -134,7 +134,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
                     &&
                     <div className={styles.landImgWrapper}>
                         {
-                            image
+                            image !== null && image !== undefined
                             ? <img className={`${styles.landImg} ${styles.landImgO} ${styles.landImgBig}`} src={imageURL} alt="landImg" />
                             : <div className={`${styles.landImg} ${styles.landImgBig}`} />
                         }
