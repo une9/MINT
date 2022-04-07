@@ -6,6 +6,9 @@ import { forwardRef, useState,useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 
+import { ethers } from 'ethers';
+import contract from '../smartcontract/TileFactory.json'
+
 const postData = 
     {
         "historys": [
@@ -149,6 +152,38 @@ const AdminPlanetTransaction= ( ) => {
         </button>
     ));
     
+    const purchaseCall = useCallback(async () => {
+        try {
+            const { ethereum } = window;
+
+            if (ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+        
+                const eventContract = new ethers.Contract(contractAddress, abi, signer);
+                //const nftContract = new ethers.Contract(contractAddress, contract.abi, signer);
+
+                const block = await provider.getBlockNumber();
+                console.log(block);
+
+                const transferEvent = await eventContract.queryFilter('nftPurchase', 'latest' - 500, 'latest');
+        
+                console.log(transferEvent);
+                console.log(transferEvent[0].args);
+                console.log(Number(transferEvent[0].args.tileId));
+                console.log(transferEvent[0].args.buyer);
+                console.log(Number(transferEvent[0].args.purchaseTime));
+
+                // const tile = nftContract.connect(signer).getTile(Number(transferEvent[0].args.tileId));
+                // 이런 식으로 타일 정보 들고와서 사용하면 될 듯?
+            } else {
+                console.log("metamast 연결 X");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     useEffect(() => {
         setDay(moment(startDate).format("YYYYMMDD"));
         axios
@@ -159,7 +194,9 @@ const AdminPlanetTransaction= ( ) => {
           ...prevState,
           category,
         }));
-    });
+      });
+        purchaseCall();
+        
     }, [startDate]);
 
     const SelectBox = (props) => {
