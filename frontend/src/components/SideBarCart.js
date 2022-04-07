@@ -1,11 +1,14 @@
 import PurchaseBtnSection from "./PurchaseBtnSection";
 import { VscChromeClose } from "react-icons/vsc";
 import PlanetLottie from "../components/PlanetLottie";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Big from "big.js";
 
 const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, setCartItems }) => {
     console.log(cartItems)
     console.log("selectedIdx!!!", selectedIdx)
+    const [totalPrice, setTotalPrice] = useState(0);
+
     const onDelete = (event, targetIdx)=> {
         event.stopPropagation();
         if (targetIdx === cartItems.length - 1) {
@@ -53,7 +56,7 @@ const SideBarCart = ({ cartItems, selectedIdx, setSelectedIdx, setModalShow, set
             <div className="PurchaseBtnSectionWrapper">
                 <PurchaseBtnSection 
                     cartSize={cartItems.length} 
-                    totalPrice={cartItems.reduce((acc, item) => { return acc + item.price }, 0)}
+                    totalPrice={new Big(cartItems.reduce((acc, item) => { return acc + item.price }, 0)).toFixed(2)}
                     onClick={() => setModalShow(true)} />
             </div>
         </aside>

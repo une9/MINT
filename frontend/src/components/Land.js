@@ -1,10 +1,14 @@
 import styles from "../styles/Land.module.scss";
 import PurchaseHistoryItem from "./PurchaseHistoryItem";
 
+import shortenWalletAddr from "./utils/shortenWalletAddr";
+
 import { VscChevronDown } from "react-icons/vsc";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ethers } from 'ethers';
+import contract from '../smartcontract/TileFactory.json';
+import Big from "big.js";
 import axios from "axios";
 
 
@@ -13,33 +17,68 @@ import axios from "axios";
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
 const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }) => {
+    console.log("tokenId:", tokenId)
+    const [purchaseLog, setPurchaseLog] = useState({});
+
+    const abi = ["event nftPurchase(uint256 indexed tileId, address indexed buyer, uint256 price, uint256 indexed purchaseTime)"];
+    const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+    // const contractAddress = "0x58A1E6FFf914C23011A3fF99CdE84E7DaD3D82AC";
     console.log(version)
+
     const imageURL = `http://j6a106.p.ssafy.io/api/image/display?filename=${image}`;
-    const shortenWalletAddr = (addr) => {
-        if (!addr) {
-            return "없음(0x000...00000)";
-        }
-        const L = addr.length;
-        if (L > 12) {
-            return `${addr.slice(0,9)}...${addr.slice(L-6, L-1)}`
-        } else return addr
-    }
-    useEffect(() => {
+
+    const HistoryLog = useCallback(async () => {
         const { ethereum } = window;
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        console.log(provider)
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
+        const transferEvent = await contract.queryFilter('nftPurchase');
 
-        // transaction history 
-        // https://docs.ethers.io/v5/api/providers/provider/#Provider-getTransactionReceipt
+        console.log(transferEvent);
+        console.log(transferEvent[0].args);
+        console.log(Number(transferEvent[0].args.tileId));
+        console.log(transferEvent[0].args.buyer);
+        console.log(Number(transferEvent[0].args.purchaseTime));
 
-        // provider.getLogs()
-        // .then((res) => {
-        //     console.log(res)
-        // })
+        const parsedTransferEvents = {};
+        for (const event of transferEvent) {
+            const data = event.args;
+            const tileTokenId = data.tileId._hex;
 
+            const price = new Big(Number(data.price._hex));
+            const priceInEther = price.div(new Big(10).pow(18)).toFixed(2)
+            console.log(priceInEther)
+
+            // block.timestamp가 unix 시간 단위로 되어 있으므로 변환해줌  ->  2022.04.07
+            const timeInNum = Number(data.purchaseTime._hex);
+            const time = new Date(timeInNum * 1000);
+            const timeFormatted = `${time.getFullYear()}.${String(time.getMonth() + 1).padStart(2, '0')}.${String(time.getDate()).padStart(2, '0')}`
+            console.log(timeInNum)
+            console.log(time)
+
+            const tmp = {
+                tileTokenId: tileTokenId,
+                tileBuyerAdr: data.buyer,
+                tilePurchaseTime: timeFormatted,
+                tilePrice: priceInEther
+            }
+            if (!(tileTokenId in parsedTransferEvents)) {
+                parsedTransferEvents[tileTokenId] = [];
+            }
+            parsedTransferEvents[tileTokenId].push(tmp);
+        }
+        for (const key in parsedTransferEvents) {
+            const tmp = parsedTransferEvents[key];
+            tmp.sort((a, b) => a.tilePurchaseTime > b.tilePurchaseTime);
+        }
+
+        setPurchaseLog(parsedTransferEvents)
     }, []);
+
+    useEffect(() => {
+        console.log("purchaseLog: ", purchaseLog)
+    }, [purchaseLog])
 
     const imageChange = async (e) => {
         e.preventDefault();
@@ -63,9 +102,9 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
     // useEffect(() => {
     //     if (provider) {
 
-    //         console.log(provider.getLogs())
-    //     }
-    // }, [provider])
+    useEffect(() => {
+        HistoryLog();
+    }, [HistoryLog]);
 
     return(
         <article className={`${styles.Land} ${styles[version]} ${version === "card-purchase" ? "Box" : ""}`}>
@@ -105,7 +144,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
                 }
                 <dl className={`metadata ${styles.metadata}`}>
                     <div>
-                        <dt>크기</dt> <dd>{area}km<sup>2</sup></dd>
+                        <dt>크기</dt> <dd>{area * 1000}km<sup>2</sup></dd>
                     </div>
                     <div className="price">
                         <dt>현재가</dt> 
@@ -122,7 +161,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
                         </div>
                     }
                     <div>
-                        <dt>소유자</dt> <dd>{shortenWalletAddr(buyerAdr)}{`(${tokenId ? tokenId : " 없음 "})`}</dd>
+                        <dt>소유자</dt> <dd>{`${buyerAdr && tokenId ? shortenWalletAddr(buyerAdr) : "( 없음 )"}`}</dd>
                     </div>
                     <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
                         <summary>
@@ -134,9 +173,22 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
                             }
                         </summary>
                         <ul className={styles.historyItems}>
+                            {/* <PurchaseHistoryItem price={0.01} />
                             <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} />
+                            <PurchaseHistoryItem price={0.01} /> */}
+                            {   
+                                tokenId && tokenId in purchaseLog
+                                ?
+                                purchaseLog[tokenId].map((log, idx) => (
+                                    <PurchaseHistoryItem 
+                                        buyerAdr={log.tileBuyerAdr}
+                                        purchaseTime={log.tilePurchaseTime}
+                                        price={log.tilePrice}
+                                        key={`purchaseHistoryItem-${tokenId}-${idx}`} />
+                                ))
+                                :
+                                `(구매 이력 없음)`
+                            }
                         </ul>
                     </details>
                 </dl>

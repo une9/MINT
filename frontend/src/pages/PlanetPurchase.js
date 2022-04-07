@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 
 import { ethers } from 'ethers';
-// import contract from '../smartcontract/TileFactory.json'
+import axios from 'axios';
 
 const PlanetPurchase= () => {
     const [cartItems, setCartItems] = useState([]);
@@ -28,11 +28,36 @@ const PlanetPurchase= () => {
     const myWeb3 = useOutletContext();
     console.log(myWeb3)
 
+    const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         const cartItemsInStorage = JSON.parse(localStorage.getItem("mintCart"));
         console.log(cartItemsInStorage);
+        const reqs = [];
+        for (const key in cartItemsInStorage) {
+            const axiosReq = axios.get(`${BASE_URL}/api/tile/${key}`);
+            reqs.push(axiosReq);
+        }
+        console.log(reqs)
+        
         if (cartItemsInStorage) {
-            setCartItems(prev => [...prev, ...cartItemsInStorage]);
+            axios.all([...reqs])
+              .then(res => {
+                console.log(res);
+                const cartItemParsedRes = res.map(item => {
+                    const newData = item.data;
+                    const planetData = cartItemsInStorage[newData.tid];
+                    return {
+                        ...newData,
+                        planet: planetData
+                    }
+                })
+                setCartItems([...cartItemParsedRes]);
+                  
+              })
+              .catch((err) => {
+                console.log(err);
+              });
         }
 
     }, []);
@@ -41,6 +66,7 @@ const PlanetPurchase= () => {
         if (cartItems.length > 0) {
             setSelectedId(cartItems[0].id);
         }
+        console.log(cartItems)
     }, [cartItems]);
 
     useEffect(() => {
@@ -51,61 +77,6 @@ const PlanetPurchase= () => {
             }
         }
     }, [selectedId]);
-
-
-    // TEST!!!
-    // smart contract
-    const contractCall = async () => {
-        // const abi = contract.abi;
-        // const contractAddress = "0xe51250721f911098273062509165185f0e18DF82";
-
-        try {
-            const { ethereum } = window;
-
-            if ( ethereum ){
-                // const provider = new ethers.providers.Web3Provider(ethereum);
-                // const signer = provider.getSigner();
-                // const nftContract = new ethers.Contract(contractAddress, abi, signer);
-                // console.log("컨트랙트 연결");
-
-                // const gasPrice = await provider.getGasPrice();
-                // const gasPriceInDecString = Number(gasPrice._hex).toString();
-                // // console.log(gasPrice)
-                // console.log("gas price: ", gasPriceInDecString);
-
-                let amountInEther = '0.001';
-                // Create a transaction object
-                let tx = {
-                    // Convert currency unit from ether to wei
-                    value: ethers.utils.parseEther(amountInEther)
-                };
-
-                // 구매 함수 호출
-                // await nftContract.createAndBuy("우리은하", "TEST", "TEST-A-001", 10**15, tx);
-
-                const myTiles = await myWeb3.nftContract.getMyTile();
-                console.log("getMyTile: ", myTiles);
-
-                let currentTileId = await myWeb3.nftContract.currentTileId();
-                console.log("currentTileId:", currentTileId);
-                const currentTileIdHex = currentTileId._hex;
-                const currentTileIdDec = Number(currentTileIdHex);
-                console.log("currentTileId(hex):", currentTileIdHex);
-                console.log("currentTileId(decimal):", currentTileIdDec);
-
-                // let balance = await provider.getBalance(contractAddress);
-                // console.log(balance);
-            } else {
-                console.log("metamast 연결 X")
-            }
-        }
-        catch (error) {
-            console.log(error);        
-        }
-    }
-
-
-
 
 
     return(

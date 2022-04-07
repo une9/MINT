@@ -23,6 +23,7 @@ const PlanetDetail= ( ) => {
     const [selectedTileIdx, setSelectedTileIdx] = useState(0);
     const [selectedTileId, setSelectedTileId] = useState("");
     const [cartItemNum, setCartItemNum] = useState(0);
+    const [dibbedLands, setDibbedLands] = useState([]);
 
     const [modalShow, setModalShow] = useState(false);
     const onModalHide = () => setModalShow(false);
@@ -31,39 +32,17 @@ const PlanetDetail= ( ) => {
 
     const navigate = useNavigate();
 
-    // // web3 관련 객체 가져오기
-    // const myWeb3 = useOutletContext();
-    // console.log(myWeb3.signer)
+    // web3 관련 객체 가져오기
+    const myWeb3 = useOutletContext();
 
     const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
     useEffect(() => {
         const prevCart = localStorage.getItem("mintCart");
         if (prevCart) {
-            const cartLen = JSON.parse(prevCart).length;
+            const cartLen = Object.keys(JSON.parse(prevCart)).length;
             setCartItemNum(cartLen);
         }
-
-        // axios 백엔드에서 정보 가져오기
-        axios.all([
-            axios.get(`${BASE_URL}/api/planet/${planetId}`),
-            axios.get(`${BASE_URL}/api/all/${planetId}`),
-        ])
-          .then(
-              axios.spread((planetRes, tileRes) => {
-                console.log(planetRes.data);
-                const planetData = planetRes.data;
-                planetData.version = "description";
-                setPlanetInfo(planetData);
-
-                console.log("tiles:", tileRes.data.tiles)
-                const tileData = tileRes.data.tiles;
-                setTiles(tileData);
-              })
-          )
-          .catch((err) => {
-            console.log(err);
-          });
 
         // 내 지갑 주소 가져오기
         const { ethereum } = window;
@@ -73,9 +52,40 @@ const PlanetDetail= ( ) => {
         .then((res) => {
             setMyWalletAddr(res);
         })
-
+        .then(() => {
+            // axios 백엔드에서 정보 가져오기
+            axios.all([
+                axios.get(`${BASE_URL}/api/planet/${planetId}`),
+                axios.get(`${BASE_URL}/api/all/${planetId}`)
+            ])
+              .then(
+                  axios.spread((planetRes, tileRes, dibbedLandsRes) => {
+                    console.log(planetRes.data);
+                    const planetData = planetRes.data;
+                    planetData.version = "description";
+                    setPlanetInfo(planetData);
+    
+                    console.log("tiles:", tileRes.data.tiles)
+                    const tileData = tileRes.data.tiles;
+                    setTiles(tileData);
+                  })
+              )
+              .catch((err) => {
+                console.log(err);
+              });
+        })
     }, []);
 
+    useEffect(() => {
+        if (myWalletAddr) {
+            axios.get(`${BASE_URL}/api/favorite/${myWalletAddr}`)
+            .then((res) => {
+                console.log("dibbedLands:", res.data)
+                setDibbedLands(res.data);
+            })
+        }
+    }, [myWalletAddr])
+ 
     useEffect(() => {
         if (tiles.length > 0) {
             setSelectedTileId(tiles[0].tid);
@@ -132,6 +142,7 @@ const PlanetDetail= ( ) => {
                         },
                     }]}
                     isBuyDirect={true}
+                    myWeb3={myWeb3}
                 />
             }
             <SideBarInfo 
@@ -139,23 +150,29 @@ const PlanetDetail= ( ) => {
                 onAddCart={() => {
                     let cart = JSON.parse(localStorage.getItem("mintCart"));
                     if (!cart) {
-                        cart = []
+                        cart = {}
                     }
-                    cart.push(
-                        {
-                            ...tiles[selectedTileIdx],
-                            planet: {
-                                id: planetId,
-                                data: planetInfo
-                            },
-                        }
-                    )
+                    // cart.push(
+                    //     {
+                    //         ...tiles[selectedTileIdx],
+                    //         planet: {
+                    //             id: planetId,
+                    //             data: planetInfo
+                    //         },
+                    //     }
+                    // )
+                    cart[tiles[selectedTileIdx].tid] = {
+                                    id: planetId,
+                                    data: planetInfo
+                                }
                     localStorage.setItem("mintCart", JSON.stringify(cart));
                     console.log(cart);
                     setCartItemNum(prev => prev + 1);
                 }}
                 onModalShow={()=> setModalShow(true)}
                 myWalletAddr={myWalletAddr}
+                dibbedLands={dibbedLands}
+                setDibbedLands={setDibbedLands}
             />
             
         </div>

@@ -7,7 +7,7 @@ import { useLocation,useNavigate } from "react-router-dom";
 import useMetaMask from './hook/MetamaskHook';
 
 import { ethers } from 'ethers';
-import contract from './smartcontract/TileFactory.json'
+import contract from './smartcontract/TileFactory.json';
 
 
 const App = ( ) => {
@@ -24,7 +24,9 @@ const App = ( ) => {
       }
 
       const abi = contract.abi;
-      const contractAddress = "0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F";
+      const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+      // const contractAddress = "0x58A1E6FFf914C23011A3fF99CdE84E7DaD3D82AC";
+      console.log("contractAddress::::::", contractAddress);
 
       try {
           const { ethereum } = window;
