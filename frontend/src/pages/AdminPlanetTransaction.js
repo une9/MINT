@@ -142,7 +142,7 @@ const AdminPlanetTransaction= ( ) => {
     const [selectedCategory, setSelectedCategory] = useState('');
     
     const abi = contract.abi;
-    const contractAddress = '0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F';
+    const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
     const postDate = ()=>{
         console.log(day,"date 보냐서 리스트 가져오기");
     }
