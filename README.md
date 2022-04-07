@@ -12,7 +12,6 @@
 <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=react&logoColor=white"/>
 <img alt= "CSS" src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
 <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScript-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=white"/>
-<img alt="SCSS" src ="https://img.shields.io/badge/CSS3-1572B6.svg?&style=for-the-badge&logo=SCSS&logoColor=white"/>
 <img alt="Babel" src ="https://img.shields.io/badge/Babel-F9DC3E.svg?&style=for-the-badge&logo=Babel&logoColor=white"/>
 
 
@@ -31,86 +30,80 @@
 <img alt="GitLab" src ="https://img.shields.io/badge/GitLab-FCA121.svg?&style=for-the-badge&logo=GitLab&logoColor=white"/>
 
 ### 시스템 구상도
-![image](/uploads/de87c10ac334d19914d736ad03addd82/image.png)
 
 ### 📌 주요 기능
-* **회원 관리**
-- 회원 가입 시 장애 유무를 선택하여 사용자가 필요한 서비스를 제공받을 수 있습니다.<br>
-  - ```회원가입```<br>
-  ![회원가입](/uploads/a287bccef0b18cf9666465bc115a14da/회원가입.gif)<br>
+* **홈 화면**
+- 간략한 행성 정보를 제공하고 클릭 시 행성 상세화면으로 이동합니다. <br>
+![image](/uploads/b3418e5d5d4d4f4affaab6b3493bce4a/image.png)
+  - ```사이드 바 및 지갑 연결```<br>
+![image](/uploads/62200f66b5ab794e3e1f84bed63697ba/image.png)
   <br>
 
-  - ```로그인```<br>
-  ![로그인](/uploads/0448875d6b26175eeeee859a9e22bafb/로그인.gif)<br>
+* **상세 화면**
+  - 행성 지도를 확인 할 수 있으며 타일 선택을 통해 구매가 가능합니다.<br>
+![image](/uploads/545a2db21ceb4df30cfa6a854db68e27/image.png)
   <br>
 
-* **메인 화면**
-  - 사용자의 고유 방을 확인할 수 있습니다.<br>
-  ![내_회의](/uploads/82237749abec4c97167f5d5c0ce703ea/내_회의.gif)<br>
+  - 장바구니 버튼을 통해 행성을 담아놓을 수 있습니다.<br>
+![image](/uploads/664fb149fcc9b38a8eb3e3a03b0e5961/image.png)
+
   <br>
 
-  - 초대 코드를 입력하여 방에 입장할 수 있습니다.<br>
-  ![회의_참가](/uploads/30c0b80288158d95727c7009161c629e/회의_참가.gif)
+    - 행성 구매 버튼을 통해 원하는 행성을 구매 할 수 있습니다.<br>
+![image](/uploads/9ebd6d4356a606e2bc224288df510276/image.png)
+
   <br>
 
-* **컨퍼런스 기능**
-  - `컨퍼런스`에 입장하기 전 닉네임을 설정해 입장할 수 있습니다.
-  - `시각장애`를 가지고 계신 분은 **TTS** 기능을 제공받을 수 있으며<br>
-  ![TTS](/uploads/2c34ffba9aa63baeaafb6f879275d893/TTS.gif)
+* **관리자 페이지**
+  - 모든 거래 내역을 확인 가능합니다.<br>
+![image](/uploads/b279d23ae55d6c384febdeb0cc9606d4/image.png)
   <br>
   
-  - `청각장애`를 가지고 계신 분은 **STT** 기능을 제공받을 수 있습니다.<br>
-  ![STT](/uploads/9ebc7cb5e7baa0d5539fd5fba0fdc7e9/STT.gif)
+  - 행성 별 토지 현황을 확인 가능합니다.<br>
+  ![image](/uploads/456cee03dc9a2d6ad2811ae053648faf/image.png)
+  <br>
+  ![image](/uploads/b999129e17382ed907720edae94bc9e1/image.png)
+  <br>
+
 
 ### 🧑 팀원 소개
-<details><summary><strong>유재룡</strong> [ BE ]&nbsp;&nbsp;&nbsp;<em>Click!</em></summary>
+<details><summary><strong>조용문</strong> [ FE ]&nbsp;&nbsp;&nbsp;<em>Click!</em></summary>
 
  * **팀장**
- * Database
- * Login API / JWT
- * 동영상 제작
+ * iOS App의 모든 것을 담당
+ * NFT 연동
 </details>
-<details><summary><strong>이　건</strong> [ BE ]</summary>
+<details><summary><strong>이은영</strong> [ FE ]</summary>
 
-  * Kurrento 코드 포팅/수정
-  * 시그널링 서버 구축
-  * User API 
+  * FE 설계
+  * FE 구현
+  * 팀 JIRA 총괄 담당
+</details>
+<details><summary><strong>윤혜구</strong> [ FE ]</summary>
+
+  * FE 설계
+  * FE 구현
+  * NFT 연동
 </details>
 <details><summary><strong>이호성</strong> [ BE ]</summary>
 
-  * Kurrento 코드 포팅/수정
-  * 시그널링 서버 구축
-  * Conference API
+  * 스마트 컨트랙트 제작 및 배포
+  * Favorite API, Planet API 제작
 </details>
-<details><summary><strong>강민수</strong> [ FE ]</summary>
+<details><summary><strong>이건</strong> [ BE ]</summary>
 
-  * STT, TTS 서버 구축
-  * 랜딩, 메인, 가이드 페이지 레이아웃
-  * 로그인, 회원가입 컴포넌트 연결
-  * 회원 정보 수정 폼
-  * 배포 및 도메인 연결
-</details>
-<details><summary><strong>김태훈</strong> [ FE ]</summary>
-
-  * 로그인, 회원가입 컴포넌트 제작
-  * 사이트 레이아웃 수정
-  * 웹 접근성 WAI-ARIA 담당
-</details>
-<details><summary><strong>진민규</strong> [ FE ]</summary>
-
-  * 채팅방 구현
-  * 화상회의 구현
-  * STT, TTS 화상회의 연결
+  * 스마트 컨트랙트 연동
+  * Tile API 제작
 </details>
 
 ### :penguin: 빌드 및 배포
-* [보러가기✔](https://lab.ssafy.com/s06-webmobile1-sub2/S06P12A406/-/blob/release/exec/%EB%B9%8C%EB%93%9C%20%EB%B0%8F%20%EB%B0%B0%ED%8F%AC.md)
+* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/%EB%B9%8C%EB%93%9C%20%EB%B0%8F%20%EB%B0%B0%ED%8F%AC.md)
 
 ### :triangular_flag_on_post: 버전 정보
-* [보러가기✔](https://lab.ssafy.com/s06-webmobile1-sub2/S06P12A406/-/blob/release/exec/%EB%B2%84%EC%A0%84%EC%A0%95%EB%B3%B4.md)
+* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/%EB%B2%84%EC%A0%84%EC%A0%95%EB%B3%B4.md)
 
 ### :beginner: DB 정보
-* [보러가기✔](https://lab.ssafy.com/s06-webmobile1-sub2/S06P12A406/-/blob/release/exec/DB_%EC%A0%95%EB%B3%B4.md)
+* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/DB_%EC%A0%95%EB%B3%B4.md)
 
 ### :ticket: 외부 서비스
-* [보러가기✔](https://lab.ssafy.com/s06-webmobile1-sub2/S06P12A406/-/blob/release/exec/%EC%99%B8%EB%B6%80%20%EC%84%9C%EB%B9%84%EC%8A%A4.md)
+* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/%EC%99%B8%EB%B6%80%20%EC%84%9C%EB%B9%84%EC%8A%A4.md)
