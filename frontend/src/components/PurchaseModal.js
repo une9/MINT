@@ -12,7 +12,7 @@ import Lottie from 'react-lottie';
 import Mint_Lodo from '../lottie/Mint_Logo_Long_Font.json';
 import { useNavigate } from "react-router-dom";
 
-const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
+const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect, contractTileInfo }) => {
     // console.log("PurchaseModal Created")
     const [myWalletAddr, setMyWalletAddr] = useState();
     const [isWaiting, setIsWaiting] = useState(false);
@@ -55,12 +55,24 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
         // 구매 함수 호출
         try {
             setIsWaiting(true);
+
+            const bool = contractTileInfo && contractTileInfo.price && !contractTileInfo.assurance;
+            console.log(bool)
+
             for (const item of itemsToBuy) {
                 const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
                 console.log(priceInWei)
                 // const price = item.price * 10**18;
                 console.log(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei)
-                const res = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+
+                let res;
+                if (bool) {
+                    console.log("buy!!!")
+                    res = await myWeb3.nftContract.buy(item.tokenId,  { value: priceInWei});
+                } else {
+                    console.log("create and buy!!!")
+                    res = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                }
                 
                 const hash = res.hash;
                 
@@ -76,11 +88,12 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
                 // tokenId 가져와서 DB에 저장
                 const tokenId = await myWeb3.nftContract.currentTileId();
                 console.log("tokenId: ", tokenId)
+                console.log("item tokenId: ", item.tokenId)
 
                 axios.put(`${BASE_URL}/api/tile/`, {
                     buyerAdr: myWalletAddr,
                     buyerId: null,
-                    tokenId: tokenId._hex,
+                    tokenId: bool ? item.tokenId : tokenId._hex,
                     area: item.area,
                     planet: Number(item.planet.id),
                     price: item.price,
