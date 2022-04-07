@@ -2,9 +2,12 @@ import styles from '../styles/Transaction.scss';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { forwardRef, useState,useEffect } from 'react';
+import { forwardRef, useState,useEffect,useCallback } from 'react';
 import moment from 'moment';
 import axios from 'axios';
+
+import { ethers } from 'ethers';
+import contract from '../smartcontract/TileFactory.json'
 
 const postData = 
     {
@@ -137,6 +140,9 @@ const AdminPlanetTransaction= ( ) => {
     const [day, setDay] = useState(new Date());
     const [options, setOptions] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
+    
+    const abi = contract.abi;
+    const contractAddress = '0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F';
     const postDate = ()=>{
         console.log(day,"date 보냐서 리스트 가져오기");
     }
@@ -149,6 +155,38 @@ const AdminPlanetTransaction= ( ) => {
         </button>
     ));
     
+    const purchaseCall = useCallback(async () => {
+        try {
+            const { ethereum } = window;
+
+            if (ethereum) {
+                const provider = new ethers.providers.Web3Provider(ethereum);
+                const signer = provider.getSigner();
+        
+                const eventContract = new ethers.Contract(contractAddress, abi, signer);
+                //const nftContract = new ethers.Contract(contractAddress, contract.abi, signer);
+
+                const block = await provider.getBlockNumber();
+                console.log(block);
+
+                const transferEvent = await eventContract.queryFilter('nftPurchase', 'latest' - 500, 'latest');
+        
+                console.log(transferEvent);
+                console.log(transferEvent[0].args);
+                console.log(Number(transferEvent[0].args.tileId));
+                console.log(transferEvent[0].args.buyer);
+                console.log(Number(transferEvent[0].args.purchaseTime));
+
+                // const tile = nftContract.connect(signer).getTile(Number(transferEvent[0].args.tileId));
+                // 이런 식으로 타일 정보 들고와서 사용하면 될 듯?
+            } else {
+                console.log("metamast 연결 X");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    });
+
     useEffect(() => {
         setDay(moment(startDate).format("YYYYMMDD"));
         axios
@@ -159,7 +197,9 @@ const AdminPlanetTransaction= ( ) => {
           ...prevState,
           category,
         }));
-    });
+      });
+        purchaseCall();
+        
     }, [startDate]);
 
     const SelectBox = (props) => {

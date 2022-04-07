@@ -9,56 +9,6 @@ import '../styles/CadastreDetail.scss';
 
 const AdminPlanetCadastreDetail= ( ) => {
 
-    // 임시 데이터
-    // 수정해서 쓰세요 :)
-    const planetName = "Kepler_1649c"
-    const tiles = [
-        {
-            id: "KepC-A-001",
-            area: 1,
-            image: null,
-            buyer: null,
-            trade_date: null,
-            price: 0.01,
-            token: null,
-        },
-        {
-            id: "KepC-A-002",
-            area: 1,
-            image: null,
-            buyer: null,
-            trade_date: null,
-            price: 0.01,
-            token: null,
-        },
-        {
-            id: "KepC-A-003",
-            area: 1,
-            image: null,
-            buyer: null,
-            trade_date: null,
-            price: 0.01,
-            token: null,
-        },
-        {
-            id: "KepC-A-004",
-            area: 1,
-            image: null,
-            buyer: null,
-            trade_date: null,
-            price: 0.01,
-            token: null,
-        },
-        {
-            id: "KepC-B-001",
-            area: 2,
-            image: null,
-            buyer: null,
-            trade_date: null,
-            price: 0.04,
-            token: null,
-        },
-    ]
     const soldTiles = [
         "KepC-A-001",
         "KepC-A-003",
@@ -70,15 +20,34 @@ const AdminPlanetCadastreDetail= ( ) => {
     ]
     const { planetId } = useParams();
     const [myPlanet, setMyPlanet] = useState([]);
+    const [myTiles, setMyTiles] = useState([]);
+    const [remainTiles, setRemainTiles] = useState([]);
     const [myDistance, setMyDistance] = useState("");
-    const percentage = (( 5 / 20) * 100).toFixed(0);
+    const percentage = (( 6 / 18) * 100).toFixed(0);
     useEffect(() => {
-        axios
-      .get(process.env.REACT_APP_SERVER_URL + '/api/planet/' + planetId, {})
-      .then((res) => {
-        const planetRes = res.data;
-        setMyPlanet(planetRes);
-        setMyDistance( distance.get(planetRes.name))
+      axios.all([
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/planet/${planetId}`),
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/all/${planetId}`),
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/api/remain/${planetId}`),
+    ])
+      .then(
+          axios.spread((planetRes, tileRes, remainREs) => {
+            // console.log(planetRes.data);
+            const planetData = planetRes.data;
+            planetData.version = "description";
+            setMyPlanet(planetData);
+            setMyDistance( distance.get(planetRes.name))
+
+            console.log("tiles:", tileRes.data.tiles)
+            const tileData = tileRes.data.tiles;
+            setMyTiles(tileData);
+            
+            console.log(remainREs);
+            // const remainData = 
+          })
+      )
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
   const distance = new Map([
@@ -121,8 +90,8 @@ const AdminPlanetCadastreDetail= ( ) => {
            </div>
            <PlanetMap
                 version={"admin"}
-                planetName={planetName}
-                tiles={tiles}
+                planetName={myPlanet.name}
+                tiles={myTiles}
                 soldTiles={soldTiles} />
        </div>
     );
