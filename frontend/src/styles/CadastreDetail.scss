@@ -10,14 +10,15 @@
     .CadastreDetail-box{
         margin-top: 1vh;
         width: 100%;
-        height: 20vh;
+        height: 22vh;
         border: 1px solid $point-main;
         box-sizing: border-box;
         border-radius: 50px;
         display: flex;
         .CadastreDetail-lottie{
             float: left; 
-            transform: translateY(10%);
+            // transform: translateY(10%);
+            margin-top: 1vh;
             margin-right: 10vh;
             margin-left: 5vh;
         }
