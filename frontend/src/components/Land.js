@@ -30,7 +30,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
 
     const navigate = useNavigate();
 
-    if (tradeDate.length > 10) {
+    if (tradeDate && tradeDate.length > 10) {
         const date = new Date(tradeDate);
         tradeDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
     }
@@ -122,7 +122,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
                 <header>
                     {
                         image !== null && image !== undefined
-                        ? <img className={styles.landImg} src={imageURL} alt="landImg" />
+                        ? <img className={`${styles.landImg} ${styles.landImgO}`} src={imageURL} alt="landImg" />
                         : <div className={styles.landImg} />
                     }
                     <h2>{tid}</h2>
