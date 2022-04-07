@@ -36,15 +36,14 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                         onClick={() => onClickTile(tileId)}
                     >
                         {
-                            tileImgs[tileId] !== null && tileImgs[tileId] !== undefined && version !== "admin"
+                            (version==="detail"&&tileImgs[tileId])
                             ?
                             <div className={styles.tileImg}
                                 style={{ 
                                     backgroundImage : `url(http://j6a106.p.ssafy.io/api/image/display?filename=${tileImgs[tileId]})`
                                 }}>
                             </div>
-                            :
-                            <div className={styles.tileImg}></div>
+                            : <div className={styles.tileImg}></div>
                         }
                     </li>
                 )
@@ -68,7 +67,7 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
             <img src={`../../../planetMap/${planetName}.svg`} 
                 alt={`planet map - ${planetName}`} className={styles.planet2DMap} />
             {
-                tileImgs
+                (tileImgs || version!=="detail")
                 &&
                 <ul className={`${styles.planetMapGrid} ${styles[planetCode]}`}>
                     {
@@ -97,7 +96,7 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                         blockGenerator([9, 3, 8, 2, 2, 3, 3], planetCode)
                     }
                 </ul>
-            }
+             } 
         </article>
     );
 }

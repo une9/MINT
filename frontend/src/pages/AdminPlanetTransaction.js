@@ -6,133 +6,8 @@ import { forwardRef, useState,useEffect,useCallback } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import contract from '../smartcontract/TileFactory.json'
-
-const postData = 
-    {
-        "historys": [
-            {
-                "id": 1,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 2,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 3,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 4,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A10222",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 5,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A10222",
-                "tradeDate": "2022-03-14"
-            },{
-                "id": 1,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 2,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 3,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 4,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A10222",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 5,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A10222",
-                "tradeDate": "2022-03-14"
-            },{
-                "id": 1,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 2,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 3,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A1031",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 4,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A10222",
-                "tradeDate": "2022-03-14"
-            },
-            {
-                "id": 5,
-                "buyerId": "account1",
-                "buyerAdr": "0xe51250721f911098273062509165185f0e18DF82",
-                "price": 100,
-                "name": "A10222",
-                "tradeDate": "2022-03-14"
-            }
-            
-        ]
-    }
 
 
 const AdminPlanetTransaction= ( ) => {
@@ -140,14 +15,29 @@ const AdminPlanetTransaction= ( ) => {
     const [day, setDay] = useState(new Date());
     const [options, setOptions] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
-    
+    // let postData = [];
+    const [postData, setPostData] = useState([]);
     const abi = contract.abi;
     const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+
     const postDate = ()=>{
-        console.log(day,"date 보냐서 리스트 가져오기");
+
+        const filterdate = postData.filter(
+            (item) => item.tradeDate === day
+        );
+        console.log(day);
+        console.log(filterdate);
+        setPostData(filterdate);
     }
+
     const postCategory = (category)=>{
-        console.log(category,"date 보냐서 리스트 가져오기");
+
+        const filterdate = postData.filter(
+            (item) => item.name === category
+          );
+        console.log(filterdate);
+        setPostData(filterdate);
+
     }
     const CustomInput = forwardRef(({ value, onClick }, ref) => (
         <button className="custom-input" onClick={onClick} ref={ref}>
@@ -167,28 +57,87 @@ const AdminPlanetTransaction= ( ) => {
                 //const nftContract = new ethers.Contract(contractAddress, contract.abi, signer);
 
                 const block = await provider.getBlockNumber();
-                console.log(block);
+                // console.log(block);
 
                 const transferEvent = await eventContract.queryFilter('nftPurchase', 'latest' - 500, 'latest');
         
-                console.log(transferEvent);
-                console.log(transferEvent[0].args);
-                console.log(Number(transferEvent[0].args.tileId));
-                console.log(transferEvent[0].args.buyer);
-                console.log(Number(transferEvent[0].args.purchaseTime));
+                // console.log(transferEvent,"event");
 
-                // const tile = nftContract.connect(signer).getTile(Number(transferEvent[0].args.tileId));
-                // 이런 식으로 타일 정보 들고와서 사용하면 될 듯?
+                transferEvent.map(async(item,idx)=>{
+                    // postData=[];
+                    setPostData([]);
+                   
+                    const setId = {
+                        id: idx
+                    };
+                    const setBuyerAdr = {
+                        buyerAdr: item.args.buyer
+                    };
+
+                    // const priceInWei = ethers.utils.parseEther(String(item.args.price))._hex;
+                    const priceInWei = item.args.price._hex
+                    // console.log(priceInWei,"price");
+                    // console.log(item.args.price._hex,"가격");
+                    var priceInto;
+                    if(priceInWei==="0x2386f26fc10000")
+                    {
+                        priceInto = 0.01;
+                    }
+                    else if(priceInWei==="0x013fbe85edc90000")
+                    {
+                        priceInto = 0.04;
+                    }
+                    else if(priceInWei==="0x470de4df820000")
+                    {
+                        priceInto = 0.02;
+                    }
+                    else if(priceInWei==="0x8e1bc9bf040000")
+                    {
+                        priceInto = 0.09;
+                    }
+                    else {
+                        priceInto = 0.09
+                    }
+                    const setPrice = {
+                        price: priceInto
+                    };
+                    const tile = await eventContract.connect(signer).getTileId(Number(item.args.tileId));
+                    // console.log(tile,"왜")
+                    const pName= tile.planetName;
+                    const setName = {
+                        name: pName
+                    };
+                    const time = item.args.purchaseTime;
+                    const timeToDate = new Date(time*1000);
+                    const timeForm = timeToDate.toUTCString()
+                    const tDate=moment(timeForm).format("YYYY-MM-DD");
+                    const setTradeDate = {
+                        tradeDate: tDate
+                    };
+                    const object = {
+                        ...setId,
+                        ...setBuyerAdr,
+                        ...setPrice,
+                        ...setName,
+                        ...setTradeDate
+                    };
+                    
+
+                    setPostData(prevList=>[...prevList, object]);
+                });
+
             } else {
                 console.log("metamast 연결 X");
             }
         } catch (error) {
             console.log(error);
         }
-    });
+        console.log(postData);
+    },[]);
 
-    useEffect(() => {
-        setDay(moment(startDate).format("YYYYMMDD"));
+    useEffect(()=>{
+        purchaseCall();
+        setDay(moment(startDate).format("YYYY-MM-DD"));
         axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/planets', {})
       .then((res) => {
@@ -198,9 +147,8 @@ const AdminPlanetTransaction= ( ) => {
           category,
         }));
       });
-        purchaseCall();
         
-    }, [startDate]);
+    }, []);
 
     const SelectBox = (props) => {
         // console.log(props.options.category);
@@ -210,6 +158,7 @@ const AdminPlanetTransaction= ( ) => {
             value={selectedCategory}
             onChange={(e) =>{
                     setSelectedCategory(e.target.value);
+                    purchaseCall();
                     postCategory(selectedCategory);
                 }
             }
@@ -243,7 +192,7 @@ const AdminPlanetTransaction= ( ) => {
                 <span className='transaction-filter-date'>
                     <DatePicker
                         selected={startDate}
-                        onChange={(date) => {setStartDate(date); postDate();}}
+                        onChange={(date) => {setStartDate(date);  purchaseCall(); postDate();}}
                         customInput={<CustomInput />}
                         dateFormat="yyyy-MM-dd"
                         />
@@ -261,11 +210,10 @@ const AdminPlanetTransaction= ( ) => {
                        </tr>
                    </thead>
                    <tbody className='transaction-board-tbody'>
-                        {postData.historys && postData.historys.map((post, index) => (
+                        {postData && postData.map((post, index) => (
                             <tr key={index} className='transaction-board-tr'>
                                 <td className='transaction-board-body number'>{post.id}</td>
                                 <td className='transaction-board-body'>
-                                    <div className='transaction-board-body tokenID'>{post.buyerId}</div>
                                     <div className='transaction-board-body adr'>{post.buyerAdr}</div>
                                 </td>
                                 <td className='transaction-board-body ETH'>
