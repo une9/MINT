@@ -203,101 +203,110 @@ const SideBarInfo = ({ tid, area, image, buyerAdr, trade_date, price, tokenId, o
                 </div>
             </section>
             {
-                buyerAdr && tokenId && contractTileInfo && contractTileInfo.assurance
-                ?
-                    myWalletAddr === buyerAdr
+                    (buyerAdr && tokenId && contractTileInfo && contractTileInfo.assurance)
                     ?
-                        isOkToSell
+                        myWalletAddr === buyerAdr
                         ?
-                            <section className="btns">
-                                {
-                                    notice.length > 0
-                                    ?
-                                    <p>{notice}</p>
-                                    :
-                                    <p>{`정말 토지 ${tid}를 ${sellPrice} ETH에 내놓으시겠습니까?`}</p>
-                                }
-                                {
-                                    !isPending
-                                    &&
-                                    <>
-                                        <button 
-                                            onClick={onSellTile}
-                                            className={`${(isInputNaN || sellPrice.length <= 0) ? 'btn--disabled' : ''}`}
-                                        >
-                                            판매 신청하기
-                                        </button>
-                                        <button onClick={() => {
-                                            setIsOkToSell(false);
-                                            setSellPrice("");
-                                        }}>
-                                            계속 가지고 있기
-                                        </button>
-                                    </>
-                                }
-                            </section>
-                        :
-                            <section className="btns">
-                                <p>판매 희망 가격</p>
-                                <input type="text" 
-                                    onInput={onInputPrice} 
-                                    ref={sellPriceInput} 
-                                /> ETH
-                                <p>
-                                    {
-                                        isInputNaN
-                                        ?
-                                        "올바른 숫자 형식으로 입력해주세요."
-                                        :
-                                        ""
-                                    }
-                                </p>
-                                <button 
-                                    onClick={() => setIsOkToSell(true)}
-                                    className={`${(isInputNaN || sellPrice.length <= 0) ? 'btn--disabled' : ''}`}
-                                >
-                                    판매 신청하기
-                                </button>
-                            </section>
-                    :
-                    <section className="notice">
-                        <p className="notice__buyer">
-                            {`${shortenWalletAddr(buyerAdr)}님이 소유하고 있는 토지입니다.`}
-                        </p>
-                    </section>
-                :
-                    buyerAdr && tokenId && myWalletAddr === buyerAdr && contractTileInfo && !contractTileInfo.assurance
-                    ?
-                    <section className="btns">
-                        {
-                            notice.length > 0
+                            isOkToSell
                             ?
-                            <p>
-                                {notice}
-                            </p>
+                                <section className="btns">
+                                    {
+                                        notice.length > 0
+                                        ?
+                                        <p>{notice}</p>
+                                        :
+                                        <p className="btns__alert">
+                                            <div>
+                                                {`정말 토지 ${tid}를`}
+                                            </div>
+                                            <div>
+                                                {`${sellPrice} ETH에 내놓으시겠습니까?`}
+                                            </div>
+                                        </p>
+                                    }
+                                    {
+                                        !isPending
+                                        &&
+                                        <>
+                                            <button 
+                                                onClick={onSellTile}
+                                                className={`${(isInputNaN || sellPrice.length <= 0) ? 'btn--disabled' : ''}`}
+                                            >
+                                                판매 신청하기
+                                            </button>
+                                            <button className='btn--disabled'
+                                                onClick={() => {
+                                                    setIsOkToSell(false);
+                                                    setSellPrice("");
+                                                }}>
+                                                계속 가지고 있기
+                                            </button>
+                                        </>
+                                    }
+                                </section>
                             :
-                            <p>
-                                판매를 기다리고 있습니다!
+                                <section className="btns">
+                                    <p className="btns__title">판매 희망 가격 (ETH)</p>
+                                    <input type="text" 
+                                        onInput={onInputPrice} 
+                                        ref={sellPriceInput} 
+                                        className="btns__priceInput"
+                                    />
+                                    <p>
+                                        {
+                                            isInputNaN
+                                            ?
+                                            "올바른 숫자 형식으로 입력해주세요."
+                                            :
+                                            ""
+                                        }
+                                    </p>
+                                    <button 
+                                        onClick={() => setIsOkToSell(true)}
+                                        className={`${(isInputNaN || sellPrice.length <= 0) ? 'btn--disabled' : ''}`}
+                                    >
+                                        판매 신청하기
+                                    </button>
+                                </section>
+                        :
+                        <section className="notice">
+                            <p className="notice__buyer">
+                                {`${shortenWalletAddr(buyerAdr)}님이 소유하고 있는 토지입니다.`}
                             </p>
-                        }
-                        {
-                            !isPending
-                            &&
-                            <button onClick={onCancelSell}>
-                                판매 신청 취소하기
-                            </button>
-                        }
-                    </section>
+                        </section>
                     :
-                    <section className="btns">
-                        <button onClick={onAddCart}>
-                            장바구니에 넣기
-                        </button>
-                        <button onClick={onModalShow}>
-                            바로 구매하기
-                        </button>
-                    </section>
-            }
+                        buyerAdr && tokenId && myWalletAddr === buyerAdr && contractTileInfo && !contractTileInfo.assurance
+                        ?
+                        <section className="btns">
+                            {
+                                notice.length > 0
+                                ?
+                                <p>
+                                    {notice}
+                                </p>
+                                :
+                                <p className="btns__alert">
+                                    판매를 기다리고 있습니다!
+                                </p>
+                            }
+                            {
+                                !isPending
+                                &&
+                                <button onClick={onCancelSell}>
+                                    판매 신청 취소하기
+                                </button>
+                            }
+                        </section>
+                        :
+                        <section className="btns">
+                            <button onClick={onAddCart}>
+                                장바구니에 넣기
+                            </button>
+                            <button onClick={onModalShow}>
+                                바로 구매하기
+                            </button>
+                        </section>
+                    }
         </aside>
     );
 }

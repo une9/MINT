@@ -171,7 +171,7 @@ const PlanetDetail= ( ) => {
 
                 <div className={styles.planetInfoWrapper}>
                     {
-                        planetInfo.name 
+                        planetInfo.name && newPriceTiles.length > 0
                         && 
                         <PlanetMap 
                             version={"detail"}
