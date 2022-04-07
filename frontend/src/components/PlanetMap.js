@@ -18,6 +18,8 @@ const ConvertToplanetCode = {
 const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles }) => {
     const planetCode = ConvertToplanetCode[planetName];
 
+    console.log(selectedTileId);
+
     const onClickTile = (targetTileId) => {
         if (version !== "detail") return;
         console.log(targetTileId)

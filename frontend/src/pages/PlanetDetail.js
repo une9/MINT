@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styles from "../styles/PlanetDetail.module.scss";
 import { BsCart3 } from "react-icons/bs";
 
@@ -16,12 +16,14 @@ import { ethers } from 'ethers';
 
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
-    // console.log(planetId)
+    const [searchParams] = useSearchParams();
+    const selectedTile = searchParams.get("selected");
+
     const [planetInfo, setPlanetInfo] = useState({});
     const [tiles, setTiles] = useState([]);
-    // const [selectedTile, setSelectedTile] = useState({});
     const [selectedTileIdx, setSelectedTileIdx] = useState(0);
     const [selectedTileId, setSelectedTileId] = useState("");
+
     const [cartItemNum, setCartItemNum] = useState(0);
     const [dibbedLands, setDibbedLands] = useState([]);
 
@@ -31,6 +33,8 @@ const PlanetDetail= ( ) => {
     const [myWalletAddr, setMyWalletAddr] = useState("");
 
     const navigate = useNavigate();
+
+    
 
     // web3 관련 객체 가져오기
     const myWeb3 = useOutletContext();
@@ -88,11 +92,16 @@ const PlanetDetail= ( ) => {
  
     useEffect(() => {
         if (tiles.length > 0) {
-            setSelectedTileId(tiles[0].tid);
+            if (selectedTile) {
+                setSelectedTileId(selectedTile);
+            } else {
+                setSelectedTileId(tiles[0].tid);
+            }
         }
     }, [tiles]);
 
     useEffect(() => {
+        console.log("selectedTileId Change: ", selectedTile)
         for (let i = 0; i < tiles.length; i++) {
             if (tiles[i].tid === selectedTileId) {
                 setSelectedTileIdx(i);

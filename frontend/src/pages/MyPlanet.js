@@ -110,7 +110,7 @@ const MyPlanet = () => {
                       {tiles.tid}
                       <VscChevronDown className={styles.arrowDown} />
                     </summary>
-                    <Land {...{ ...tiles, ...{ version: 'card-mypage' } }} />
+                    <Land {...{ ...tiles, ...{ version: 'card-mypage' }, ...{pid: mappingPid.get(planetName)} }} />
                   </details>
                 ))}
               </li>

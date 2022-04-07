@@ -69,9 +69,11 @@ const MyPage= ( ) => {
 
     return (
        <main className={styles.MyPage}>
-           <header>
-                <h1>{username}</h1>
-                <button className={styles.ProfileEditBtn}>회원정보수정</button>
+           <header className={styles.mypageHeader}>
+                <h1>My Page</h1>
+                <div>
+                    <span className={styles.myWalletTitle}>내 지갑</span><span>{contractAddress}</span>
+                </div>
            </header>
            <div className={styles.MyPageInfo}>
                 <section className={styles.MyReceipts}>
