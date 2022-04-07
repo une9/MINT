@@ -2,8 +2,12 @@
 
 .MyPlanet {
     padding: 3rem 6rem;
-
-
+    
+    .landImgO {
+        background-color: transparent !important;
+        border: 1px solid $point-main;
+        border-radius: 5px;
+    }
 }
 
 .myPlanetInfoWrapper {

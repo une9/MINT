@@ -127,7 +127,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
                     <div className={styles.landImgWrapper}>
                         {
                             image
-                            ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={imageURL} alt="landImg" />
+                            ? <img className={`${styles.landImg} ${styles.landImgO} ${styles.landImgBig}`} src={imageURL} alt="landImg" />
                             : <div className={`${styles.landImg} ${styles.landImgBig}`} />
                         }
                         {/* <button className={styles.landImgUploadBtn} htmlFor="file">사진 등록</button> */}

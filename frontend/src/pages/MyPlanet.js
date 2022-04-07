@@ -100,7 +100,7 @@ const MyPlanet = () => {
                     <summary className={styles.landItemSummary}>
                       {tiles.image ? (
                         <img
-                          className={styles.landImg}
+                          className={`${styles.landImg} ${styles.landImgO}`}
                           src={`http://j6a106.p.ssafy.io/api/image/display?filename=${tiles.image}`}
                           alt="landImg"
                         />
