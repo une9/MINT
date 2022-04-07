@@ -12,7 +12,7 @@ import Lottie from 'react-lottie';
 import Mint_Lodo from '../lottie/Mint_Logo_Long_Font.json';
 import { useNavigate } from "react-router-dom";
 
-const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
+const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect, contractTileInfo }) => {
     // console.log("PurchaseModal Created")
     const [myWalletAddr, setMyWalletAddr] = useState();
     const [isWaiting, setIsWaiting] = useState(false);
@@ -55,12 +55,21 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
         // 구매 함수 호출
         try {
             setIsWaiting(true);
+
             for (const item of itemsToBuy) {
                 const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
                 console.log(priceInWei)
                 // const price = item.price * 10**18;
                 console.log(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei)
-                const res = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+
+                let res;
+                if (contractTileInfo && contractTileInfo.price && !contractTileInfo.assurance) {
+                    console.log("buy!!!")
+                    res = await myWeb3.nftContract.buy(item.tokenId,  { value: priceInWei});
+                } else {
+                    console.log("create and buy!!!")
+                    res = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                }
                 
                 const hash = res.hash;
                 

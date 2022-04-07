@@ -187,9 +187,6 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, 
                             }
                         </summary>
                         <ul className={styles.historyItems}>
-                            {/* <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} /> */}
                             {   
                                 tokenId && tokenId in purchaseLog
                                 ?

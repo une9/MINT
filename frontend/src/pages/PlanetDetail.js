@@ -13,6 +13,7 @@ import PurchaseModal from "../components/PurchaseModal";
 
 import axios from 'axios';
 import { ethers } from 'ethers';
+import Big from "big.js";
 
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
@@ -24,6 +25,11 @@ const PlanetDetail= ( ) => {
     const [selectedTileIdx, setSelectedTileIdx] = useState(0);
     const [selectedTileId, setSelectedTileId] = useState("");
     const [tileImgs, setTileImgs] = useState();
+
+    const [sellPrice, setSellPrice] = useState("");
+    const [contractTileInfo, setContractTileInfo] = useState();
+    // const [newPrices, setNewPrices] = useState({});
+    const [newPriceTiles, setNewPriceTiles] = useState([]);
 
     const [cartItemNum, setCartItemNum] = useState(0);
     const [dibbedLands, setDibbedLands] = useState([]);
@@ -92,6 +98,8 @@ const PlanetDetail= ( ) => {
     }, [myWalletAddr])
  
     useEffect(() => {
+        setNewPriceTiles(tiles);
+
         if (tiles.length > 0) {
             if (selectedTile) {
                 setSelectedTileId(selectedTile);
@@ -115,6 +123,45 @@ const PlanetDetail= ( ) => {
             }
         }
     }, [selectedTileId]);
+
+    const tileInfo = useCallback(async () => {
+        const { ethereum } = window;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+
+        if (tiles.length <= 0) return;
+
+        const tokenId = tiles[selectedTileIdx].tokenId;
+
+        if (ethereum && tokenId) {
+            const res = await myWeb3.nftContract.getTileId(tokenId);
+            console.log(res);
+            setContractTileInfo(res);
+
+        } else {
+            setContractTileInfo({});
+        }
+
+    }, [selectedTileIdx]);
+
+    useEffect(() => {
+        // tiles[selectedTileIdx]
+        if (contractTileInfo && contractTileInfo.price && !contractTileInfo.assurance) {
+            setNewPriceTiles(prev => prev.map((tile, idx) => {
+                if (idx === selectedTileIdx) {
+                    tile.price = new Big(Number(contractTileInfo.price._hex) * 0.1 ** 18).toFixed(2)
+                }
+                return tile;
+            }))
+        }
+
+    }, [contractTileInfo])
+
+
+    // debugging!!!
+    useEffect(() => {
+        console.log(newPriceTiles)
+    }, [newPriceTiles])
+
 
     return(
         <div className={`${styles.PlanetDetail} PlanetPage`}>
@@ -159,6 +206,7 @@ const PlanetDetail= ( ) => {
                     }]}
                     isBuyDirect={true}
                     myWeb3={myWeb3}
+                    contractTileInfo={contractTileInfo}
                 />
             }
             <SideBarInfo 
@@ -180,6 +228,13 @@ const PlanetDetail= ( ) => {
                 myWalletAddr={myWalletAddr}
                 dibbedLands={dibbedLands}
                 setDibbedLands={setDibbedLands}
+                sellPrice={sellPrice}
+                setSellPrice={setSellPrice}
+                myWeb3={myWeb3}
+                tileInfo={tileInfo}
+                contractTileInfo={contractTileInfo}
+                newPriceTiles={newPriceTiles}
+                selectedTileIdx={selectedTileIdx}
             />
             
         </div>

@@ -36,7 +36,7 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                         onClick={() => onClickTile(tileId)}
                     >
                         {
-                            tileImgs[tileId] !== null && tileImgs[tileId] !== undefined
+                            tileImgs[tileId] !== null && tileImgs[tileId] !== undefined && version !== "admin"
                             ?
                             <div className={styles.tileImg}
                                 style={{ 
