@@ -20,25 +20,25 @@ const AdminPlanetTransaction= ( ) => {
     const abi = contract.abi;
     const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
-    const postDate = useCallback(async()=>{
-        setDay(moment(startDate).format("YYYY-MM-DD"));
+    const postDate = ()=>{
+
         const filterdate = postData.filter(
             (item) => item.tradeDate === day
         );
         console.log(day);
-        setPostData(filterdate);
         console.log(filterdate);
-    },[startDate,day,postData]);
+        setPostData(filterdate);
+    }
 
-    const postCategory = useCallback((category)=>{
-        // console.log(category,"date 보냐서 리스트 가져오기");
+    const postCategory = (category)=>{
+
         const filterdate = postData.filter(
             (item) => item.name === category
           );
         console.log(filterdate);
         setPostData(filterdate);
 
-    },[postData]);
+    }
     const CustomInput = forwardRef(({ value, onClick }, ref) => (
         <button className="custom-input" onClick={onClick} ref={ref}>
             Date. {value}
@@ -121,9 +121,9 @@ const AdminPlanetTransaction= ( ) => {
                         ...setName,
                         ...setTradeDate
                     };
+                    
 
                     setPostData(prevList=>[...prevList, object]);
-                    // postData.push(object);
                 });
 
             } else {
@@ -132,13 +132,12 @@ const AdminPlanetTransaction= ( ) => {
         } catch (error) {
             console.log(error);
         }
-        // console.log(postData);
-    },[abi,contractAddress]);
+        console.log(postData);
+    },[]);
 
     useEffect(()=>{
-        const getehter = async() => {
-            purchaseCall();
-        }
+        purchaseCall();
+        setDay(moment(startDate).format("YYYY-MM-DD"));
         axios
       .get(process.env.REACT_APP_SERVER_URL + '/api/planets', {})
       .then((res) => {
@@ -148,7 +147,6 @@ const AdminPlanetTransaction= ( ) => {
           category,
         }));
       });
-      getehter();
         
     }, []);
 
@@ -160,6 +158,7 @@ const AdminPlanetTransaction= ( ) => {
             value={selectedCategory}
             onChange={(e) =>{
                     setSelectedCategory(e.target.value);
+                    purchaseCall();
                     postCategory(selectedCategory);
                 }
             }
@@ -193,7 +192,7 @@ const AdminPlanetTransaction= ( ) => {
                 <span className='transaction-filter-date'>
                     <DatePicker
                         selected={startDate}
-                        onChange={(date) => {setStartDate(date); postDate();}}
+                        onChange={(date) => {setStartDate(date);  purchaseCall(); postDate();}}
                         customInput={<CustomInput />}
                         dateFormat="yyyy-MM-dd"
                         />
