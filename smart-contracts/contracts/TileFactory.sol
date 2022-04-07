@@ -28,6 +28,7 @@ contract TileFactory is TileNFT {
     event nftPurchase(
         uint256 indexed tileId,
         address indexed buyer,
+        uint256 price,
         uint256 indexed purchaseTime
     );
 
@@ -79,7 +80,7 @@ contract TileFactory is TileNFT {
 
         tileInfo[tileIds] = newTile;
 
-        emit nftPurchase(tileIds, msg.sender, block.timestamp);
+        emit nftPurchase(tileIds, msg.sender, _price, block.timestamp);
     }
 
     function sell(uint256 _price, uint256 _tileId) public {
@@ -134,7 +135,12 @@ contract TileFactory is TileNFT {
         tileInfo[_tileId].price = tempPrice[_tileId];
         tileInfo[_tileId].assurance = true;
 
-        emit nftPurchase(_tileId, msg.sender, block.timestamp);
+        emit nftPurchase(
+            _tileId,
+            msg.sender,
+            tempPrice[_tileId],
+            block.timestamp
+        );
     }
 
     function cancel(uint256 _tileId) public {
@@ -190,9 +196,9 @@ contract TileFactory is TileNFT {
     }
 
     function getTileId(uint256 _tileId) public view returns (Tile memory) {
-        if(tileInfo[_tileId].assurance) {
+        if (tileInfo[_tileId].assurance) {
             return tileInfo[_tileId];
-        }else {
+        } else {
             Tile memory result = Tile(
                 tileInfo[_tileId].tileId,
                 tileInfo[_tileId].tileOwner,
