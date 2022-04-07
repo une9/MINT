@@ -104,9 +104,9 @@ const Description= ( ) => {
                                     <strong>우주 문명</strong>을 건설하고 
                                 </div>
                                 <div>
-                                    인류가 <strong>다행성 거주 종</strong>
+                                    인류가 <strong>다행성 거주 종</strong>이 
                                 </div>
-                                    이 되는 것"
+                                    되는 것"
                                 <div>
 
                                 </div>
@@ -236,9 +236,13 @@ const Description= ( ) => {
                         </Animator>
                         <Animator animation={FadeUpText}>
                             <p className={styles.descContent}>
-                            &nbsp;&nbsp;이처럼 지구는 더이상 유일한 거주지로서의 안정성을 보장해주지 못하고, 
-                            인류는 타행성으로의 이주를 바라보고 있습니다.
-                            빠르게 발달하고 있는 우주 기술은 그리 멀지 않은 시점에 제 2의 지구로의 이주를 가능하게 할 것으로 기대됩니다.
+                                <div>
+                                    &nbsp;&nbsp;이처럼 지구는 더이상 유일한 거주지로서의 안정성을 보장해주지 못하고, 
+                                    인류는 타행성으로의 이주를 바라보고 있습니다.
+                                </div>
+                                <div>
+                                    빠르게 발달하고 있는 우주 기술이 그리 멀지 않은 시점에 제 2의 지구로의 이주를 가능하게 할 것으로 기대됩니다.
+                                </div>
                             </p>
                         </Animator>
                     </ScrollPage>

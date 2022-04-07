@@ -6,6 +6,7 @@ import shortenWalletAddr from "./utils/shortenWalletAddr";
 
 import { ethers } from 'ethers';
 import axios from 'axios';
+import Big from "big.js";
 
 const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
     // console.log("PurchaseModal Created")
@@ -33,10 +34,11 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
             for (const item of itemsToBuy) {
                 const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
                 console.log(priceInWei)
+                // const price = item.price * 10**18;
                 console.log(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei)
-                await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
-                
-                const tokenId = await myWeb3.nftContract.currentTileId();
+                const tokenId = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                console.log("tokenId: ", tokenId)
+                // const tokenId = await myWeb3.nftContract.currentTileId();
 
                 axios.put(`${BASE_URL}/api/tile/`, {
                     buyerAdr: myWalletAddr,
@@ -60,36 +62,6 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
             if (!isBuyDirect) {
                 localStorage.removeItem("mintCart");
             }
-
-
-
-            const myTiles = await myWeb3.nftContract.getMyTile();
-            console.log("getMyTile: ", myTiles);
-
-            // console.log(myTiles[1].tileId._hex);
-            // console.log(typeof myTiles[1].tileId._hex);
-            // console.log(Number(myTiles[1].tileId._hex));
-
-
-            // axios.put(`${BASE_URL}/api/tile/`, {
-            //     buyerAdr: myWalletAddr,
-            //     buyerId: null,
-            //     tokenId: "0x09",
-            //     area: 1,
-            //     planet: 9,
-            //     price: 0.01,
-            //     tid: "TG-B-001",
-            //     tradeDate: new Date()
-            // })
-            // .then(() => {
-            //     axios.get(`${BASE_URL}/api/tile/${"TG-B-001"}`)
-            //     .then((res) => {
-            //         console.log(res);
-            //     })
-            // })
-
-
-
 
             console.log("구매 끝!");
         } catch (err) {
@@ -165,7 +137,7 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
                             <div>
                                 <PurchaseBtnSection 
                                     cartSize={itemsToBuy.length} 
-                                    totalPrice={itemsToBuy.reduce((acc, item) => { return acc + item.price }, 0)}
+                                    totalPrice={new Big(itemsToBuy.reduce((acc, item) => { return acc + item.price }, 0)).toFixed(2)}
                                     onClick={buy} />
                             </div>
                         </section>

@@ -40,7 +40,7 @@ const PlanetDetail= ( ) => {
     useEffect(() => {
         const prevCart = localStorage.getItem("mintCart");
         if (prevCart) {
-            const cartLen = JSON.parse(prevCart).length;
+            const cartLen = Object.keys(JSON.parse(prevCart)).length;
             setCartItemNum(cartLen);
         }
 
@@ -150,17 +150,21 @@ const PlanetDetail= ( ) => {
                 onAddCart={() => {
                     let cart = JSON.parse(localStorage.getItem("mintCart"));
                     if (!cart) {
-                        cart = []
+                        cart = {}
                     }
-                    cart.push(
-                        {
-                            ...tiles[selectedTileIdx],
-                            planet: {
-                                id: planetId,
-                                data: planetInfo
-                            },
-                        }
-                    )
+                    // cart.push(
+                    //     {
+                    //         ...tiles[selectedTileIdx],
+                    //         planet: {
+                    //             id: planetId,
+                    //             data: planetInfo
+                    //         },
+                    //     }
+                    // )
+                    cart[tiles[selectedTileIdx].tid] = {
+                                    id: planetId,
+                                    data: planetInfo
+                                }
                     localStorage.setItem("mintCart", JSON.stringify(cart));
                     console.log(cart);
                     setCartItemNum(prev => prev + 1);

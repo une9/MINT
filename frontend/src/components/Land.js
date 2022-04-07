@@ -4,95 +4,82 @@ import PurchaseHistoryItem from "./PurchaseHistoryItem";
 import shortenWalletAddr from "./utils/shortenWalletAddr";
 
 import { VscChevronDown } from "react-icons/vsc";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { ethers } from 'ethers';
-import contract from '../smartcontract/TileFactory.json'
+import contract from '../smartcontract/TileFactory.json';
+import Big from "big.js";
 
 // version
 // card-purchase: 행성 구매페이지 (history: open)
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
-// const Land = ({ version, tid, area, image, buyer, trade_date, price, tokenId }) => {
-const Land = (props) => {
-    console.log(props)
-    const { version, tid, area, image, buyerAdr, tradeDate, price } = props;
-    const tokenId = "0x00";
-    // console.log(version)
-    console.log("tokenId:", Number(tokenId))
+const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }) => {
+    console.log("tokenId:", tokenId)
+    const [purchaseLog, setPurchaseLog] = useState({});
 
-    useEffect(() => {
-        // const { ethereum } = window;
-        // const provider = new ethers.providers.Web3Provider(ethereum);
-        // const signer = provider.getSigner();
-        // // const abi = contract.abi;
-        // const abi = [ "event nftPurchase(tileIds, msg.sender, block.timestamp)" ];;
-        // const iface = new ethers.utils.Interface(abi);
-        // console.log(provider)
+    const abi = ["event nftPurchase(uint256 indexed tileId, address indexed buyer, uint256 price, uint256 indexed purchaseTime)"];
+    const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+    // const contractAddress = "0x58A1E6FFf914C23011A3fF99CdE84E7DaD3D82AC";
 
-        // const filter = {
-        //     transactionHash: tokenId
-        // }
-        // provider.getLogs({})
-        // .then((res) => {
-        //     console.log(res)
-        //     const parsedLogs = res.map((log) => iface.parseLog(log));
-        //     console.log("parsedLogs", parsedLogs)
-        // })
+    const HistoryLog = useCallback(async () => {
 
-    }, []);
-
-    useEffect(() => {
         const { ethereum } = window;
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        // const abi = contract.abi;
-        const abi = [ "event nftPurchase(uint256 indexed tileIds, address indexed buyer, uint256 indexed purchaseTime)" ];;
-        const iface = new ethers.utils.Interface(abi);
-        console.log(provider)
+        const contract = new ethers.Contract(contractAddress, abi, signer);
 
-        const filter = {
-            // transactionHash: tokenId
-            logIndex: Number(tokenId),
-            blockHash: "0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F",
-            // topics: [
-            //     iface
-            // ]
-            // transactionIndex: Number(tokenId)
+        const transferEvent = await contract.queryFilter('nftPurchase');
+
+        console.log(transferEvent);
+        console.log(transferEvent[0].args);
+        console.log(Number(transferEvent[0].args.tileId));
+        console.log(transferEvent[0].args.buyer);
+        console.log(Number(transferEvent[0].args.purchaseTime));
+
+        const parsedTransferEvents = {};
+        for (const event of transferEvent) {
+            const data = event.args;
+            const tileTokenId = data.tileId._hex;
+
+            const price = new Big(Number(data.price._hex));
+            const priceInEther = price.div(new Big(10).pow(18)).toFixed(2)
+            console.log(priceInEther)
+
+            // block.timestamp가 unix 시간 단위로 되어 있으므로 변환해줌  ->  2022.04.07
+            const timeInNum = Number(data.purchaseTime._hex);
+            const time = new Date(timeInNum * 1000);
+            const timeFormatted = `${time.getFullYear()}.${String(time.getMonth() + 1).padStart(2, '0')}.${String(time.getDate()).padStart(2, '0')}`
+            console.log(timeInNum)
+            console.log(time)
+
+            const tmp = {
+                tileTokenId: tileTokenId,
+                tileBuyerAdr: data.buyer,
+                tilePurchaseTime: timeFormatted,
+                tilePrice: priceInEther
+            }
+            if (!(tileTokenId in parsedTransferEvents)) {
+                parsedTransferEvents[tileTokenId] = [];
+            }
+            parsedTransferEvents[tileTokenId].push(tmp);
         }
-        provider.getLogs(filter)
-        .then((res) => {
-            console.log(res)
-            const parsedLogs = res.map((log) => {
-                try {
-                    return iface.parseLog(log);
-                } catch (err) {
-                    return null;
-                }
-            });
-            console.log("parsedLogs", parsedLogs)
-        })
+        for (const key in parsedTransferEvents) {
+            const tmp = parsedTransferEvents[key];
+            tmp.sort((a, b) => a.tilePurchaseTime > b.tilePurchaseTime);
+        }
 
+        setPurchaseLog(parsedTransferEvents)
+    }, []);
 
-        // contract.on("nftPurchase", (tileIds, buyer, purchaseTime) => {
-        //     console.log({
-        //         tileIds: tileIds,
-        //         buyer: buyer,
-        //         purchaseTime: purchaseTime,
-        //     });
-        // });
+    useEffect(() => {
+        console.log("purchaseLog: ", purchaseLog)
+    }, [purchaseLog])
 
+    useEffect(() => {
+        HistoryLog();
+    }, [HistoryLog]);
 
-        // provider.getTransactionReceipt("0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F")
-        // .then((receipt) => {
-        //     console.log(receipt)
-        //     let abi = [ "event nftPurchase(uint256 indexed tileIds, address indexed buyer, uint256 indexed purchaseTime)" ];
-        //     let iface = new ethers.utils.Interface(abi);
-        //     // let log = iface.parseLog(receipt.logs[1]);
-        //     // console.log(log)
-        // })
-
-    }, [tokenId])
 
     const imageChange = () => {
 
@@ -144,7 +131,7 @@ const Land = (props) => {
                         </div>
                     }
                     <div>
-                        <dt>소유자</dt> <dd>{buyerAdr}{`(${tokenId ? tokenId : " 없음 "})`}</dd>
+                        <dt>소유자</dt> <dd>{`${buyerAdr && tokenId ? shortenWalletAddr(buyerAdr) : "( 없음 )"}`}</dd>
                     </div>
                     <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
                         <summary>
@@ -156,9 +143,22 @@ const Land = (props) => {
                             }
                         </summary>
                         <ul className={styles.historyItems}>
+                            {/* <PurchaseHistoryItem price={0.01} />
                             <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} />
-                            <PurchaseHistoryItem price={0.01} />
+                            <PurchaseHistoryItem price={0.01} /> */}
+                            {   
+                                tokenId && tokenId in purchaseLog
+                                ?
+                                purchaseLog[tokenId].map((log, idx) => (
+                                    <PurchaseHistoryItem 
+                                        buyerAdr={log.tileBuyerAdr}
+                                        purchaseTime={log.tilePurchaseTime}
+                                        price={log.tilePrice}
+                                        key={`purchaseHistoryItem-${tokenId}-${idx}`} />
+                                ))
+                                :
+                                `(구매 이력 없음)`
+                            }
                         </ul>
                     </details>
                 </dl>
