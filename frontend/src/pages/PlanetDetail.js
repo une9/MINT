@@ -23,6 +23,7 @@ const PlanetDetail= ( ) => {
     const [tiles, setTiles] = useState([]);
     const [selectedTileIdx, setSelectedTileIdx] = useState(0);
     const [selectedTileId, setSelectedTileId] = useState("");
+    const [tileImgs, setTileImgs] = useState();
 
     const [cartItemNum, setCartItemNum] = useState(0);
     const [dibbedLands, setDibbedLands] = useState([]);
@@ -98,10 +99,15 @@ const PlanetDetail= ( ) => {
                 setSelectedTileId(tiles[0].tid);
             }
         }
+
+        const tmp = {};
+        for (const tile of tiles) {
+            tmp[tile["tid"]] = tile.image;
+        }
+        setTileImgs(tmp);
     }, [tiles]);
 
     useEffect(() => {
-        console.log("selectedTileId Change: ", selectedTile)
         for (let i = 0; i < tiles.length; i++) {
             if (tiles[i].tid === selectedTileId) {
                 setSelectedTileIdx(i);
@@ -126,7 +132,8 @@ const PlanetDetail= ( ) => {
                             planetName={planetInfo.name}
                             tiles={tiles}
                             selectedTileId={selectedTileId}
-                            setSelectedTileId={setSelectedTileId} />
+                            setSelectedTileId={setSelectedTileId}
+                            tileImgs={tileImgs} />
                     }
                 </div>
 
