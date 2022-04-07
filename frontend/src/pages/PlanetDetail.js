@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import styles from "../styles/PlanetDetail.module.scss";
 import { BsCart3 } from "react-icons/bs";
 
@@ -16,12 +16,15 @@ import { ethers } from 'ethers';
 
 const PlanetDetail= ( ) => {
     const { planetId } = useParams();
-    // console.log(planetId)
+    const [searchParams] = useSearchParams();
+    const selectedTile = searchParams.get("selected");
+
     const [planetInfo, setPlanetInfo] = useState({});
     const [tiles, setTiles] = useState([]);
-    // const [selectedTile, setSelectedTile] = useState({});
     const [selectedTileIdx, setSelectedTileIdx] = useState(0);
     const [selectedTileId, setSelectedTileId] = useState("");
+    const [tileImgs, setTileImgs] = useState();
+
     const [cartItemNum, setCartItemNum] = useState(0);
     const [dibbedLands, setDibbedLands] = useState([]);
 
@@ -31,6 +34,8 @@ const PlanetDetail= ( ) => {
     const [myWalletAddr, setMyWalletAddr] = useState("");
 
     const navigate = useNavigate();
+
+    
 
     // web3 관련 객체 가져오기
     const myWeb3 = useOutletContext();
@@ -88,8 +93,18 @@ const PlanetDetail= ( ) => {
  
     useEffect(() => {
         if (tiles.length > 0) {
-            setSelectedTileId(tiles[0].tid);
+            if (selectedTile) {
+                setSelectedTileId(selectedTile);
+            } else {
+                setSelectedTileId(tiles[0].tid);
+            }
         }
+
+        const tmp = {};
+        for (const tile of tiles) {
+            tmp[tile["tid"]] = tile.image;
+        }
+        setTileImgs(tmp);
     }, [tiles]);
 
     useEffect(() => {
@@ -117,7 +132,8 @@ const PlanetDetail= ( ) => {
                             planetName={planetInfo.name}
                             tiles={tiles}
                             selectedTileId={selectedTileId}
-                            setSelectedTileId={setSelectedTileId} />
+                            setSelectedTileId={setSelectedTileId}
+                            tileImgs={tileImgs} />
                     }
                 </div>
 
@@ -152,15 +168,6 @@ const PlanetDetail= ( ) => {
                     if (!cart) {
                         cart = {}
                     }
-                    // cart.push(
-                    //     {
-                    //         ...tiles[selectedTileIdx],
-                    //         planet: {
-                    //             id: planetId,
-                    //             data: planetInfo
-                    //         },
-                    //     }
-                    // )
                     cart[tiles[selectedTileIdx].tid] = {
                                     id: planetId,
                                     data: planetInfo

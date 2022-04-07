@@ -20,6 +20,7 @@ const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, on
     }, [dibbedLands, tid]);
 
     const BASE_URL = process.env.REACT_APP_SERVER_URL;
+    const imageURL = `http://j6a106.p.ssafy.io/api/image/display?filename=${image}`;
 
     const onToggleDibs = () => {
         try {
@@ -65,7 +66,7 @@ const SideBarInfo = ({tid, area, image, buyerAdr, trade_date, price, tokenId, on
                 <h2>{tid}</h2>
                 {
                     image 
-                    ? <img className="image" src={image} alt="land" />
+                    ? <img className="image imageO" src={imageURL} alt="land" />
                     : <div className="image" />
                 }
 

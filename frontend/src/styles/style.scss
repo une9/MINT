@@ -225,6 +225,12 @@ button {
         height: 14rem;
         background-color: $point-light;
     }
+ 
+    img.imageO {
+        background-color: transparent;
+        border: 1px solid $point-main;
+        border-radius: 5px;
+    }
     
     .info {
         display: flex;

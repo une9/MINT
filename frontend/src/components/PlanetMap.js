@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Lottie from 'react-lottie';
 import styles from "../styles/PlanetMap.module.scss";
 
@@ -15,7 +15,7 @@ const ConvertToplanetCode = {
     "Ross_128b": "RB"
 }
 
-const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles }) => {
+const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTileId, soldTiles, tileImgs }) => {
     const planetCode = ConvertToplanetCode[planetName];
 
     const onClickTile = (targetTileId) => {
@@ -35,6 +35,17 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
                             ${version === "admin" && soldTiles.includes(tileId) ? styles['planetMapGridItem--sold'] : ""}`}
                         onClick={() => onClickTile(tileId)}
                     >
+                        {
+                            tileImgs[tileId] !== null && tileImgs[tileId] !== undefined
+                            ?
+                            <div className={styles.tileImg}
+                                style={{ 
+                                    backgroundImage : `url(http://j6a106.p.ssafy.io/api/image/display?filename=${tileImgs[tileId]})`
+                                }}>
+                            </div>
+                            :
+                            <div className={styles.tileImg}></div>
+                        }
                     </li>
                 )
             })
@@ -56,33 +67,37 @@ const PlanetMap = ({ version, planetName, tiles, selectedTileId, setSelectedTile
         <article className={`${styles.PlanetMap} ${styles[version]}`}>
             <img src={`../../../planetMap/${planetName}.svg`} 
                 alt={`planet map - ${planetName}`} className={styles.planet2DMap} />
-            <ul className={`${styles.planetMapGrid} ${styles[planetCode]}`}>
-                {
-                    planetCode === "KepC"
-                    &&
-                    blockGenerator([12, 3, 1, 4, 5], planetCode)
-                }
-                {
-                    planetCode === "TG"
-                    &&
-                    blockGenerator([7, 6, 5, 3, 3, 1], planetCode)
-                }
-                {
-                    planetCode === "RB"
-                    &&
-                    blockGenerator([2, 1, 8, 1, 1, 3, 3, 6], planetCode)
-                }
-                {
-                    planetCode === "KepB"
-                    &&
-                    blockGenerator([9, 2, 1, 1, 2, 5, 1, 3, 4], planetCode)
-                }
-                {
-                    planetCode === "PrxB"
-                    &&
-                    blockGenerator([9, 3, 8, 2, 2, 3, 3], planetCode)
-                }
-            </ul>
+            {
+                tileImgs
+                &&
+                <ul className={`${styles.planetMapGrid} ${styles[planetCode]}`}>
+                    {
+                        planetCode === "KepC"
+                        &&
+                        blockGenerator([12, 3, 1, 4, 5], planetCode)
+                    }
+                    {
+                        planetCode === "TG"
+                        &&
+                        blockGenerator([7, 6, 5, 3, 3, 1], planetCode)
+                    }
+                    {
+                        planetCode === "RB"
+                        &&
+                        blockGenerator([2, 1, 8, 1, 1, 3, 3, 6], planetCode)
+                    }
+                    {
+                        planetCode === "KepB"
+                        &&
+                        blockGenerator([9, 2, 1, 1, 2, 5, 1, 3, 4], planetCode)
+                    }
+                    {
+                        planetCode === "PrxB"
+                        &&
+                        blockGenerator([9, 3, 8, 2, 2, 3, 3], planetCode)
+                    }
+                </ul>
+            }
         </article>
     );
 }
