@@ -175,6 +175,24 @@
         font-size: 0.875rem;
     }
 
+    .waiting, .done {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        // margin-top: 80px;
+        height: 100%;
+
+        p {
+            margin-bottom: 0;
+            text-align: center;
+        }
+    }
+
+    .done__notice {
+        margin-bottom: 2rem;
+    }
+
 }
 
 .purchaseModal__bottomWrapper {
