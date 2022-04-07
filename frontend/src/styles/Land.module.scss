@@ -70,7 +70,13 @@
   width: 64px;
   height: 64px;
   background-color: $point-light;
-  // margin-right: 1.5rem;
+  margin-right: 1rem;
+}
+
+.landImgO {
+  background-color: transparent;
+  border: 1px solid $point-main;
+  border-radius: 5px;
 }
 
 .purchaseHistory {

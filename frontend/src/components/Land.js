@@ -10,13 +10,14 @@ import { ethers } from 'ethers';
 import contract from '../smartcontract/TileFactory.json';
 import Big from "big.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 // version
 // card-purchase: 행성 구매페이지 (history: open)
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
-const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }) => {
+const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId, pid }) => {
     console.log("tokenId:", tokenId)
     const [purchaseLog, setPurchaseLog] = useState({});
 
@@ -26,6 +27,13 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
     console.log(version)
 
     const imageURL = `http://j6a106.p.ssafy.io/api/image/display?filename=${image}`;
+
+    const navigate = useNavigate();
+
+    if (tradeDate && tradeDate.length > 10) {
+        const date = new Date(tradeDate);
+        tradeDate = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+    }
 
     const HistoryLog = useCallback(async () => {
         const { ethereum } = window;
@@ -113,8 +121,8 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
                 &&
                 <header>
                     {
-                        image
-                        ? <img className={styles.landImg} src={imageURL} alt="landImg" />
+                        image !== null && image !== undefined
+                        ? <img className={`${styles.landImg} ${styles.landImgO}`} src={imageURL} alt="landImg" />
                         : <div className={styles.landImg} />
                     }
                     <h2>{tid}</h2>
@@ -126,13 +134,19 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
                     &&
                     <div className={styles.landImgWrapper}>
                         {
-                            image
-                            ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={imageURL} alt="landImg" />
+                            image !== null && image !== undefined
+                            ? <img className={`${styles.landImg} ${styles.landImgO} ${styles.landImgBig}`} src={imageURL} alt="landImg" />
                             : <div className={`${styles.landImg} ${styles.landImgBig}`} />
                         }
                         {/* <button className={styles.landImgUploadBtn} htmlFor="file">사진 등록</button> */}
                         <div className={styles.filebox}>
-                            <label  htmlFor="file">사진 등록</label>
+                            <label htmlFor="file">
+                                {
+                                    image
+                                    ? "사진 변경"
+                                    : "사진 등록"
+                                }
+                            </label>
                             <input
                                 type="file"
                                 id="file"
@@ -196,7 +210,16 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }
             {
                 version === "card-mypage"
                 &&
-                <button className={styles.landInMapBtn}>지도에서 위치 확인하기</button>
+                <button className={styles.landInMapBtn}
+                    onClick={
+                        () => navigate({
+                            pathname: `/planet/${pid}`,
+                            search: `?selected=${tid}`,
+                          })
+                    }
+                >
+                    지도에서 위치 확인하기
+                </button>
             }
 
         </article>

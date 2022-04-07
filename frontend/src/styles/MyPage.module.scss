@@ -4,8 +4,24 @@
     padding: 3rem;
 
     header {
+        span {
+            color: $point-main;
+            margin-bottom: 0.5rem;
+        }
+
         h1 {
             font-family: "Pretendard-Black";
+            margin-bottom: 1.5rem;
+        }
+
+        .myWalletTitle {
+            color: rgb(142, 142, 142);
+            display: inline-block;
+            margin-right: 1rem;
+        }
+
+        .mypageHeader {
+            margin-bottom: 4rem;
         }
     }
 
