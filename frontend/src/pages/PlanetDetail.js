@@ -28,7 +28,6 @@ const PlanetDetail= ( ) => {
 
     const [sellPrice, setSellPrice] = useState("");
     const [contractTileInfo, setContractTileInfo] = useState();
-    // const [newPrices, setNewPrices] = useState({});
     const [newPriceTiles, setNewPriceTiles] = useState([]);
 
     const [cartItemNum, setCartItemNum] = useState(0);

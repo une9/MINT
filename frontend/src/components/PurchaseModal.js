@@ -56,6 +56,9 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect, contract
         try {
             setIsWaiting(true);
 
+            const bool = contractTileInfo && contractTileInfo.price && !contractTileInfo.assurance;
+            console.log(bool)
+
             for (const item of itemsToBuy) {
                 const priceInWei = ethers.utils.parseEther(String(item.price))._hex;
                 console.log(priceInWei)
@@ -63,7 +66,7 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect, contract
                 console.log(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei)
 
                 let res;
-                if (contractTileInfo && contractTileInfo.price && !contractTileInfo.assurance) {
+                if (bool) {
                     console.log("buy!!!")
                     res = await myWeb3.nftContract.buy(item.tokenId,  { value: priceInWei});
                 } else {
@@ -85,11 +88,12 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect, contract
                 // tokenId 가져와서 DB에 저장
                 const tokenId = await myWeb3.nftContract.currentTileId();
                 console.log("tokenId: ", tokenId)
+                console.log("item tokenId: ", item.tokenId)
 
                 axios.put(`${BASE_URL}/api/tile/`, {
                     buyerAdr: myWalletAddr,
                     buyerId: null,
-                    tokenId: tokenId._hex,
+                    tokenId: bool ? item.tokenId : tokenId._hex,
                     area: item.area,
                     planet: Number(item.planet.id),
                     price: item.price,
