@@ -29,7 +29,8 @@
 <img alt="Jira" src ="https://img.shields.io/badge/Jira-0052CC.svg?&style=for-the-badge&logo=Jira&logoColor=white"/>
 <img alt="GitLab" src ="https://img.shields.io/badge/GitLab-FCA121.svg?&style=for-the-badge&logo=GitLab&logoColor=white"/>
 
-### 시스템 구상도
+### 시스템 구성도
+![image](/uploads/c72451142a6e0e36daec6d7961970606/image.png)
 
 ### 📌 주요 기능
 * **홈 화면**
