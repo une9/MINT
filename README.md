@@ -30,44 +30,36 @@
 <img alt="GitLab" src ="https://img.shields.io/badge/GitLab-FCA121.svg?&style=for-the-badge&logo=GitLab&logoColor=white"/>
 
 ### 시스템 구성도
-![image](/uploads/c72451142a6e0e36daec6d7961970606/image.png)
+![image](/uploads/8cce707a16b814f2c4cac8d360b984ed/image.png)
 
 ### 📌 주요 기능
 * **홈 화면**
   - ```행성 정보 제공 및 상세화면 연동``` <br>
-![image](/uploads/b3418e5d5d4d4f4affaab6b3493bce4a/image.png)
+![녹화_2022_04_07_21_43_22_321_AdobeCreativeCloudExpress__1_](/uploads/90ab9e2de3211fb7e1774ef467ca00bd/녹화_2022_04_07_21_43_22_321_AdobeCreativeCloudExpress__1_.gif)
   - ```사이드 바 및 지갑 연결```<br>
-![image](/uploads/62200f66b5ab794e3e1f84bed63697ba/image.png)
+![ezgif.com-gif-maker](/uploads/ae4d409b504f8a67a7976e0a426a002b/ezgif.com-gif-maker.gif)
   <br>
 
 * **상세 화면**
   - ```행성 지도를 확인 할 수 있으며 타일 선택을 통해 구매 가능```<br>
-![image](/uploads/545a2db21ceb4df30cfa6a854db68e27/image.png)
+![ezgif.com-gif-maker__1_](/uploads/d899ee8e448875993332415aeed5a52e/ezgif.com-gif-maker__1_.gif)
   <br>
 
   - ```장바구니 버튼을 통한 행성 담기 기능```<br>
 ![image](/uploads/664fb149fcc9b38a8eb3e3a03b0e5961/image.png)
+<br>
 
-  <br>
+* **관리자 페이지** <br>
 
-    - ```행성 구매 버튼을 통한 구매 기능```<br>
-![image](/uploads/9ebd6d4356a606e2bc224288df510276/image.png)
-
-  <br>
-
-* **관리자 페이지**
-  - ```모든 거래 내역 확인```<br>
-![image](/uploads/b279d23ae55d6c384febdeb0cc9606d4/image.png)
-  <br>
+  - ```거래 내역 확인 및 행성 별 토지 현황 확인```<br>
+![ezgif.com-gif-maker__2_](/uploads/8457552a25f9b0d727f9a84498f116d4/ezgif.com-gif-maker__2_.gif)
+<br>
   
-  - ```행성 별 토지 현황을 확인```<br>
-  ![image](/uploads/456cee03dc9a2d6ad2811ae053648faf/image.png)
-  <br>
+* **프로젝트 설명 페이지**
 
-  - ```지도와 구매 비율 확인``` <br>
-  ![image](/uploads/b999129e17382ed907720edae94bc9e1/image.png)
-  <br>
-
+  - ```프로젝트의 전반적인 설명```<br>
+![ezgif.com-gif-maker__3_](/uploads/949e1ec94ceaa16e8166bae434962ec6/ezgif.com-gif-maker__3_.gif)
+<br>
 
 ### 🧑 팀원 소개
 <details><summary><strong>조용문</strong> [ FE ]&nbsp;&nbsp;&nbsp;<em>Click!</em></summary>
