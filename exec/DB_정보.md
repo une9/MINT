@@ -7,7 +7,7 @@
 - DB 이름: mint <br>
 ----------------------------
 **Table 정보**
-
+ 
 - Tile 테이블 <br>
 
 | Flied      | Type         | Null | Key  | Default | Extra          |
