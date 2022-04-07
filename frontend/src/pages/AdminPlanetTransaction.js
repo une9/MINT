@@ -2,7 +2,7 @@ import styles from '../styles/Transaction.scss';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { forwardRef, useState,useEffect } from 'react';
+import { forwardRef, useState,useEffect,useCallback } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -140,6 +140,9 @@ const AdminPlanetTransaction= ( ) => {
     const [day, setDay] = useState(new Date());
     const [options, setOptions] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
+    
+    const abi = contract.abi;
+    const contractAddress = '0x894E2eFe90a97d732f20fC12f6a020a67D24aA5F';
     const postDate = ()=>{
         console.log(day,"date 보냐서 리스트 가져오기");
     }

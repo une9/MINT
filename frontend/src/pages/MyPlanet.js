@@ -14,8 +14,7 @@ const MyPlanet = () => {
   const { planetName } = useParams();
   const [myPlanet, setMyPlanet] = useState([]);
   const [boughtTilesObj, SetBoughtTilesObj] = useState([]);
-
-
+  
   
   const mappingPid = new Map([
     ['Teegarden_b', 9],

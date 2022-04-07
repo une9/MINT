@@ -12,9 +12,18 @@ import axios from "axios";
 // card-purchase: 행성 구매페이지 (history: open)
 // card-mypage: 마이페이지 - 내가 구매한 토지 정보 (history default: close)
 
-const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) => {
+const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, tokenId }) => {
     console.log(version)
     const imageURL = `http://j6a106.p.ssafy.io/api/image/display?filename=${image}`;
+    const shortenWalletAddr = (addr) => {
+        if (!addr) {
+            return "없음(0x000...00000)";
+        }
+        const L = addr.length;
+        if (L > 12) {
+            return `${addr.slice(0,9)}...${addr.slice(L-6, L-1)}`
+        } else return addr
+    }
     useEffect(() => {
         const { ethereum } = window;
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -113,7 +122,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) 
                         </div>
                     }
                     <div>
-                        <dt>소유자</dt> <dd>{buyerAdr}{`(${token ? token : " 없음 "})`}</dd>
+                        <dt>소유자</dt> <dd>{shortenWalletAddr(buyerAdr)}{`(${tokenId ? tokenId : " 없음 "})`}</dd>
                     </div>
                     <details open={version === "card-purchase" ? true : false} className={styles.purchaseHistory}>
                         <summary>
