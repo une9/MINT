@@ -27,8 +27,16 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
         })
     }, []);
 
+    const sleep = (milliseconds) => {
+        console.log("waiting...");
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
     const buy = async () => {
         console.log("구매!")
+        const { ethereum } = window;
+        const provider = new ethers.providers.Web3Provider(ethereum);
+
         // 구매 함수 호출
         try {
             for (const item of itemsToBuy) {
@@ -36,9 +44,23 @@ const PurchaseModal = ({ show, onHide, itemsToBuy, myWeb3, isBuyDirect }) => {
                 console.log(priceInWei)
                 // const price = item.price * 10**18;
                 console.log(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei)
-                const tokenId = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                const res = await myWeb3.nftContract.createAndBuy(item.planet.data.galaxy, item.planet.data.name, item.tid, priceInWei, { value: priceInWei});
+                
+                const hash = res.hash;
+                
+                // minig 끝날 때까지 기다리기
+                let transactionReceipt = null
+                while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+                    transactionReceipt = await provider.getTransactionReceipt(hash);    //transactonHash
+                    await sleep(1000)    // expectedBlockTime
+                }
+                console.log("Got the transaction receipt: ", transactionReceipt)
+                
+                
+                
+                // tokenId 가져와서 DB에 저장
+                const tokenId = await myWeb3.nftContract.currentTileId();
                 console.log("tokenId: ", tokenId)
-                // const tokenId = await myWeb3.nftContract.currentTileId();
 
                 axios.put(`${BASE_URL}/api/tile/`, {
                     buyerAdr: myWalletAddr,
