@@ -5,6 +5,8 @@ import { VscChevronDown } from "react-icons/vsc";
 import { useEffect } from "react";
 
 import { ethers } from 'ethers';
+import axios from "axios";
+
 
 // version
 // card-purchase: 행성 구매페이지 (history: open)
@@ -12,7 +14,7 @@ import { ethers } from 'ethers';
 
 const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) => {
     console.log(version)
-
+    const imageURL = `http://j6a106.p.ssafy.io/api/image/display?filename=${image}`;
     useEffect(() => {
         const { ethereum } = window;
         const provider = new ethers.providers.Web3Provider(ethereum);
@@ -30,8 +32,24 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) 
 
     }, []);
 
-    const imageChange = ()=>{
-        
+    const imageChange = async (e) => {
+        e.preventDefault();
+        if(e.target.files){
+            const uploadFile = e.target.files[0]
+            const formData = new FormData()
+            formData.append('uploadfile',uploadFile)
+            formData.append('tid',tid)
+            axios
+            .post(process.env.REACT_APP_SERVER_URL + '/api/image/upload', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((res) => {
+            window.location.reload();
+            // console.log(res);
+            });
+        }
     }
     // useEffect(() => {
     //     if (provider) {
@@ -48,7 +66,7 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) 
                 <header>
                     {
                         image
-                        ? <img className={styles.landImg} src={image} alt="landImg" />
+                        ? <img className={styles.landImg} src={imageURL} alt="landImg" />
                         : <div className={styles.landImg} />
                     }
                     <h2>{tid}</h2>
@@ -61,10 +79,19 @@ const Land = ({ version, tid, area, image, buyerAdr, tradeDate, price, token }) 
                     <div className={styles.landImgWrapper}>
                         {
                             image
-                            ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={image} alt="landImg" />
+                            ? <img className={`${styles.landImg} ${styles.landImgBig}`} src={imageURL} alt="landImg" />
                             : <div className={`${styles.landImg} ${styles.landImgBig}`} />
                         }
-                        <button className={styles.landImgUploadBtn} onClick={imageChange}>사진 등록</button>
+                        {/* <button className={styles.landImgUploadBtn} htmlFor="file">사진 등록</button> */}
+                        <div className={styles.filebox}>
+                            <label  htmlFor="file">사진 등록</label>
+                            <input
+                                type="file"
+                                id="file"
+                                accept="image/*"
+                                onChange={imageChange}
+                            />
+                        </div>
                     </div>
                 }
                 <dl className={`metadata ${styles.metadata}`}>

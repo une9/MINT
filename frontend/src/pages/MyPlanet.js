@@ -12,10 +12,11 @@ import contract from '../smartcontract/TileFactory.json';
 
 const MyPlanet = () => {
   const { planetName } = useParams();
-
   const [myPlanet, setMyPlanet] = useState([]);
   const [boughtTilesObj, SetBoughtTilesObj] = useState([]);
 
+
+  
   const mappingPid = new Map([
     ['Teegarden_b', 9],
     ['Kepler_1649c', 10],
@@ -101,7 +102,7 @@ const MyPlanet = () => {
                       {tiles.image ? (
                         <img
                           className={styles.landImg}
-                          src={tiles.image}
+                          src={`http://j6a106.p.ssafy.io/api/image/display?filename=${tiles.image}`}
                           alt="landImg"
                         />
                       ) : (
