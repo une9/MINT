@@ -9,21 +9,23 @@ import '../styles/CadastreDetail.scss';
 
 const AdminPlanetCadastreDetail= ( ) => {
 
-    const soldTiles = [
-        "KepC-A-001",
-        "KepC-A-003",
-        "KepC-B-001",
-        "KepC-C-001",
-        "KepC-D-002",
-        "KepC-E-002",
-        "KepC-E-003",
-    ]
+    // const soldTiles = [
+    //     "KepC-A-001",
+    //     "KepC-A-003",
+    //     "KepC-B-001",
+    //     "KepC-C-001",
+    //     "KepC-D-002",
+    //     "KepC-E-002",
+    //     "KepC-E-003",
+    // ]
     const { planetId } = useParams();
     const [myPlanet, setMyPlanet] = useState([]);
     const [myTiles, setMyTiles] = useState([]);
-    const [remainTiles, setRemainTiles] = useState([]);
+    const [soldTiles, setSoldTiles] = useState([]);
     const [myDistance, setMyDistance] = useState("");
-    const percentage = (( 6 / 18) * 100).toFixed(0);
+    const [tileTotal, setTileTotal] = useState(0);
+    const [soldTotal, setSoldTotal] = useState(0);
+    const percentage = (( soldTotal / tileTotal) * 100).toFixed(0);
     useEffect(() => {
       axios.all([
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/planet/${planetId}`),
@@ -31,7 +33,7 @@ const AdminPlanetCadastreDetail= ( ) => {
         axios.get(`${process.env.REACT_APP_SERVER_URL}/api/remain/${planetId}`),
     ])
       .then(
-          axios.spread((planetRes, tileRes, remainREs) => {
+          axios.spread((planetRes, tileRes, soldRes) => {
             // console.log(planetRes.data);
             const planetData = planetRes.data;
             planetData.version = "description";
@@ -41,14 +43,23 @@ const AdminPlanetCadastreDetail= ( ) => {
             console.log("tiles:", tileRes.data.tiles)
             const tileData = tileRes.data.tiles;
             setMyTiles(tileData);
+            setTileTotal(tileData.length);
             
-            console.log(remainREs);
+            // console.log(soldRes.data.tiles,"팔린땅");
+            const soldData=soldRes.data.tiles;
+            // console.log(soldData);
+            const newArr = soldData.map(function(item){return item.tid});
+              console.log(newArr);
+            // const newARrr=soldData.Map((sold)=>(sold.tid))
+            setSoldTiles(newArr);
+            setSoldTotal(soldData.length);
             // const remainData = 
           })
       )
       .catch((err) => {
         console.log(err);
       });
+      // console.log(soldTiles);
   }, []);
   const distance = new Map([
     ['Teegarden_b', "지구로부터 약 758,893AU (약 12광년)"],

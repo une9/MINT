@@ -171,7 +171,7 @@ const AdminPlanetTransaction= ( ) => {
 
                 const transferEvent = await eventContract.queryFilter('nftPurchase', 'latest' - 500, 'latest');
         
-                console.log(transferEvent);
+                console.log(transferEvent,"event");
                 console.log(transferEvent[0].args);
                 console.log(Number(transferEvent[0].args.tileId));
                 console.log(transferEvent[0].args.buyer);
