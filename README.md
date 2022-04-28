@@ -30,35 +30,35 @@
 <img alt="GitLab" src ="https://img.shields.io/badge/GitLab-FCA121.svg?&style=for-the-badge&logo=GitLab&logoColor=white"/>
 
 ### 시스템 구성도
-![image](/uploads/8cce707a16b814f2c4cac8d360b984ed/image.png)
+![image](readme_assets/1.png)
 
 ### 📌 주요 기능
 * **홈 화면**
   - ```행성 정보 제공 및 상세화면 연동``` <br>
-![녹화_2022_04_07_21_43_22_321_AdobeCreativeCloudExpress__1_](/uploads/90ab9e2de3211fb7e1774ef467ca00bd/녹화_2022_04_07_21_43_22_321_AdobeCreativeCloudExpress__1_.gif)
+![녹화_2022_04_07_21_43_22_321_AdobeCreativeCloudExpress__1_](readme_assets/녹화_2022_04_07_21_43_22_321_AdobeCreativeCloudExpress__1_.gif)
   - ```사이드 바 및 지갑 연결```<br>
-![ezgif.com-gif-maker](/uploads/ae4d409b504f8a67a7976e0a426a002b/ezgif.com-gif-maker.gif)
+![ezgif.com-gif-maker](readme_assets/ezgif.com-gif-maker.gif)
   <br>
 
 * **상세 화면**
   - ```행성 지도를 확인 할 수 있으며 타일 선택을 통해 구매 가능```<br>
-![ezgif.com-gif-maker__1_](/uploads/d899ee8e448875993332415aeed5a52e/ezgif.com-gif-maker__1_.gif)
+![ezgif.com-gif-maker__1_](readme_assets/ezgif.com-gif-maker__1_.gif)
   <br>
 
   - ```장바구니 버튼을 통한 행성 담기 기능```<br>
-![image](/uploads/664fb149fcc9b38a8eb3e3a03b0e5961/image.png)
+![image](readme_assets/image.png)
 <br>
 
 * **관리자 페이지** <br>
 
   - ```거래 내역 확인 및 행성 별 토지 현황 확인```<br>
-![ezgif.com-gif-maker__2_](/uploads/8457552a25f9b0d727f9a84498f116d4/ezgif.com-gif-maker__2_.gif)
+![ezgif.com-gif-maker__2_](readme_assets/ezgif.com-gif-maker__2_.gif)
 <br>
   
 * **프로젝트 설명 페이지**
 
   - ```프로젝트의 전반적인 설명```<br>
-![ezgif.com-gif-maker__3_](/uploads/949e1ec94ceaa16e8166bae434962ec6/ezgif.com-gif-maker__3_.gif)
+![ezgif.com-gif-maker__3_](readme_assets/ezgif.com-gif-maker__3_.gif)
 <br>
 
 ### 🧑 팀원 소개
@@ -92,13 +92,13 @@
 </details>
 
 ### :penguin: 빌드 및 배포
-* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/%EB%B9%8C%EB%93%9C%20%EB%B0%8F%20%EB%B0%B0%ED%8F%AC.md)
+* [보러가기✔](https://github.com/une9/MINT/blob/0064bd7ff4fb8bbbce0e8326e64cc84113c16e1a/exec/%EB%B9%8C%EB%93%9C%20%EB%B0%8F%20%EB%B0%B0%ED%8F%AC.md)
 
 ### :triangular_flag_on_post: 버전 정보
-* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/%EB%B2%84%EC%A0%84%EC%A0%95%EB%B3%B4.md)
+* [보러가기✔](https://github.com/une9/MINT/blob/0064bd7ff4fb8bbbce0e8326e64cc84113c16e1a/exec/%EB%B2%84%EC%A0%84%EC%A0%95%EB%B3%B4.md)
 
 ### :beginner: DB 정보
-* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/DB_%EC%A0%95%EB%B3%B4.md)
+* [보러가기✔](https://github.com/une9/MINT/blob/0064bd7ff4fb8bbbce0e8326e64cc84113c16e1a/exec/DB_%EC%A0%95%EB%B3%B4.md)
 
 ### :ticket: 외부 서비스
-* [보러가기✔](https://lab.ssafy.com/s06-blockchain-nft-sub2/S06P22A106/-/blob/develop/exec/%EC%99%B8%EB%B6%80%20%EC%84%9C%EB%B9%84%EC%8A%A4.md)
+* [보러가기✔](https://github.com/une9/MINT/blob/0064bd7ff4fb8bbbce0e8326e64cc84113c16e1a/exec/%EC%99%B8%EB%B6%80%20%EC%84%9C%EB%B9%84%EC%8A%A4.md)
