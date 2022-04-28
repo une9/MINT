@@ -7,6 +7,23 @@
 * [MINT HOMEPAGE](http://j6a106.p.ssafy.io/)
 * [MINT NOTION](https://hill-pedestrian-45d.notion.site/NFT-bc47c3363d0248eab13852835c91694c)
 
+![6](readme_assets/desc/6.jpg)
+![7](readme_assets/desc/7.jpg)
+![8](readme_assets/desc/8.jpg)
+![9](readme_assets/desc/9.jpg)
+![10](readme_assets/desc/10.jpg)
+![11](readme_assets/desc/11.jpg)
+![12](readme_assets/desc/12.jpg)
+![13](readme_assets/desc/13.jpg)
+![14](readme_assets/desc/14.jpg)
+![15](readme_assets/desc/15.jpg)
+![16](readme_assets/desc/16.jpg)
+![17](readme_assets/desc/17.jpg)
+![18](readme_assets/desc/18.jpg)
+
+
+
+
 ### 💡 기술 스택
 #### FrontEnd
 <img alt="React" src ="https://img.shields.io/badge/React-61DAFB.svg?&style=for-the-badge&logo=react&logoColor=white"/>
