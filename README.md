@@ -6,6 +6,7 @@
 광활한 우주에서의 내 땅을 사고 팔고 관리하는 프로젝트 입니다.  
 * [MINT HOMEPAGE](http://j6a106.p.ssafy.io/)
 * [MINT NOTION](https://hill-pedestrian-45d.notion.site/NFT-bc47c3363d0248eab13852835c91694c)
+* [시연영상](https://youtu.be/4IZwXgH34B4)
 
 ![6](readme_assets/desc/6.jpg)
 ![7](readme_assets/desc/7.jpg)
